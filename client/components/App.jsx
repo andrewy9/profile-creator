@@ -2,31 +2,28 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { fetchFruits } from '../actions'
+import Form from './Form'
 
 export class App extends React.Component {
   state = {
     fruits: []
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.dispatch(fetchFruits())
   }
 
-  render () {
+  render() {
     return (
       <div className='app'>
-        <h1>Fullstack Boilerplate - with Fruits!</h1>
-        <ul>
-          {this.props.fruits.map(fruit => (
-            <li key={fruit}>{fruit}</li>
-          ))}
-        </ul>
+        <h1>Profile Creator</h1>
+        <Form />
       </div>
     )
   }
 }
 
-function mapStateToProps (globalState) {
+function mapStateToProps(globalState) {
   return {
     fruits: globalState.fruits
   }

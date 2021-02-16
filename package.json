@@ -65,7 +65,6 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "sass": "^1.29.0",
-    "sass-loader": "^10.1.0",
     "sqlite3": "^5.0.0",
     "style-loader": "^2.0.0",
     "supertest": "^5.0.0",

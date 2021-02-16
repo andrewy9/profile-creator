@@ -3,7 +3,7 @@ import { getFruits } from '../apis/fruits'
 export const SET_FRUITS = 'SET_FRUITS'
 export const SET_BASIC_DETAILS = 'SET_BASIC_DETAILS'
 export const SET_PROFILE_INTRO = 'SET_PROFILE_INTRO'
-
+export const SET_OLDER_EMPLOYMENT_HISTORY = 'SET_OLDER_EMPLOYMENT_HISTORY'
 
 export function setFruits(fruits) {
   return {
@@ -50,3 +50,17 @@ export function fetchProfileIntro(detials) {
     return null
   }
 }
+
+export function setOlderEmploymentHistory(details) {
+  return {
+    type: SET_OLDER_EMPLOYMENT_HISTORY,
+    details
+  }
+}
+
+export function fetchOlderEmploymentHistory(details) {
+  return dispatch => {
+    dispatch(setOlderEmploymentHistory(details))
+    return null
+  }
+} 

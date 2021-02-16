@@ -2,6 +2,8 @@ import { getFruits } from '../apis/fruits'
 
 export const SET_FRUITS = 'SET_FRUITS'
 export const SET_BASIC_DETAILS = 'SET_BASIC_DETAILS'
+export const SET_PROFILE_INTRO = 'SET_PROFILE_INTRO'
+
 
 export function setFruits(fruits) {
   return {
@@ -30,6 +32,21 @@ export function setBasicDetails(details) {
 export function fetchBasicDetails(details) {
   return dispatch => {
     dispatch(setBasicDetails(details))
+    return null
+  }
+}
+
+
+export function setProfileIntro(details) {
+  return {
+    type: SET_PROFILE_INTRO,
+    details
+  }
+}
+
+export function fetchProfileIntro(detials) {
+  return dispatch => {
+    dispatch(setProfileIntro(details))
     return null
   }
 }

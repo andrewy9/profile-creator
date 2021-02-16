@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { fetchEmploymentHistory } from '../actions'
 
 function Employer() {
   const [state, setState] = useState({
@@ -8,6 +9,10 @@ function Employer() {
     role: 'role',
     details: 'details'
   })
+
+  const dispatchHandler = () => {
+    props.dispatch(fetchEmploymentHistory(state))
+  }
 
   const handleChange = (evt) => {
     const { name, value } = evt.target
@@ -20,13 +25,13 @@ function Employer() {
       <h3>Employment History</h3>
       {/* <form> */}
       <label>Employer</label>
-      <input type='text' name="employer" value={state.employer} onChange={handleChange}></input>
+      <input type='text' name="employer" value={state.employer} onChange={handleChange} onBlur={dispatchHandler}></input>
       <label>Employment Date</label>
-      <input type='text' name="employmentDate" value={state.employmentDate} onChange={handleChange}></input>
+      <input type='text' name="employmentDate" value={state.employmentDate} onChange={handleChange} onBlur={dispatchHandler}></input>
       <label>Role</label>
-      <input type='text' name="role" value={state.role} onChange={handleChange}></input>
+      <input type='text' name="role" value={state.role} onChange={handleChange} onBlur={dispatchHandler}></input>
       <label>Details</label>
-      <input type='text' name="details" value={state.details} onChange={handleChange}></input>
+      <input type='text' name="details" value={state.details} onChange={handleChange} onBlur={dispatchHandler}></input>
       {/* <input type='submit' value='Submit' /> */}
       {/* </form> */}
     </div >

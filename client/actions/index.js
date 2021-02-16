@@ -33,3 +33,17 @@ export function fetchBasicDetails(details) {
     return null
   }
 }
+
+export function setEmploymentHistory(employmentHistory) {
+  return {
+    type: SET_EMPLOYMENT_HISTORY,
+    history
+  }
+}
+
+export function fetchEmploymentHistory(employmentHistory) {
+  return dispatch => {
+    dispatch(setEmploymentHistory(employmentHistory))
+    return null
+  }
+}

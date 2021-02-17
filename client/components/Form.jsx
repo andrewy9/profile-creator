@@ -14,7 +14,7 @@ function Form() {
         <ProfileIntro />
         <EmploymentHistory />
         <OlderEmploymentHistory />
-        <input type='submit' value='Submit' />
+        <input id="submit" type='submit' value='Submit' />
       </form>
     </div>
   )

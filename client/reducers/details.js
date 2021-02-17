@@ -9,7 +9,7 @@ const reducer = (state = initialState, action) => {
 
     case SET_EMPLOYMENT_HISTORY:
       return action.employmentHistory
-      
+
     default:
       return state
   }

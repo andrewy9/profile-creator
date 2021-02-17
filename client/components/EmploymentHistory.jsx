@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { fetchEmploymentHistory } from '../actions'
 
-function Employer() {
+function EmploymentHistory(props) {
   const [state, setState] = useState({
     employer: 'Employment History',
     employmentDate: 'Employment Date',
@@ -21,7 +21,7 @@ function Employer() {
 
   return (
     <div>
-      {console.log(state)}
+      {/* {console.log(state)} */}
       <h3>Employment History</h3>
       {/* <form> */}
       <label>Employer</label>
@@ -39,4 +39,4 @@ function Employer() {
 }
 
 
-export default connect()(Employer)
+export default connect()(EmploymentHistory)

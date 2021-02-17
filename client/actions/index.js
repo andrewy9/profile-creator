@@ -38,7 +38,7 @@ export function fetchBasicDetails(details) {
 export function setEmploymentHistory(employmentHistory) {
   return {
     type: SET_EMPLOYMENT_HISTORY,
-    history
+    employmentHistory
   }
 }
 

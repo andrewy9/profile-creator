@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { fetchFormDetails } from '../actions'
 
 
-
-function Form() {
+function Form(props) {
   const [state, setState] = useState({
     name: 'name',
     phone: 'phone',
@@ -11,14 +11,16 @@ function Form() {
 
     profileIntro: 'Profile Intro',
 
-    employer: 'Employment History',
-    employmentDate: 'Employment Date',
-    role: 'role',
-    details: 'details',
+    employmentHistory: [
+      {employer: 'test',
+      employmentDate: 'default employment date',
+      role: 'default role',
+      details: 'default details'}
+    ],
     
-    oldEmployer: 'oldEmployer',
-    oldEmploymentDate: 'oldEmploymentDate',
-    oldRole: 'oldRole'
+    // oldEmployer: 'oldEmployer',
+    // oldEmploymentDate: 'oldEmploymentDate',
+    // oldRole: 'oldRole'
   })
 
   const dispatchHandler = () => {
@@ -27,8 +29,25 @@ function Form() {
 
   const handleChange = (evt) => {
     const { name, value } = evt.target
-    setState({ ...state, [name]: value })
+    console.log(state.employmentHistory[0][name])
+    let empHistory = [...state.employmentHistory]
+    empHistory[0][name] = value
+    console.log(empHistory[0][name])
+    console.log(empHistory)
+    setState({empHistory})
   }
+
+  // const addMore = (e) => {
+  //   setState((state) => ({
+  //     employmentHistory: [...state.employmentHistory, {
+  //       employell: '',
+  //       employmentDate: '',
+  //       role: '',
+  //       details: ''
+  //     }]
+  //   }))
+  //   e.preventDefault()
+  // }
 
   return (
     <div>
@@ -41,6 +60,7 @@ function Form() {
       <input type='text' name="phone" value={state.phone} onChange={handleChange} onBlur={dispatchHandler}></input>
       <label>Email:</label>
       <input type='text' name="email" value={state.email} onChange={handleChange} onBlur={dispatchHandler}></input>
+      
     </div>
     
     <div className='profileIntro'>
@@ -52,16 +72,21 @@ function Form() {
     <div className='employmentHistory'>
       <h3>Employment History</h3>
       <label>Employer</label>
-      <input type='text' name="employer" value={state.employer} onChange={handleChange} onBlur={dispatchHandler}></input>
+
+      <input type='text' name='employer' value={state.employmentHistory.employer} onChange={handleChange} onBlur={dispatchHandler}></input>
+
+
+
       <label>Employment Date</label>
       <input type='text' name="employmentDate" value={state.employmentDate} onChange={handleChange} onBlur={dispatchHandler}></input>
       <label>Role</label>
       <input type='text' name="role" value={state.role} onChange={handleChange} onBlur={dispatchHandler}></input>
       <label>Details</label>
       <input type='text' name="details" value={state.details} onChange={handleChange} onBlur={dispatchHandler}></input>
+      {/* <button onClick={addMore}>Add More</button> */}
     </div >
     
-    <div className='olderEmploymentHistory'>
+    {/* <div className='olderEmploymentHistory'>
       <h3>Older Employment History</h3>
       <label>Employer:</label>
       <input type='text' name="oldEmployer" value={state.oldEmployer} onChange={handleChange} onBlur={dispatchHandler}></input>
@@ -69,7 +94,7 @@ function Form() {
       <input type='text' name="oldEmploymentDate" value={state.oldEmploymentDate} onChange={handleChange} onBlur={dispatchHandler}></input>
       <label>Role:</label>
       <input type='text' name="oldRole" value={state.oldRole} onChange={handleChange} onBlur={dispatchHandler}></input>
-    </div>
+    </div> */}
         <input type='submit' value='Submit' />
       </form>
     </div>

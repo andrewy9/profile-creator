@@ -5,10 +5,13 @@ const initialState = []
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_BASIC_DETAILS:
-      return action.details
+      return [...state, action.details]
 
     case SET_EMPLOYMENT_HISTORY:
-      return action.employmentHistory
+      return [action.details, action.employmentHistory]
+
+    // case EDIT_EMPLOYMENT_HISTORY:
+    //   return [action.details, action.employmentHistory]  
 
     default:
       return state

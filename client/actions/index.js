@@ -3,7 +3,6 @@ import { getFruits } from '../apis/fruits'
 export const SET_FRUITS = 'SET_FRUITS'
 export const SET_FORM_DETAILS = 'SET_FORM_DETAILS'
 
-
 export function setFruits(fruits) {
   return {
     type: SET_FRUITS,
@@ -62,3 +61,4 @@ export function fetchFormDetails(details) {
 //     return null
 //   }
 // }
+

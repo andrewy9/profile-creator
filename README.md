@@ -1,29 +1,16 @@
-# Fullstack boilerplate
+# Profile-Creator (Work in progress)
+A browser application which will provide a template to build, store and display beautiful web-CVs.
 
-## Getting Started
+This is a collaborated effort between kate-baya(https://github.com/kate-baya), sarah-knowles(https://github.com/sarah-knowles) and andrewy9(https://github.com/andrewy9).
 
-### From the Github UI
-See the instructions [here](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) to use Github's feature to create a new repo from a template.
+## Key technologies
+* React.js
+* Reudx.js
+* @React-testing-library & Jest
+* Express.js
+* SQLite & Knex 
+* 0Auth
+* Miro 
 
-### From the command line
-
-```
-git clone https://github.com/dev-academy-challenges/boilerplate-fullstack [your-project-name]
-cd [your-project-name]
-npm install # to install dependencies
-npm run dev # to start the dev server
-```
-
-You can find the server running on [http://localhost:3000](http://localhost:3000).
-
-## Details
-
-This repo includes:
-
-* a single, simple API endpoint (`/api/v1/fruits`)
-* a single React component (`<App />`)
-* an example database module (`server/db/fruits.js`)
-* an API client module (`client/apis/fruits.js`)
-* configuration for Jest and Enzyme (including JSDOM)
-* configuration for server-side debugging in VS Code
-* a single client-side test (`client/components/App.test.js`)
+## Goal
+We are creating an application which will allow us to both demonstrate our skills to develop full-stack application in an online-team based environment, and also allow us to showcase our CVs.

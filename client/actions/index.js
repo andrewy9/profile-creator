@@ -1,12 +1,7 @@
 import { getFruits } from '../apis/fruits'
 
 export const SET_FRUITS = 'SET_FRUITS'
-export const SET_BASIC_DETAILS = 'SET_BASIC_DETAILS'
-
-export const SET_PROFILE_INTRO = 'SET_PROFILE_INTRO'
-export const SET_OLDER_EMPLOYMENT_HISTORY = 'SET_OLDER_EMPLOYMENT_HISTORY'
-export const SET_EMPLOYMENT_HISTORY = 'SET_EMPLOYMENT_HISTORY'
-
+export const SET_FORM_DETAILS = 'SET_FORM_DETAILS'
 
 export function setFruits(fruits) {
   return {
@@ -25,61 +20,45 @@ export function fetchFruits() {
   }
 }
 
-export function setBasicDetails(details) {
+export function setFormDetails(details) {
   return {
-    type: SET_BASIC_DETAILS,
+    type: SET_FORM_DETAILS,
     details
   }
 }
 
-export function fetchBasicDetails(details) {
+export function fetchFormDetails(details) {
   return dispatch => {
-    dispatch(setBasicDetails(details))
-    return null
+    dispatch(setFormDetails(details))
+      return null
   }
 }
 
+// export function setBasicDetails(details) {
+//   return {
+//     type: SET_BASIC_DETAILS,
+//     details
+//   }
+// }
 
+// export function fetchBasicDetails(details) {
+//   return dispatch => {
+//     dispatch(setBasicDetails(details))
+//     return null
+//   }
+// }
 
-export function setProfileIntro(details) {
-  return {
-    type: SET_PROFILE_INTRO,
-    details
-  }
-}
+// export function setEmploymentHistory(employmentHistory) {
+//   return {
+//     type: SET_EMPLOYMENT_HISTORY,
+//     employmentHistory
+//   }
+// }
 
-export function fetchProfileIntro(detials) {
-  return dispatch => {
-    dispatch(setProfileIntro(details))
-    return null
-  }
-}
-
-export function setOlderEmploymentHistory(details) {
-  return {
-    type: SET_OLDER_EMPLOYMENT_HISTORY,
-    details
-  }
-}
-
-export function fetchOlderEmploymentHistory(details) {
-  return dispatch => {
-    dispatch(setOlderEmploymentHistory(details))
-    return null
-  }
-} 
-
-export function setEmploymentHistory(employmentHistory) {
-  return {
-    type: SET_EMPLOYMENT_HISTORY,
-    employmentHistory
-  }
-}
-
-export function fetchEmploymentHistory(employmentHistory) {
-  return dispatch => {
-    dispatch(setEmploymentHistory(employmentHistory))
-    return null
-  }
-}
+// export function fetchEmploymentHistory(employmentHistory) {
+//   return dispatch => {
+//     dispatch(setEmploymentHistory(employmentHistory))
+//     return null
+//   }
+// }
 

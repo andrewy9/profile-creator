@@ -18,10 +18,13 @@ function Form(props) {
         details: 'default details'
       }
     ],
-
-    // oldEmployer: 'oldEmployer',
-    // oldEmploymentDate: 'oldEmploymentDate',
-    // oldRole: 'oldRole'
+    oldEmploymentHistory: [
+      {
+        oldEmployer: 'oldEmployer',
+        oldEmploymentDate: 'oldEmploymentDate',
+        oldRole: 'oldRole'
+      }
+    ]
   })
 
   const dispatchHandler = () => {
@@ -38,20 +41,29 @@ function Form(props) {
     }
   }
 
-  const addMore = (e) => {
-    setState({
-      ...state,
-      employmentHistory: [...state.employmentHistory, {
-        employer: '',
-        employmentDate: '',
-        role: '',
-        details: ''
-      }]
-    })
-    e.preventDefault()
+  const addMore = (evt) => {
+    if (evt.target.className === 'addEmploymentHistory') {
+      setState({
+        ...state,
+        employmentHistory: [...state.employmentHistory, {
+          employer: '',
+          employmentDate: '',
+          role: '',
+          details: ''
+        }]
+      })
+    } else if (evt.target.className === 'addOldEmploymentHistory') {
+      setState({
+        ...state,
+        oldEmploymentHistory: [...state.oldEmploymentHistory, {
+          oldEmployer: '',
+          oldEmploymentDate: '',
+          oldRole: ''
+        }]
+      })
+    }
+    evt.preventDefault()
   }
-
-  console.log('rendered state: ', state.employmentHistory)
 
   return (
     <div>
@@ -66,9 +78,15 @@ function Form(props) {
           <label>Email:</label>
           <input type='text' name="email" id={2} value={state.email} onChange={handleChange} onBlur={dispatchHandler}></input>
         </div>
-        <h3>Employment History</h3>
+
+        <div className='profileIntro'>
+          <h3>Profile Intro</h3>
+          <label>Profile Intro:</label>
+          <input type='text' name="profileIntro" value={state.profileIntro} onChange={handleChange} onBlur={dispatchHandler}></input>
+        </div>
 
         <div className='employmentHistory'>
+          <h3>Employment History</h3>
           {
             state.employmentHistory.map((el, idx) => {
               return (
@@ -120,31 +138,57 @@ function Form(props) {
               )
             })
           }
+          <button className='addEmploymentHistory' onClick={addMore}>Add More</button>
+        </div>
+
+        <div className='employmentHistory'>
+          {
+            state.oldEmploymentHistory.map((el, idx) => {
+              return (
+                <div className='olderEmploymentHistory'>
+                  <h3>Older Employment History</h3>
+                  <label>Employer #{idx}:</label>
+                  <input
+                    type='text'
+                    id={idx}
+                    className="olderEmployment"
+                    name="oldEmployer"
+                    value={state.oldEmployer}
+                    onChange={handleChange}
+                    onBlur={dispatchHandler}>
+                  </input>
+
+                  <label>Employment Date</label>
+                  <input
+                    type='text'
+                    id={idx}
+                    className="olderEmployment"
+                    name="oldEmploymentDate"
+                    value={state.oldEmploymentDate}
+                    onChange={handleChange}
+                    onBlur={dispatchHandler}>
+                  </input>
+
+                  <label>Role:</label>
+                  <input
+                    type='text'
+                    id={idx}
+                    className="olderEmployment"
+                    name="oldRole"
+                    value={state.oldRole}
+                    onChange={handleChange}
+                    onBlur={dispatchHandler}>
+                  </input>
+                </div>
+              )
+            })
+          }
+          <button className='addOldEmploymentHistory' onClick={addMore}>Add More</button>
         </div >
-        <button onClick={addMore}>Add More</button>
         <input type='submit' value='Submit' />
       </form>
     </div>
   )
 }
 
-
 export default connect()(Form)
-
-{/* 
-  <div className='profileIntro'>
-    <h3>Profile Intro</h3>
-    <label>Profile Intro:</label>
-    <input type='text' name="profileIntro" value={state.profileIntro} onChange={handleChange} onBlur={dispatchHandler}></input>
-   </div>
-
-  <div className='olderEmploymentHistory'>
-    <h3>Older Employment History</h3>
-    <label>Employer:</label>
-    <input type='text' name="oldEmployer" value={state.oldEmployer} onChange={handleChange} onBlur={dispatchHandler}></input>
-    <label>Employment Date</label>
-    <input type='text' name="oldEmploymentDate" value={state.oldEmploymentDate} onChange={handleChange} onBlur={dispatchHandler}></input>
-    <label>Role:</label>
-    <input type='text' name="oldRole" value={state.oldRole} onChange={handleChange} onBlur={dispatchHandler}></input>
-  </div> 
-*/}

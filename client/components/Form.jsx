@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { fetchFormDetails } from '../actions'
+import { postDetailsToDatabase, getDetails } from '../apis/detailsApi'
 
 
 function Form(props) {
@@ -65,10 +66,18 @@ function Form(props) {
     evt.preventDefault()
   }
 
+  const handleSubmit = e => {
+    e.preventDefault()
+    const details = [state.name, state.phone, state.email, state.profileIntro]
+    console.log("form component, ", details)
+   postDetailsToDatabase(details)
+  //  getDetails()
+  }
+
   return (
     <div>
       {console.log('rendered state: ', state.employmentHistory)}
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className='basicDetails'>
           <h3>Basic Details</h3>
           <label>Name:</label>
@@ -84,7 +93,7 @@ function Form(props) {
           <label>Profile Intro:</label>
           <input type='text' name="profileIntro" value={state.profileIntro} onChange={handleChange} onBlur={dispatchHandler}></input>
         </div>
-
+{/* 
         <div className='employmentHistory'>
           <h3>Employment History</h3>
           {
@@ -142,11 +151,11 @@ function Form(props) {
         </div>
 
         <div className='employmentHistory'>
+        <h3>Older Employment History</h3>
           {
             state.oldEmploymentHistory.map((el, idx) => {
               return (
                 <div className='olderEmploymentHistory'>
-                  <h3>Older Employment History</h3>
                   <label>Employer #{idx}:</label>
                   <input
                     type='text'
@@ -184,8 +193,8 @@ function Form(props) {
             })
           }
           <button className='addOldEmploymentHistory' onClick={addMore}>Add More</button>
-        </div >
-        <input type='submit' value='Submit' />
+        </div > */}
+        <input id='submit' type='submit' value='Submit' />
       </form>
     </div>
   )

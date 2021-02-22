@@ -2,6 +2,8 @@ import { getFruits } from '../apis/fruits'
 
 export const SET_FRUITS = 'SET_FRUITS'
 export const SET_FORM_DETAILS = 'SET_FORM_DETAILS'
+export const ADD_BASIC_DETAILS = 'ADD_BASIC_DETAILS'
+
 
 export function setFruits(fruits) {
   return {
@@ -34,12 +36,12 @@ export function fetchFormDetails(details) {
   }
 }
 
-// export function setBasicDetails(details) {
-//   return {
-//     type: SET_BASIC_DETAILS,
-//     details
-//   }
-// }
+export function addBasicDetails(basicDetails) {
+  return {
+    type: ADD_BASIC_DETAILS,
+    basicDetails
+  }
+}
 
 // export function fetchBasicDetails(details) {
 //   return dispatch => {

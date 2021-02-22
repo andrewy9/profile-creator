@@ -68,10 +68,15 @@ function Form(props) {
 
   const handleSubmit = e => {
     e.preventDefault()
-    const details = [state.name, state.phone, state.email, state.profileIntro]
+    const details = {
+      name: state.name,
+      phone: state.phone,
+      email: state.email,
+      profile_intro: state.profileIntro
+    }
     console.log("form component, ", details)
-   postDetailsToDatabase(details)
-  //  getDetails()
+    postDetailsToDatabase(details)
+    //  getDetails()
   }
 
   return (
@@ -93,7 +98,7 @@ function Form(props) {
           <label>Profile Intro:</label>
           <input type='text' name="profileIntro" value={state.profileIntro} onChange={handleChange} onBlur={dispatchHandler}></input>
         </div>
-{/* 
+        {/* 
         <div className='employmentHistory'>
           <h3>Employment History</h3>
           {

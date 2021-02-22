@@ -29,7 +29,7 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader
           },
           'css-loader',
-          'sass-loader'
+          //'sass-loader'
         ]
       }
     ]

@@ -13,8 +13,26 @@ export function postDetailsToDatabase(details) {
     })
 }
 
+export function postEmploymentHistoryToDatabase(history) {
+  return request
+    .post(`${rootUrl}/detailsRoutes/history`)
+    .send(history)
+    .then(res => {
+      return res.body
+    })
+}
+
+export function postOldEmploymentHistoryToDatabase(oldHistory) {
+  return request
+    .post(`${rootUrl}/detailsRoutes/oldHistory`)
+    .send(oldHistory)
+    .then(res => {
+      return res.body
+    })
+}
+
 export function getDetails() {
-  console.log('api get launched')
+  console.log('api launched')
   return request
     .get(`${rootUrl}/detailsRoutes`)
     .then(res => {

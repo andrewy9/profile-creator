@@ -15,6 +15,7 @@ h3 {
 }
 
 label {
+  color: black !important;
   margin-left: 55px;
   margin-right: 10px;
   margin-top: 5px;
@@ -25,7 +26,8 @@ button, #submit {
   border-radius: 8px;
   color: black !important;
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
+  font-weight: bold;
   margin-left: 75px;
   margin-top: 35px;
   padding: 12px;

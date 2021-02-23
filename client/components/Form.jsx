@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { fetchFormDetails } from '../actions'
-import { postDetailsToDatabase, postOldEmploymentHistoryToDatabase, postEmploymentHistoryToDatabase, getDetails } from '../apis/detailsApi'
+import { postDetailsToDatabase, postOldEmploymentHistoryToDatabase, postEmploymentHistoryToDatabase, postEducationHistoryToDatabase, getDetails } from '../apis/detailsApi'
 
 
 function Form(props) {
@@ -25,7 +25,12 @@ function Form(props) {
         oldEmploymentDate: 'oldEmploymentDate',
         oldRole: 'oldRole'
       }
-    ]
+    ],
+    educationHistory: [{
+      provider: '',
+      qualification: '',
+      year: ''
+    }]
   })
 
   const dispatchHandler = () => {
@@ -41,8 +46,10 @@ function Form(props) {
     } else if (["oldEmploymentHistory"].includes(className)) {
       state.oldEmploymentHistory[id][name] = value
       setState({ ...state })
-    }
-    else {
+    } else if (["education"].includes(className)) {
+      state.educationHistory[id][name] = value
+      setState({ ...state })
+    } else {
       setState({ ...state, [name]: value })
     }
   }
@@ -67,6 +74,15 @@ function Form(props) {
           oldRole: ''
         }]
       })
+    } else if (evt.target.className === 'addEducation') {
+      setState({
+        ...state,
+        educationHistory: [...state.educationHistory, {
+          educationProvider: '',
+          qualification: '',
+          year: ''
+        }]
+      })
     }
     evt.preventDefault()
   }
@@ -88,6 +104,10 @@ function Form(props) {
 
     state.oldEmploymentHistory.forEach((history) => {
       return postOldEmploymentHistoryToDatabase(history)
+    })
+
+    state.educationHistory.forEach((education) => {
+      return postEducationHistoryToDatabase(education)
     })
   }
 
@@ -211,6 +231,52 @@ function Form(props) {
           }
           <button className='addOldEmploymentHistory' onClick={addMore}>Add More</button>
         </div >
+
+        <div className="education">
+          <h3>Education</h3>
+          {
+            state.educationHistory.map((el, idx) => {
+              return (
+                <div key={idx}>
+                  <label>Provider:</label>
+                  <input
+                    type='text'
+                    id={idx}
+                    className='education'
+                    name='provider'
+                    value={el.provider}
+                    onChange={handleChange}
+                    onBlur={dispatchHandler}>
+                  </input>
+
+                  <label>Qualification:</label>
+                  <input
+                    type='text'
+                    id={idx}
+                    className='education'
+                    name='qualification'
+                    value={el.qualification}
+                    onChange={handleChange}
+                    onBlur={dispatchHandler}>
+                  </input>
+
+                  <label>Year:</label>
+                  <input
+                    type='text'
+                    id={idx}
+                    className='education'
+                    name='year'
+                    value={el.year}
+                    onChange={handleChange}
+                    onBlur={dispatchHandler}>
+                  </input>
+                </div>
+              )
+            })
+          }
+          <button className='addEducation' onClick={addMore}>Add More</button>
+
+        </div>
         <input id='submit' type='submit' value='Submit' />
       </form>
     </div>

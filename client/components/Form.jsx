@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { fetchFormDetails } from '../actions'
-import { postDetailsToDatabase, getDetails } from '../apis/detailsApi'
+import { postDetailsToDatabase, postOldEmploymentHistoryToDatabase, postEmploymentHistoryToDatabase, getDetails } from '../apis/detailsApi'
 
 
 function Form(props) {
@@ -37,7 +37,12 @@ function Form(props) {
     if (["employmentHistory"].includes(className)) {
       state.employmentHistory[id][name] = value
       setState({ ...state })
-    } else {
+
+    } else if (["oldEmploymentHistory"].includes(className)) {
+      state.oldEmploymentHistory[id][name] = value
+      setState({ ...state })
+    }
+    else {
       setState({ ...state, [name]: value })
     }
   }
@@ -74,14 +79,21 @@ function Form(props) {
       email: state.email,
       profile_intro: state.profileIntro
     }
-    console.log("form component, ", details)
     postDetailsToDatabase(details)
     //  getDetails()
+
+    state.employmentHistory.forEach((history) => {
+      return postEmploymentHistoryToDatabase(history)
+    })
+
+    state.oldEmploymentHistory.forEach((history) => {
+      return postOldEmploymentHistoryToDatabase(history)
+    })
   }
 
   return (
     <div>
-      {console.log('rendered state: ', state.employmentHistory)}
+      {console.log('rendered state: ', state)}
       <form onSubmit={handleSubmit}>
         <div className='basicDetails'>
           <h3>Basic Details</h3>
@@ -98,7 +110,7 @@ function Form(props) {
           <label>Profile Intro:</label>
           <input type='text' name="profileIntro" value={state.profileIntro} onChange={handleChange} onBlur={dispatchHandler}></input>
         </div>
-        {/* 
+
         <div className='employmentHistory'>
           <h3>Employment History</h3>
           {
@@ -111,7 +123,7 @@ function Form(props) {
                     id={idx}
                     className="employmentHistory"
                     name='employer'
-                    value={state.employmentHistory[idx].employer}
+                    value={el.employer}
                     onChange={handleChange}
                     onBlur={dispatchHandler}>
                   </input>
@@ -122,7 +134,7 @@ function Form(props) {
                     id={idx}
                     className="employmentHistory"
                     name="employmentDate"
-                    value={state.employmentDate}
+                    value={el.employmentDate}
                     onChange={handleChange}
                     onBlur={dispatchHandler}>
                   </input>
@@ -133,7 +145,7 @@ function Form(props) {
                     id={idx}
                     className="employmentHistory"
                     name="role"
-                    value={state.role}
+                    value={el.role}
                     onChange={handleChange}
                     onBlur={dispatchHandler}>
                   </input>
@@ -144,7 +156,7 @@ function Form(props) {
                     id={idx}
                     className="employmentHistory"
                     name="details"
-                    value={state.details}
+                    value={el.details}
                     onChange={handleChange}
                     onBlur={dispatchHandler}>
                   </input>
@@ -155,19 +167,19 @@ function Form(props) {
           <button className='addEmploymentHistory' onClick={addMore}>Add More</button>
         </div>
 
-        <div className='employmentHistory'>
-        <h3>Older Employment History</h3>
+        <div className='oldEmploymentHistory'>
+          <h3>Older Employment History</h3>
           {
             state.oldEmploymentHistory.map((el, idx) => {
               return (
-                <div className='olderEmploymentHistory'>
+                <div key={idx}>
                   <label>Employer #{idx}:</label>
                   <input
                     type='text'
                     id={idx}
-                    className="olderEmployment"
+                    className="oldEmploymentHistory"
                     name="oldEmployer"
-                    value={state.oldEmployer}
+                    value={el.oldEmployer}
                     onChange={handleChange}
                     onBlur={dispatchHandler}>
                   </input>
@@ -176,9 +188,9 @@ function Form(props) {
                   <input
                     type='text'
                     id={idx}
-                    className="olderEmployment"
+                    className="oldEmploymentHistory"
                     name="oldEmploymentDate"
-                    value={state.oldEmploymentDate}
+                    value={el.oldEmploymentDate}
                     onChange={handleChange}
                     onBlur={dispatchHandler}>
                   </input>
@@ -187,9 +199,9 @@ function Form(props) {
                   <input
                     type='text'
                     id={idx}
-                    className="olderEmployment"
+                    className="oldEmploymentHistory"
                     name="oldRole"
-                    value={state.oldRole}
+                    value={el.oldRole}
                     onChange={handleChange}
                     onBlur={dispatchHandler}>
                   </input>
@@ -198,7 +210,7 @@ function Form(props) {
             })
           }
           <button className='addOldEmploymentHistory' onClick={addMore}>Add More</button>
-        </div > */}
+        </div >
         <input id='submit' type='submit' value='Submit' />
       </form>
     </div>

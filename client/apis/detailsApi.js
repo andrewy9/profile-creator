@@ -4,7 +4,7 @@ import request from 'superagent'
 const rootUrl = '/api/v1'
 
 export function postDetailsToDatabase(details) {
-  console.log('api launched: ', details)
+  //console.log('api launched: ', details)
   return request
     .post(`${rootUrl}/detailsRoutes`)
     .send(details)
@@ -31,8 +31,16 @@ export function postOldEmploymentHistoryToDatabase(oldHistory) {
     })
 }
 
+export function postEducationHistoryToDatabase(education) {
+  return request
+    .post(`${rootUrl}/detailsRoutes/education`)
+    .send(education)
+    .then(res => {
+      return res.body
+    })
+}
+
 export function getDetails() {
-  console.log('api launched')
   return request
     .get(`${rootUrl}/detailsRoutes`)
     .then(res => {

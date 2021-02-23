@@ -19,9 +19,15 @@ function saveOldEmploymentHistory(oldEmployer, oldEmploymentDate, oldRole, db = 
     .insert({ oldEmployer, oldEmploymentDate, oldRole })
 }
 
+function saveEducationHistory(provider, qualification, year, db = connection) {
+  return db('education')
+    .insert({ provider, qualification, year })
+}
+
 module.exports = {
   saveDetails,
   getDetails,
   saveEmploymentHistory,
-  saveOldEmploymentHistory
+  saveOldEmploymentHistory,
+  saveEducationHistory
 }

@@ -36,5 +36,13 @@ router.post('/oldHistory', (req, res) => {
     })
 })
 
+router.post('/education', (req, res) => {
+  const { provider, qualification, year } = req.body
+  db.saveEducationHistory(provider, qualification, year)
+    .then(education => {
+      res.status(201)
+    })
+})
+
 
 module.exports = router

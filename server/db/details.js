@@ -5,7 +5,7 @@ function saveDetails(name, phone, email, profile_intro, db = connection) {
     .insert({ name, phone, email, profile_intro })
 }
 
-function getDetails(details, db = connection) {
+function getDetails(db = connection) {
   return db('details').select()
 }
 

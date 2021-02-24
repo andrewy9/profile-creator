@@ -2,7 +2,13 @@ const knex = require('knex')
 const config = require('./knexfile')
 const connection = knex(config.test)
 
-const { getDetails, saveDetails, saveEmploymentHistory, saveOldEmploymentHistory } = require('./details')
+const {
+  getDetails,
+  saveDetails,
+  saveEducationHistory,
+  saveEmploymentHistory, 
+  saveOldEmploymentHistory 
+} = require('./details')
 
 
 beforeAll(() => connection.migrate.latest())
@@ -58,9 +64,23 @@ describe('saveOldEmploymentHistory', () => {
           expect(newId).toEqual([4])
           return connection('old_employment_history').select()
             .then(result => {
-              console.log(result)
               expect(result).toHaveLength(4)
               expect(result[3].oldEmployer).toEqual('oldEmployer')
+            })
+        })
+    })
+})
+
+describe('saveEducationHistory', () => {
+  test('save education history to database', () => {
+    expect.assertions(3)
+      return saveEducationHistory('provider', 'qualification', 'year', connection)
+        .then((newId) => {
+          expect(newId).toEqual([4])
+          return connection('education').select()
+            .then(result => {
+              expect(result).toHaveLength(4)
+              expect(result[3].provider).toEqual('provider')
             })
         })
     })

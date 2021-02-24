@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
     .then(response => {
       res.json(response)
     })
+    .catch(() => res.sendStatus(500)) //without this, it will cause reject tests to fail!
 })
 
 router.post('/', (req, res) => {
@@ -18,6 +19,7 @@ router.post('/', (req, res) => {
     .then(details => {
       res.status(201)
     })
+    .catch(() => res.sendStatus(500))
 })
 
 router.post('/history', (req, res) => {
@@ -26,6 +28,7 @@ router.post('/history', (req, res) => {
     .then(history => {
       res.status(201)
     })
+    .catch(() => res.sendStatus(500))
 })
 
 router.post('/oldHistory', (req, res) => {
@@ -34,6 +37,7 @@ router.post('/oldHistory', (req, res) => {
     .then(oldHistory => {
       res.status(201)
     })
+    .catch(() => res.sendStatus(500))
 })
 
 router.post('/education', (req, res) => {
@@ -42,6 +46,7 @@ router.post('/education', (req, res) => {
     .then(education => {
       res.status(201)
     })
+    .catch(() => res.sendStatus(500))
 })
 
 

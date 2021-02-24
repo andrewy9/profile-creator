@@ -22,11 +22,11 @@ let promiseRoutes;
 describe('GET /api/v1/detailsRoutes', () => {
   describe('when databse call works', () => {
     const fakeDetails = {
-    name: 'name',
-    phone: '021',
-    email: '@',
-    profileIntro: 'test'
-  }
+      name: 'name',
+      phone: '021',
+      email: '@',
+      profileIntro: 'test'
+    }
 
     beforeAll(() => {
       getDetails.mockImplementation(() => Promise.resolve(fakeDetails))
@@ -34,7 +34,7 @@ describe('GET /api/v1/detailsRoutes', () => {
       promiseRoutes = request(server)
         .get('/api/v1/detailsRoutes')
     })
-    
+
     test('routes get connected', () => {
       expect.assertions(1)
       return promiseRoutes.then(res => {
@@ -60,16 +60,15 @@ describe('GET /api/v1/detailsRoutes', () => {
   describe('when the database fails', () => {
     test('returns 500', () => {
       expect.assertions(1)
-      const err = new Error('database error')
+      const err = new Error('error')
       getDetails.mockImplementation(() => Promise.reject(err))
       return request(server).get('/api/v1/detailsRoutes')
         .then(res => {
-          console.log(res)
           expect(res.status).toBe(500)
-            return null
-      })
+          return null
+        })
     })
   })
-  
 })
+
 

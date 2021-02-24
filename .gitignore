@@ -3,5 +3,4 @@ node_modules
 *.sqlite3
 server/public/bundle.js
 server/public/bundle.js.map
-server/public/styles.css.map
 .env

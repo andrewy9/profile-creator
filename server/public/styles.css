@@ -28,8 +28,11 @@ button, #submit {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.2rem;
   font-weight: bold;
-  margin-left: 75px;
+  margin-left: 95px;
   margin-top: 35px;
   padding: 12px;
 }
 
+input {
+  margin-top: 15px;
+}

@@ -13,11 +13,12 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  console.log('hitting post?')
+  console.log('hitting post route?')
   const { name, phone, email, profile_intro } = req.body
   db.saveDetails(name, phone, email, profile_intro)
     .then(details => {
-      res.status(201)
+      res.status(201).json(details)
+      return null
     })
     .catch(() => res.sendStatus(500))
 })
@@ -26,7 +27,7 @@ router.post('/history', (req, res) => {
   const { employer, employmentDate, role, details } = req.body
   db.saveEmploymentHistory(employer, employmentDate, role, details)
     .then(history => {
-      res.status(201)
+      res.status(201).json(history)
     })
     .catch(() => res.sendStatus(500))
 })
@@ -35,7 +36,7 @@ router.post('/oldHistory', (req, res) => {
   const { oldEmployer, oldEmploymentDate, oldRole } = req.body
   db.saveOldEmploymentHistory(oldEmployer, oldEmploymentDate, oldRole)
     .then(oldHistory => {
-      res.status(201)
+      res.status(201).json(oldHistory)
     })
     .catch(() => res.sendStatus(500))
 })
@@ -44,7 +45,7 @@ router.post('/education', (req, res) => {
   const { provider, qualification, year } = req.body
   db.saveEducationHistory(provider, qualification, year)
     .then(education => {
-      res.status(201)
+      res.status(201).json(education)
     })
     .catch(() => res.sendStatus(500))
 })

@@ -13,7 +13,6 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  // console.log('hitting post route?')
   const { name, phone, email, profile_intro } = req.body
   db.saveDetails(name, phone, email, profile_intro)
     .then(details => {

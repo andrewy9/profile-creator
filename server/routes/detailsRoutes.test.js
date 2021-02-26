@@ -74,7 +74,7 @@ describe.skip('GET /api/v1/detailsRoutes', () => {
 })
 
 //test POST routes;
-describe('POST api/v1/detailsRoutes', () => {
+describe.skip('POST api/v1/detailsRoutes', () => {
   describe('when database post works', () => {
     const fakeDetails = {
       name: 'name',
@@ -87,7 +87,7 @@ describe('POST api/v1/detailsRoutes', () => {
       saveDetails.mockImplementation(() => Promise.resolve(fakeDetails))
       promiseRoutes = request(server)
         .post('/api/v1/detailsRoutes')
-        .send({name: 'name', phone: '021'})
+        .send(fakeDetails)
     })
 
     test('route gets connected', () => {
@@ -116,17 +116,61 @@ describe('POST api/v1/detailsRoutes', () => {
         expect(saveDetails.mock.calls[0][1]).toBe('021')
       })
     })
-    
-    describe('when the database fails', () => {
-      test('returns 500', () => {
-        expect.assertions(1)
-        const err = new Error('error')
-        saveDetails.mockImplementation(() => Promise.reject(err))
-        return request(server).post('/api/v1/detailsRoutes')
-        .then(res => {
-          expect(res.status).toBe(500)
-          return null
-        })
+  })
+
+  describe('when the database fails', () => {
+    test('returns 500', () => {
+      expect.assertions(1)
+      const err = new Error('error')
+      saveDetails.mockImplementation(() => Promise.reject(err))
+      return request(server).post('/api/v1/detailsRoutes')
+      .then(res => {
+        expect(res.status).toBe(500)
+        return null
+      })
+    })
+  })
+})
+
+
+describe('POST api/v1/detailsRoutes/history', () => {
+  describe('when the database history post works', () => {
+    const fakeDetails = {
+      employer: 'name',
+      employmentDate: 'date',
+      role: 'role',
+      details: 'details'
+    }
+
+    beforeAll(() => {
+      saveEmploymentHistory.mockImplementation(() => Promise.resolve(fakeDetails))
+      promiseRoutes = request(server)
+      .post('/api/v1/detailsRoutes/history')
+      .send(fakeDetails)
+    })
+
+    test('route gets connected', () => {
+      expect.assertions(1)
+      return promiseRoutes
+      .then((res) => {
+        expect(res.status).toBe(201)
+        return null 
+      })
+    })
+    test('saveEmploymentHistory get called', () => {
+      expect.assertions(1)
+      return promiseRoutes
+      .then((res) => {
+        expect(saveEmploymentHistory).toHaveBeenCalled()
+        return null
+      })
+    })
+    test('posts history details to database', () => {
+      expect.assertions(2)
+      return promiseRoutes
+      .then((res) => {
+        expect(saveEmploymentHistory.mock.calls[0][0]).toBe('name')
+        expect(saveEmploymentHistory.mock.calls[0][2]).toBe('role')
       })
     })
   })

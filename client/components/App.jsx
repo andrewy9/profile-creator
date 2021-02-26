@@ -1,3 +1,4 @@
+// feat.캐이트 배이야 & 사라 노울즈
 import React from 'react'
 import { connect } from 'react-redux'
 

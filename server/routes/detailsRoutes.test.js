@@ -8,7 +8,6 @@ import {
   saveOldEmploymentHistory
 } from '../db/details'
 
-
 jest.mock('../db/details', () => ({
   getDetails: jest.fn(),
   saveDetails: jest.fn(),
@@ -75,6 +74,8 @@ describe.skip('GET /api/v1/detailsRoutes', () => {
 
 //test POST routes;
 describe.skip('POST api/v1/detailsRoutes', () => {
+  // the routes/server should return with .json() after the res.status()
+  //e.g .then(details => {res.status(201).json(details)
   describe('when database post works', () => {
     const fakeDetails = {
       name: 'name',
@@ -171,6 +172,132 @@ describe('POST api/v1/detailsRoutes/history', () => {
       .then((res) => {
         expect(saveEmploymentHistory.mock.calls[0][0]).toBe('name')
         expect(saveEmploymentHistory.mock.calls[0][2]).toBe('role')
+      })
+    })
+  })
+  describe('when the database connection fails', () => {
+    test('returns 500', () => {
+      expect.assertions(1)
+      const err = new Error('error')
+      saveEmploymentHistory.mockImplementation(() => Promise.reject(err))
+      return request(server).post('/api/v1/detailsRoutes')
+      .then(res => {
+        expect(res.status).toBe(500)
+        return null
+      })
+    })
+  })
+})
+
+describe('POST api/v1/detailsRoutes/oldHistory', () => {
+  describe('when the database history post works', () => {
+    const fakeDetails = {
+      oldEmployer:'oldy',
+      oldEmploymentDate:'oldyDate',
+      oldRole:'oldyRole' 
+    }
+    
+    beforeAll(()=> {
+      saveOldEmploymentHistory.mockImplementation(()=> Promise.resolve(fakeDetails))
+      promiseRoutes = request(server)
+      .post('/api/v1/detailsRoutes/oldHistory') 
+      .send(fakeDetails)
+    })
+
+    test('route is called', () => {
+      expect.assertions(1)
+      return promiseRoutes
+        .then(res => {
+          expect(res.status).toBe(201)
+          return null
+        })
+    })
+
+    test('saveOldEmploymentHistory has been called',() => {
+      expect.assertions(1)
+      return promiseRoutes
+        .then(res => {
+          expect(saveOldEmploymentHistory).toHaveBeenCalled()
+        })
+    })
+
+    test('posts oldHistory details to database', () => {
+      expect.assertions(2)
+      return promiseRoutes
+        .then(res => {
+          expect(saveOldEmploymentHistory.mock.calls[0][0]).toBe('oldy')
+          expect(saveOldEmploymentHistory.mock.calls[0][1]).toBe('oldyDate')
+        })
+    })
+  })
+
+    describe('when database connection fails', () => {
+      test('returns 500', () => {
+        expect.assertions(1)
+        const err = new Error('error')
+        saveOldEmploymentHistory.mockImplementation(()=> Promise.reject(err))
+        return request(server)
+          .post('/api/v1/detailsRoutes/oldHistory')
+          .then(res => {
+            expect(res.status).toBe(500)
+          })
+      })
+    })
+}) 
+
+describe('/POST, api/v1/detailsRoutes/education', () => {
+  describe('route works', () => {
+    const fakeEducation = {
+      provider: 'provider',
+      qualification: 'qualification',
+      year: 'year'
+    }
+    
+  beforeAll(() => {
+    saveEducationHistory.mockImplementation(() => Promise.resolve(fakeEducation))
+    promiseRoutes = request(server)
+    .post('/api/v1/detailsRoutes/education')
+    .send(fakeEducation)
+  })
+
+  test('education route is called', () => {
+    expect.assertions(1)
+    return promiseRoutes
+    .then(res => {
+      expect(res.status).toBe(201)
+      return null
+    })
+  })
+
+  test('saveEducationHistory is called', () => {
+    expect.assertions(1)
+    return promiseRoutes
+    .then(res => {
+      expect(saveEducationHistory).toHaveBeenCalled()
+      return null
+    })
+  })
+  
+  test('saveEducationHistory posts to database', () => {
+    expect.assertions(2)
+    return promiseRoutes
+    .then(res => {
+      expect(saveEducationHistory.mock.calls[0][0]).toBe('provider')
+      expect(saveEducationHistory.mock.calls[0][1]).toBe('qualification')
+      })
+    })
+  })
+
+  describe('when connection to server fails', () => {
+    test('returns 500', () => {
+      expect.assertions(1)
+      const err = new Error('error')
+      saveEducationHistory.mockImplementation(() => Promise.reject(err))
+      return request(server)
+      .post('/api/v1/detailsRoutes/education')
+      .then(res => {
+        expect(res.status).toBe(500)
+        return null
       })
     })
   })

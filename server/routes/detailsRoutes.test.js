@@ -19,7 +19,7 @@ jest.mock('../db/details', () => ({
 let promiseRoutes;
 
 //test GET routes;
-describe.skip('GET /api/v1/detailsRoutes', () => {
+describe('GET /api/v1/detailsRoutes', () => {
   describe('when databse call works', () => {
     const fakeDetails = {
       name: 'name',
@@ -33,6 +33,7 @@ describe.skip('GET /api/v1/detailsRoutes', () => {
       //var to hold the request to server, plus post & send
       promiseRoutes = request(server)
         .get('/api/v1/detailsRoutes')
+        return null
     })
 
     test('routes get connected', () => {
@@ -73,7 +74,7 @@ describe.skip('GET /api/v1/detailsRoutes', () => {
 })
 
 //test POST routes;
-describe.skip('POST api/v1/detailsRoutes', () => {
+describe('POST api/v1/detailsRoutes', () => {
   // the routes/server should return with .json() after the res.status()
   //e.g .then(details => {res.status(201).json(details)
   describe('when database post works', () => {
@@ -89,6 +90,7 @@ describe.skip('POST api/v1/detailsRoutes', () => {
       promiseRoutes = request(server)
         .post('/api/v1/detailsRoutes')
         .send(fakeDetails)
+        return null
     })
 
     test('route gets connected', () => {
@@ -115,6 +117,7 @@ describe.skip('POST api/v1/detailsRoutes', () => {
       .then((res) => {
         expect(saveDetails.mock.calls[0][0]).toBe('name')
         expect(saveDetails.mock.calls[0][1]).toBe('021')
+        return null
       })
     })
   })
@@ -148,6 +151,7 @@ describe('POST api/v1/detailsRoutes/history', () => {
       promiseRoutes = request(server)
       .post('/api/v1/detailsRoutes/history')
       .send(fakeDetails)
+      return null
     })
 
     test('route gets connected', () => {
@@ -172,6 +176,7 @@ describe('POST api/v1/detailsRoutes/history', () => {
       .then((res) => {
         expect(saveEmploymentHistory.mock.calls[0][0]).toBe('name')
         expect(saveEmploymentHistory.mock.calls[0][2]).toBe('role')
+        return null
       })
     })
   })
@@ -202,6 +207,7 @@ describe('POST api/v1/detailsRoutes/oldHistory', () => {
       promiseRoutes = request(server)
       .post('/api/v1/detailsRoutes/oldHistory') 
       .send(fakeDetails)
+      return null
     })
 
     test('route is called', () => {
@@ -218,6 +224,7 @@ describe('POST api/v1/detailsRoutes/oldHistory', () => {
       return promiseRoutes
         .then(res => {
           expect(saveOldEmploymentHistory).toHaveBeenCalled()
+          return null
         })
     })
 
@@ -227,6 +234,7 @@ describe('POST api/v1/detailsRoutes/oldHistory', () => {
         .then(res => {
           expect(saveOldEmploymentHistory.mock.calls[0][0]).toBe('oldy')
           expect(saveOldEmploymentHistory.mock.calls[0][1]).toBe('oldyDate')
+          return null
         })
     })
   })
@@ -240,6 +248,7 @@ describe('POST api/v1/detailsRoutes/oldHistory', () => {
           .post('/api/v1/detailsRoutes/oldHistory')
           .then(res => {
             expect(res.status).toBe(500)
+            return null
           })
       })
     })
@@ -258,6 +267,7 @@ describe('/POST, api/v1/detailsRoutes/education', () => {
     promiseRoutes = request(server)
     .post('/api/v1/detailsRoutes/education')
     .send(fakeEducation)
+    return null
   })
 
   test('education route is called', () => {
@@ -284,6 +294,7 @@ describe('/POST, api/v1/detailsRoutes/education', () => {
     .then(res => {
       expect(saveEducationHistory.mock.calls[0][0]).toBe('provider')
       expect(saveEducationHistory.mock.calls[0][1]).toBe('qualification')
+      return null
       })
     })
   })

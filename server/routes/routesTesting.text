@@ -1,0 +1,14 @@
+TestCase: Reject test failing
+TestError: A worker process has failed to exit gracefully and has been force exited. This is likely caused by tests leaking due to improper teardown. Try running with --detectOpenHandles to find leaks
+Try: add .catch() in the server/route file
+e.g.then(result => {
+      res.status(201).json(result) 
+    })
+    // .catch(() => res.sendStatus(500))
+
+TestCase: all tests failing
+TestError: connect ECONNREFUSED 127.0.0.1:80 - the URl is likely wrong, check for a leading /
+Try: check if the correct route is being called
+e.g: (/api/v1/routeName) instead of (api/vi/routeName)
+
+

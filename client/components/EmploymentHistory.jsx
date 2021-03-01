@@ -5,10 +5,10 @@ import { fetchEmploymentHistory } from '../actions'
 function EmploymentHistory(props) {
   const [state, setState] = useState({
     employmentHistory: [{
-      employer: '123',
-      employmentDate: 'default employment date',
-      role: 'default role',
-      details: 'default details'
+      employer: '',
+      employmentDate: '',
+      role: '',
+      details: ''
     }]
   })
 
@@ -17,12 +17,14 @@ function EmploymentHistory(props) {
   }
 
   const handleChange = (evt) => {
+    evt.preventDefault()
     const { name, value, id } = evt.target
     state.employmentHistory[id][name] = value
     setState({ ...state })
   }
 
   const addMore = (evt) => {
+    evt.preventDefault()
     setState({
       ...state,
       employmentHistory: [...state.employmentHistory, {
@@ -32,7 +34,6 @@ function EmploymentHistory(props) {
         details: ''
       }]
     })
-    evt.preventDefault()
   }
 
   return (
@@ -87,10 +88,11 @@ function EmploymentHistory(props) {
           </div>
         )
       })}
-      <button className='addEmploymentHistory' onClick={addMore}>Add More</button>
+      <button type='button' className='addEmploymentHistory' onClick={addMore}>Add More</button>
     </div>
   )
 
 }
 
 export default connect()(EmploymentHistory)
+

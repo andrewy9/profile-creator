@@ -4,7 +4,7 @@ import { fetchEducation } from '../actions'
 
 function Education(props) {
   const [state, setState] = useState({
-    educationHistory: [{
+    education: [{
       provider: '',
       qualification: '',
       year: ''
@@ -17,29 +17,30 @@ function Education(props) {
   }
 
   const handleChange = (evt) => {
+    evt.preventDefault()
     const { name, value, id } = evt.target
-    state.educationHistory[id][name] = value
+    state.education[id][name] = value
     setState({ ...state })
     console.log(props.test)
   }
 
   const addMore = (evt) => {
+    evt.preventDefault()
     setState({
       ...state,
-      educationHistory: [...state.educationHistory, {
+      education: [...state.education, {
         provider: '',
         qualification: '',
         year: ''
       }]
     })
-    evt.preventDefault()
   }
 
   return (
     <div className="education">
       <h3>Education</h3>
       {
-        state.educationHistory.map((el, idx) => {
+        state.education.map((el, idx) => {
           return (
             <div key={idx}>
               <label>Provider:</label>
@@ -78,7 +79,7 @@ function Education(props) {
           )
         })
       }
-      <button className='addEducation' onClick={addMore}>Add More</button>
+      <button className='addEducation' type='button' onClick={addMore}>Add More</button>
     </div>
   )
 }

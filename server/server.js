@@ -10,6 +10,6 @@ server.use(express.json())
 server.use(express.static(path.join(__dirname, 'public')))
 
 server.use('/api/v1/fruits', fruitRoutes)
-server.use('/api/v1/detailsRoutes', detailsRoutes )
+server.use('/api/v1/detailsRoutes', detailsRoutes)
 
 module.exports = server

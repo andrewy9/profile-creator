@@ -3,14 +3,12 @@ import { connect } from 'react-redux'
 import { fetchFormDetails } from '../actions'
 import { postDetailsToDatabase, postOldEmploymentHistoryToDatabase, postEmploymentHistoryToDatabase, postEducationHistoryToDatabase, getDetails } from '../apis/detailsApi'
 
-
 function Form(props) {
   const [state, setState] = useState({
     name: 'name',
     phone: 'phone',
     email: 'email',
     profileIntro: 'Profile Intro',
-
     employmentHistory: [
       {
         employer: '123',

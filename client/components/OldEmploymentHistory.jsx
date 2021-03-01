@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { fetchFormDetails } from '../actions'
+import { fetchOldEmploymentHistory } from '../actions'
 
 function OldEmploymentHistory(props) {
   const [state, setState] = useState({
@@ -12,7 +12,7 @@ function OldEmploymentHistory(props) {
   })
 
   const dispatchHandler = () => {
-    props.dispatch(fetchFormDetails(state))
+    props.dispatch(fetchOldEmploymentHistory(state))
   }
 
   const handleChange = (evt) => {

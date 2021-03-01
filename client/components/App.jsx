@@ -11,7 +11,7 @@ export class App extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchFruits())
+
   }
 
   render() {
@@ -26,7 +26,7 @@ export class App extends React.Component {
 
 function mapStateToProps(globalState) {
   return {
-    fruits: globalState.fruits
+
   }
 }
 

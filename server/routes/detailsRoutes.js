@@ -36,7 +36,7 @@ router.post('/oldHistory', (req, res) => {
   const { oldEmployer, oldEmploymentDate, oldRole } = req.body
   db.saveOldEmploymentHistory(oldEmployer, oldEmploymentDate, oldRole)
     .then(oldHistory => {
-      res.status(201).json(oldHistory) 
+      res.status(201).json(oldHistory)
     })
     .catch(() => res.sendStatus(500))
 })
@@ -45,6 +45,7 @@ router.post('/education', (req, res) => {
   const { provider, qualification, year } = req.body
   db.saveEducationHistory(provider, qualification, year)
     .then(education => {
+      console.log("route console.log", education)
       res.status(201).json(education)
     })
     .catch(() => res.sendStatus(500))

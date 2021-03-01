@@ -5,9 +5,9 @@ import { fetchOldEmploymentHistory } from '../actions'
 function OldEmploymentHistory(props) {
   const [state, setState] = useState({
     oldEmploymentHistory: [{
-      oldEmployer: 'oldEmployer',
-      oldEmploymentDate: 'oldEmploymentDate',
-      oldRole: 'oldRole'
+      oldEmployer: '',
+      oldEmploymentDate: '',
+      oldRole: ''
     }]
   })
 
@@ -16,12 +16,16 @@ function OldEmploymentHistory(props) {
   }
 
   const handleChange = (evt) => {
+    evt.preventDefault()
     const { name, value, id, className } = evt.target
     state.oldEmploymentHistory[id][name] = value
     setState({ ...state })
   }
 
   const addMore = (evt) => {
+    if (evt.key === "Enter") {
+      evt.preventDefault()
+    }
     setState({
       ...state,
       oldEmploymentHistory: [...state.oldEmploymentHistory, {
@@ -30,7 +34,6 @@ function OldEmploymentHistory(props) {
         oldRole: ''
       }]
     })
-    evt.preventDefault()
   }
 
   return (
@@ -77,7 +80,7 @@ function OldEmploymentHistory(props) {
           )
         })
       }
-      <button className='addOldEmploymentHistory' onClick={addMore}>Add More</button>
+      <button className='addOldEmploymentHistory' type='button' onClick={addMore}>Add More</button>
     </div >
   )
 }

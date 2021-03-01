@@ -5,10 +5,10 @@ import { fetchFormDetails } from '../actions'
 
 function BasicDetails(props) {
   const [state, setState] = useState({
-    name: 'name',
-    phone: 'phone',
-    email: 'email',
-    profileIntro: 'Profile Intro'
+    name: '',
+    phone: '',
+    email: '',
+    profileIntro: ''
   })
 
   const dispatchHandler = () => {

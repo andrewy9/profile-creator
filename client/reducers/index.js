@@ -1,9 +1,13 @@
 import { combineReducers } from 'redux'
 
-import fruits from './fruits'
 import details from './details'
+import education from './education'
+import employmentHistory from './employmentHistory'
+import oldEmploymentHistory from './oldEmploymentHistory'
 
 export default combineReducers({
-  fruits,
-  details
+  details,
+  education,
+  employmentHistory,
+  oldEmploymentHistory,
 })

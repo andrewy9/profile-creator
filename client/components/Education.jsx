@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { fetchFormDetails } from '../actions'
+import { fetchEducation } from '../actions'
 
 function Education(props) {
   const [state, setState] = useState({
@@ -12,13 +12,15 @@ function Education(props) {
   })
 
   const dispatchHandler = () => {
-    props.dispatch(fetchFormDetails(state))
+    console.log('hitting dispatch handler')
+    props.dispatch(fetchEducation(state))
   }
 
   const handleChange = (evt) => {
     const { name, value, id } = evt.target
     state.educationHistory[id][name] = value
     setState({ ...state })
+    console.log(props.test)
   }
 
   const addMore = (evt) => {

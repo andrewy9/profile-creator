@@ -2,7 +2,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { fetchFruits } from '../actions'
 import Form from './Form'
 
 export class App extends React.Component {
@@ -11,7 +10,6 @@ export class App extends React.Component {
   }
 
   componentDidMount() {
-
   }
 
   render() {
@@ -26,7 +24,6 @@ export class App extends React.Component {
 
 function mapStateToProps(globalState) {
   return {
-
   }
 }
 

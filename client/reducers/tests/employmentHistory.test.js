@@ -1,5 +1,5 @@
-import reducer from './employmentHistory'
-import {setEmploymentHistory} from '../actions'
+import reducer from '../employmentHistory'
+import {setEmploymentHistory} from '../../actions'
 
 describe('employmentHistory reducer', () => {
   test('initial state is an empty array', () => {

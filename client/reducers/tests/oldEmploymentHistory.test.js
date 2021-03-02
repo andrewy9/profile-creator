@@ -1,5 +1,5 @@
-import reducer from './oldEmploymentHistory'
-import { setOldEmploymentHistory } from '../actions'
+import reducer from '../oldEmploymentHistory'
+import { setOldEmploymentHistory } from '../../actions'
 
 
 describe('oldEmployment reducer', () => {

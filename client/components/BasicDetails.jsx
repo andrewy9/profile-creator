@@ -24,8 +24,8 @@ function BasicDetails(props) {
     <div>
       <div className='basicDetails' >
         <h3>Basic Details</h3>
-        <label>Name:</label>
-        <input type='text' name="name" id={0} value={state.name} onChange={handleChange} onBlur={dispatchHandler}></input>
+        <label id="Name">Name:</label>
+        <input aria-labelledby="Name" type='text' name="name" id={0} value={state.name} onChange={handleChange} onBlur={dispatchHandler}></input>
         <label>Phone:</label>
         <input type='text' name="phone" id={1} value={state.phone} onChange={handleChange} onBlur={dispatchHandler}></input>
         <label>Email:</label>

@@ -109,7 +109,7 @@ describe('fetchEducation', ()=> {
       expect(action.type).toBe(SET_EDUCATION)
     })
   
-    test('dispatch setEducation via fetchEducation', () => {
+    test('dispatch setEducation actions via fetchEducation', () => {
       expect(fakeDispatch.mock.calls[0][0].type).toEqual(SET_EDUCATION)
       expect(fakeDispatch.mock.calls[0][0].education).toEqual(fakeEducation)
     })

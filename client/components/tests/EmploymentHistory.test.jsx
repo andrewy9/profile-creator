@@ -12,7 +12,7 @@ const fakeStore = {
   subscribe: jest.fn()
 }
 
-const fakeAction = { type: 'fakeAction'}
+const fakeAction = { type: 'fakeAction' }
 jest.mock('../../actions', () => ({
   fetchEmploymentHistory: jest.fn(() => fakeAction)
 }))
@@ -23,27 +23,25 @@ describe('<EmploymentHistory />', () => {
   describe('input feilds correctly working', () => {
 
     beforeEach(() => {
-      render(<Provider store={fakeStore}><EmploymentHistory/></Provider>)
+      render(<Provider store={fakeStore}><EmploymentHistory /></Provider>)
       input = screen.getAllByRole('textbox')
       input.forEach((el) => {
-        fireEvent.change(el, { target: {value: 'test'}})
+        fireEvent.change(el, { target: { value: 'test' } })
         fireEvent.blur(el)
       })
-  
+
       button = screen.getByRole('button')
       fireEvent.click(button)
+      input = screen.getAllByRole('textbox')
     })
-    
+
     test('submitting an input dispatches fetchEmploymentHistory action', () => {
       expect(fakeStore.dispatch).toHaveBeenCalledWith(fakeAction)
-      expect(fetchEmploymentHistory).toHaveBeenCalledWith({employmentHistory: [{'employer': 'test', 'employmentDate': 'test', 'role': 'test', 'details': 'test'}]})
+      expect(fetchEmploymentHistory).toHaveBeenCalledWith({ employmentHistory: [{ 'employer': 'test', 'employmentDate': 'test', 'role': 'test', 'details': 'test' }] })
     })
 
     test('clicking add more button adds more input fields', () => {
-      console.log(button)
-      expect(button).toContain('addEmploymentHistory')
+      expect(input).toHaveLength(8)
     })
   })
-
-  
 })

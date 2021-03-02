@@ -16,6 +16,7 @@ describe('fetchFormDetails', () => {
     }
 
     beforeAll(()=> {
+      jest.clearAllMocks()
       fetchFormDetails(fakeDetails)(fakeDispatch)
     })
 
@@ -25,7 +26,7 @@ describe('fetchFormDetails', () => {
       expect(action.details.name).toBe('name')
     })
     
-    test('dispatch setFormDetails actions with new details', ()=> {
+    test('dispatch setFormDetails actions via fetchFormDetails', ()=> {
       expect(fakeDispatch.mock.calls[0][0].type).toEqual(SET_FORM_DETAILS)
       expect(fakeDispatch.mock.calls[0][0].details).toEqual(fakeDetails)
     })
@@ -53,7 +54,7 @@ describe('fetchEmploymentHistory', () => {
       expect(action.employmentHistory.employer).toBe('employer')
     })
     
-    test('dispatch setEmploymentHistory actions with new history', () => {
+    test('dispatch setEmploymentHistory actions via fetchEmploymentHistory', () => {
       expect(fakeDispatch.mock.calls[0][0].type).toEqual(SET_EMPLOYMENT_HISTORY)
       expect(fakeDispatch.mock.calls[0][0].employmentHistory).toEqual(fakeHistory)
     })
@@ -82,7 +83,7 @@ describe('fetchOldEmploymentHistory', () => {
       expect(action.oldEmploymentHistory.mockOldEmployer).toBe('employer')
     })
 
-    test('dispatch setOldEmploymentHistory actions with new oldHistory', () => {
+    test('dispatch setOldEmploymentHistory actions via fetchOldEmploymentHistory', () => {
       expect(fakeDispatch.mock.calls[0][0].type).toEqual(SET_OLD_EMPLOYMENT_HISTORY)
       expect(fakeDispatch.mock.calls[0][0].oldEmploymentHistory).toEqual(fakeHistory)
     })
@@ -108,7 +109,7 @@ describe('fetchEducation', ()=> {
       expect(action.type).toBe(SET_EDUCATION)
     })
   
-    test('returns fetchEducation dispatch', () => {
+    test('dispatch setEducation via fetchEducation', () => {
       expect(fakeDispatch.mock.calls[0][0].type).toEqual(SET_EDUCATION)
       expect(fakeDispatch.mock.calls[0][0].education).toEqual(fakeEducation)
     })

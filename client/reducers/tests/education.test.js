@@ -1,5 +1,5 @@
-import reducer from './education'
-import { setEducation } from '../actions'
+import reducer from '../education'
+import { setEducation } from '../../actions'
 
 describe('education reducer', () => {
   test('initial state is an empty array', () => {

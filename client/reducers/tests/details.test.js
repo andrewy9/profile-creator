@@ -1,5 +1,5 @@
-import reducer from './details'
-import {setFormDetails} from '../actions'
+import reducer from '../details'
+import {setFormDetails} from '../../actions'
 
 describe('details reducer', () => {
   test('initial state is an empty array', () => {

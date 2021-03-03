@@ -14,7 +14,7 @@ export function postDetailsToDatabase(details) {
 }
 
 export function postEmploymentHistoryToDatabase(history) {
-  console.log('api hittin')
+  //console.log('api hittin')
   return request
     .post(`${rootUrl}/detailsRoutes/history`)
     .send(history)

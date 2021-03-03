@@ -23,6 +23,7 @@ router.post('/', (req, res) => {
 })
 
 router.post('/history', (req, res) => {
+  console.log(req.body)
   const { employer, employmentDate, role, details } = req.body
   db.saveEmploymentHistory(employer, employmentDate, role, details)
     .then(history => {

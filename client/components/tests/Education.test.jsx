@@ -2,8 +2,8 @@ import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { Provider } from 'react-redux'
 
-import EmploymentHistory from '../EmploymentHistory'
-import { fetchEmploymentHistory } from '../../actions'
+import Education from '../Education'
+import { fetchEducation } from '../../actions'
 
 const fakeStore = {
   dispatch: jest.fn(),
@@ -13,30 +13,30 @@ const fakeStore = {
 
 const fakeAction = { type: 'fakeAction' }
 jest.mock('../../actions', () => ({
-  fetchEmploymentHistory: jest.fn(() => fakeAction)
+  fetchEducation: jest.fn(() => fakeAction)
 }))
 
-describe('<EmploymentHistory />', () => {
+describe('<Education />', () => {
   let input
 
   beforeEach(() => {
-    render(<Provider store={fakeStore}><EmploymentHistory /></Provider>)
+    render(<Provider store={fakeStore}><Education /></Provider>)
   })
 
-  test('submitting an input dispatches fetchEmploymentHistory action', () => {
+  test('submitting an input dispatches fetchEducation action', () => {
     input = screen.getAllByRole('textbox')
     input.forEach((el) => {
       fireEvent.change(el, { target: { value: 'test' } })
       fireEvent.blur(el)
     })
     expect(fakeStore.dispatch).toHaveBeenCalledWith(fakeAction)
-    expect(fetchEmploymentHistory).toHaveBeenCalledWith({ employmentHistory: [{ 'employer': 'test', 'employmentDate': 'test', 'role': 'test', 'details': 'test' }] })
+    expect(fetchEducation).toHaveBeenCalledWith({ education: [{ 'provider': 'test', 'qualification': 'test', 'year': 'test' }] })
   })
 
   test('clicking add more button adds more input fields', () => {
     let button = screen.getByRole('button')
     fireEvent.click(button)
     input = screen.getAllByRole('textbox')
-    expect(input).toHaveLength(8)
+    expect(input).toHaveLength(6)
   })
 })

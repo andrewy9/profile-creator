@@ -12,7 +12,6 @@ function Education(props) {
   })
 
   const dispatchHandler = () => {
-    console.log('hitting dispatch handler')
     props.dispatch(fetchEducation(state))
   }
 
@@ -21,7 +20,6 @@ function Education(props) {
     const { name, value, id } = evt.target
     state.education[id][name] = value
     setState({ ...state })
-    console.log(props.test)
   }
 
   const addMore = (evt) => {

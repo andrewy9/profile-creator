@@ -19,6 +19,7 @@ function Form(props) {
       email: props.details.email,
       profile_intro: props.details.profileIntro
     }
+
     postDetailsToDatabase(details)
     //  getDetails()
 

@@ -24,6 +24,7 @@ function EmploymentHistory(props) {
   }
 
   const addMore = (evt) => {
+    console.log('button tested')
     evt.preventDefault()
     setState({
       ...state,

@@ -4,9 +4,20 @@ const db = require('../db/details')
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
-  db.getDetails()
+router.get('/:id', (req, res) => {
+  const id = req.params.id
+  db.getUserDetails(id)
     .then(response => {
+      res.json(response)
+    })
+    .catch(() => res.sendStatus(500)) //without this, it will cause reject tests to fail!
+})
+
+router.get('/history/:id', (req,res) => {
+  const id = req.params.id
+  db.getUserEmploymentHistory(id)
+    .then(response => {
+      console.log(response)
       res.json(response)
     })
     .catch(() => res.sendStatus(500)) //without this, it will cause reject tests to fail!

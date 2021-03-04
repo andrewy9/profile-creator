@@ -40,7 +40,6 @@ describe('<EmploymentHistory />', () => {
     })
 
     test('clicking add more button adds more input fields', () => {
-      console.log(button)
       expect(button).toContain('addEmploymentHistory')
     })
   })

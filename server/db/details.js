@@ -24,10 +24,27 @@ function saveEducationHistory(provider, qualification, year, db = connection) {
     .insert({ provider, qualification, year })
 }
 
+function getUserDetails(id, db=connection) {
+  return db('users')
+  .join('details', 'users.id', 'details.user_id')
+  .where({'users.id': id})
+  .select()
+}
+
+
+function getUserEmploymentHistory(id, db=connection) {
+  return db('users')
+  .join('employment_history', 'users.id', 'employment_history.user_id')
+  .where({'users.id': id})
+  .select()
+}
+
 module.exports = {
   saveDetails,
   getDetails,
   saveEmploymentHistory,
   saveOldEmploymentHistory,
-  saveEducationHistory
+  saveEducationHistory,
+  getUserDetails,
+  getUserEmploymentHistory
 }

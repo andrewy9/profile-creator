@@ -15,12 +15,30 @@ router.get('/:id', (req, res) => {
 
 router.get('/history/:id', (req,res) => {
   const id = req.params.id
+  console.log(req.params)
   db.getUserEmploymentHistory(id)
     .then(response => {
-      console.log(response)
       res.json(response)
     })
     .catch(() => res.sendStatus(500)) //without this, it will cause reject tests to fail!
+})
+
+router.get('/oldHistory/:id', (req,res) => {
+  const id = req.params.id
+  db.getUserOldEmploymentHistory(id)
+    .then(response => {
+      res.json(response)
+    })
+    .catch(() => res.sendStatus(500)) //without this, it will cause reject tests to fail!
+})
+
+router.get('/education/:id', (req,res) => {
+  const id = req.params.id
+  db.getUserEducation(id)
+    .then(response => {
+      res.json(response)
+    })
+    .catch(() => res.sendStatus(500))
 })
 
 router.post('/', (req, res) => {

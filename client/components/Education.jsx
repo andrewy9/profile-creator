@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import { fetchEducation } from '../actions'
 
 function Education(props) {
-  const [state, setState] = useState({
-    education: [{
+  const [state, setState] = useState(
+    [{
       provider: '',
       qualification: '',
       year: ''
     }]
-  })
+  )
 
   const dispatchHandler = () => {
     props.dispatch(fetchEducation(state))
@@ -18,27 +18,27 @@ function Education(props) {
   const handleChange = (evt) => {
     evt.preventDefault()
     const { name, value, id } = evt.target
-    state.education[id][name] = value
-    setState({ ...state })
+    state[id][name] = value
+    setState([...state])
   }
 
   const addMore = (evt) => {
     evt.preventDefault()
-    setState({
-      ...state,
-      education: [...state.education, {
+    setState(
+      [...state, {
         provider: '',
         qualification: '',
         year: ''
       }]
-    })
+    )
   }
 
   return (
     <div className="education">
       <h3>Education</h3>
+      {console.log(state)}
       {
-        state.education.map((el, idx) => {
+        state.map((el, idx) => {
           return (
             <div key={idx}>
               <label>Provider:</label>

@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import { fetchOldEmploymentHistory } from '../actions'
 
 function OldEmploymentHistory(props) {
-  const [state, setState] = useState({
-    oldEmploymentHistory: [{
+  const [state, setState] = useState(
+    [{
       oldEmployer: '',
       oldEmploymentDate: '',
       oldRole: ''
     }]
-  })
+  )
 
   const dispatchHandler = () => {
     props.dispatch(fetchOldEmploymentHistory(state))
@@ -18,22 +18,21 @@ function OldEmploymentHistory(props) {
   const handleChange = (evt) => {
     evt.preventDefault()
     const { name, value, id, className } = evt.target
-    state.oldEmploymentHistory[id][name] = value
-    setState({ ...state })
+    state[id][name] = value
+    setState([...state])
   }
 
   const addMore = (evt) => {
     if (evt.key === "Enter") {
       evt.preventDefault()
     }
-    setState({
-      ...state,
-      oldEmploymentHistory: [...state.oldEmploymentHistory, {
+    setState(
+      [...state, {
         oldEmployer: '',
         oldEmploymentDate: '',
         oldRole: ''
       }]
-    })
+    )
   }
 
   return (
@@ -41,7 +40,7 @@ function OldEmploymentHistory(props) {
     <div className='oldEmploymentHistory'>
       <h3>Older Employment History</h3>
       {
-        state.oldEmploymentHistory.map((el, idx) => {
+        state.map((el, idx) => {
           return (
             <div key={idx}>
               <label>Employer #{idx + 1}:</label>

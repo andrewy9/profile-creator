@@ -7,9 +7,11 @@ const {
   saveDetails,
   saveEducationHistory,
   saveEmploymentHistory, 
-  saveOldEmploymentHistory 
+  saveOldEmploymentHistory, 
+  getUserDetails,
+  getUserOldEmploymentHistory,
+  getUserEducation
 } = require('./details')
-
 
 beforeAll(() => connection.migrate.latest())
 beforeEach(() => connection.seed.run())
@@ -84,4 +86,48 @@ describe('saveEducationHistory', () => {
             })
         })
     })
+})
+
+describe('getUserDetails', () => {
+  test('returns the correct users details', () => {
+    expect.assertions(2)
+    return getUserDetails(1, connection)
+      .then((userDetails => {
+        expect(userDetails[0].user_id).toBe(1)
+        expect(userDetails).toHaveLength(2)
+      }))
+  })
+})
+
+describe('getUserEmploymentHistory', ()=> {
+  test('returns the correct user employment history', ()=> {
+    expect.assertions(2)
+    return getUserDetails(1, connection)
+      .then((userEmploymentHistory => {
+        expect(userEmploymentHistory[0].user_id).toBe(1)
+        expect(userEmploymentHistory).toHaveLength(2)
+      }))
+  })
+})
+
+describe('getUserOldEmploymentHistory', () => {
+  test('returns the correct user old employment history', () => {
+    expect.assertions(2)
+    return getUserOldEmploymentHistory(1, connection)
+      .then((userOldEmploymentHistory) => {
+        expect(userOldEmploymentHistory[0].user_id).toBe(1)
+        expect(userOldEmploymentHistory).toHaveLength(2)
+      })
+  })
+})
+
+describe('getUserEducation', () => {
+  test('returns the correct user education history', () => {
+    expect.assertions(2)
+    return getUserEducation(1, connection)
+      .then((userEducation) => {
+        expect(userEducation[0].user_id).toBe(1)
+        expect(userEducation).toHaveLength(2)
+      })
+  })
 })

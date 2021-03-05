@@ -3,6 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import Form from './Form'
+import Preview from './Preview'
 
 export class App extends React.Component {
   state = {
@@ -17,6 +18,7 @@ export class App extends React.Component {
       <div className='app'>
         <h1>Profile Creator</h1>
         <Form />
+        <Preview />
       </div>
     )
   }

@@ -15,7 +15,6 @@ router.get('/:id', (req, res) => {
 
 router.get('/history/:id', (req,res) => {
   const id = req.params.id
-  console.log(req.params)
   db.getUserEmploymentHistory(id)
     .then(response => {
       res.json(response)
@@ -52,7 +51,6 @@ router.post('/', (req, res) => {
 })
 
 router.post('/history', (req, res) => {
-  console.log(req.body)
   const { employer, employmentDate, role, details } = req.body
   db.saveEmploymentHistory(employer, employmentDate, role, details)
     .then(history => {
@@ -75,7 +73,6 @@ router.post('/education', (req, res) => {
   const { provider, qualification, year } = req.body
   db.saveEducationHistory(provider, qualification, year)
     .then(education => {
-      console.log("route console.log", education)
       res.status(201).json(education)
     })
     .catch(() => res.sendStatus(500))

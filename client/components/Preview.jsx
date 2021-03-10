@@ -2,29 +2,34 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 function Preview(props) {
-  const [state, setState] = useState({
-    oldEmploymentHistory: [
-      { hello: '' }
-    ]
-  })
-
-  // useEffect(() => {
-  //   console.log('useEffect')
-  //   setState(props.details)
-  // }, [])
 
   return (
     <div className='preview'>
       {console.log('rendered')}
-      {console.log(props)}
-      {console.log(state)}
       <p>{props.details.name}</p>
       <p>{props.details.phone}</p>
       <p>{props.details.email}</p>
       <p>{props.details.profileIntro}</p>
-      {props.employmentHistory.map((history) => {
-        return <div>
+      {props.employmentHistory.map((history, idx) => {
+        return <div key={idx}>
           <p>{history.employer}</p>
+          <p>{history.employmentDate}</p>
+          <p>{history.role}</p>
+          <p>{history.details}</p>
+        </div>
+      })}
+      {props.education.map((education, idx) => {
+        return <div key={idx}>
+          <p>{education.provider}</p>
+          <p>{education.qualification}</p>
+          <p>{education.year}</p>
+        </div>
+      })}
+      {props.oldEmploymentHistory.map((history, idx) => {
+        return <div key={idx}>
+          <p>{history.oldEmployer}</p>
+          <p>{history.oldEmploymentDate}</p>
+          <p>{history.oldRole}</p>
         </div>
       })}
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchEducation } from '../actions'
 
@@ -10,6 +10,10 @@ function Education(props) {
       year: ''
     }]
   )
+
+  useEffect(() => {
+    dispatchHandler()
+  })
 
   const dispatchHandler = () => {
     props.dispatch(fetchEducation(state))
@@ -48,8 +52,7 @@ function Education(props) {
                 className='education'
                 name='provider'
                 value={el.provider}
-                onChange={handleChange}
-                onBlur={dispatchHandler}>
+                onChange={handleChange}>
               </input>
 
               <label>Qualification:</label>
@@ -59,8 +62,7 @@ function Education(props) {
                 className='education'
                 name='qualification'
                 value={el.qualification}
-                onChange={handleChange}
-                onBlur={dispatchHandler}>
+                onChange={handleChange}>
               </input>
 
               <label>Year:</label>
@@ -70,8 +72,7 @@ function Education(props) {
                 className='education'
                 name='year'
                 value={el.year}
-                onChange={handleChange}
-                onBlur={dispatchHandler}>
+                onChange={handleChange}>
               </input>
             </div>
           )

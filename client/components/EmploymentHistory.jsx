@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchEmploymentHistory } from '../actions'
 
@@ -11,6 +11,11 @@ function EmploymentHistory(props) {
       details: ''
     }]
   )
+
+
+  useEffect(() => {
+    dispatchHandler()
+  })
 
   const dispatchHandler = () => {
     props.dispatch(fetchEmploymentHistory(state))
@@ -50,8 +55,7 @@ function EmploymentHistory(props) {
               className="employmentHistory"
               name='employer'
               value={el.employer}
-              onChange={handleChange}
-              onBlur={dispatchHandler}>
+              onChange={handleChange}>
             </input>
 
             <label>Employment Date</label>
@@ -61,8 +65,7 @@ function EmploymentHistory(props) {
               className="employmentHistory"
               name="employmentDate"
               value={el.employmentDate}
-              onChange={handleChange}
-              onBlur={dispatchHandler}>
+              onChange={handleChange}>
             </input>
 
             <label>Role</label>
@@ -72,8 +75,7 @@ function EmploymentHistory(props) {
               className="employmentHistory"
               name="role"
               value={el.role}
-              onChange={handleChange}
-              onBlur={dispatchHandler}>
+              onChange={handleChange}>
             </input>
 
             <label>Details</label>
@@ -83,8 +85,7 @@ function EmploymentHistory(props) {
               className="employmentHistory"
               name="details"
               value={el.details}
-              onChange={handleChange}
-              onBlur={dispatchHandler}>
+              onChange={handleChange}>
             </input>
           </div>
         )

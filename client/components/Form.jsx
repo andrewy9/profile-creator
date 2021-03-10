@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { fetchFormDetails } from '../actions'
+//import { fetchFormDetails } from '../actions'
 import { postDetailsToDatabase, postOldEmploymentHistoryToDatabase, postEmploymentHistoryToDatabase, postEducationHistoryToDatabase, getDetails } from '../apis/detailsApi'
-
 import BasicDetails from './BasicDetails'
 import EmploymentHistory from './EmploymentHistory'
 import OldEmploymentHistory from './OldEmploymentHistory'

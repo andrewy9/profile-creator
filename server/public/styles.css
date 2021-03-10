@@ -15,6 +15,7 @@ h3 {
 }
 
 label {
+  font-weight: bolder;
   color: black !important;
   margin-left: 55px;
   margin-right: 10px;
@@ -24,15 +25,22 @@ label {
 
 button, #submit {
   border-radius: 8px;
+  border-color: darkgray;
   color: black !important;
   font-family: 'Montserrat', sans-serif;
   font-size: 1.2rem;
   font-weight: bold;
   margin-left: 95px;
   margin-top: 35px;
-  padding: 12px;
+  padding: 9px;
+  outline: none;
 }
 
 input {
   margin-top: 15px;
+}
+
+.preview {
+  font-weight: bolder;
+  text-align: center;
 }

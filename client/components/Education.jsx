@@ -1,14 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchEducation } from '../actions'
 
 function Education(props) {
-  const [state, setState] = useState({
-    education: [{
+  const [state, setState] = useState(
+    [{
       provider: '',
       qualification: '',
       year: ''
     }]
+  )
+
+  useEffect(() => {
+    dispatchHandler()
   })
 
   const dispatchHandler = () => {
@@ -18,27 +22,27 @@ function Education(props) {
   const handleChange = (evt) => {
     evt.preventDefault()
     const { name, value, id } = evt.target
-    state.education[id][name] = value
-    setState({ ...state })
+    state[id][name] = value
+    setState([...state])
   }
 
   const addMore = (evt) => {
     evt.preventDefault()
-    setState({
-      ...state,
-      education: [...state.education, {
+    setState(
+      [...state, {
         provider: '',
         qualification: '',
         year: ''
       }]
-    })
+    )
   }
 
   return (
     <div className="education">
       <h3>Education</h3>
+      {console.log(state)}
       {
-        state.education.map((el, idx) => {
+        state.map((el, idx) => {
           return (
             <div key={idx}>
               <label>Provider:</label>
@@ -48,8 +52,7 @@ function Education(props) {
                 className='education'
                 name='provider'
                 value={el.provider}
-                onChange={handleChange}
-                onBlur={dispatchHandler}>
+                onChange={handleChange}>
               </input>
 
               <label>Qualification:</label>
@@ -59,8 +62,7 @@ function Education(props) {
                 className='education'
                 name='qualification'
                 value={el.qualification}
-                onChange={handleChange}
-                onBlur={dispatchHandler}>
+                onChange={handleChange}>
               </input>
 
               <label>Year:</label>
@@ -70,8 +72,7 @@ function Education(props) {
                 className='education'
                 name='year'
                 value={el.year}
-                onChange={handleChange}
-                onBlur={dispatchHandler}>
+                onChange={handleChange}>
               </input>
             </div>
           )

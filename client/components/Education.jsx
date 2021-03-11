@@ -40,7 +40,6 @@ function Education(props) {
   return (
     <div className="education">
       <h3>Education</h3>
-      {console.log(state)}
       {
         state.map((el, idx) => {
           return (

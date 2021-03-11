@@ -44,3 +44,18 @@ input {
   font-weight: bolder;
   text-align: center;
 }
+
+.form-div {
+  float: left;
+  width: 50%;
+}
+
+.preview-div {
+  float: right;
+  padding-top: 55px;
+  width: 50%;
+}
+
+.google-login {
+  text-align: center;
+}

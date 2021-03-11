@@ -1,5 +1,8 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+//trying dotenv
+const dotenv = require('dotenv').config()
+console.log(dotenv)
 
 module.exports = {
   entry: ['./client/index.js', './client/styles/index.scss'],

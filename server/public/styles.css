@@ -30,7 +30,7 @@ button, #submit {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.2rem;
   font-weight: bold;
-  margin-left: 95px;
+  margin-left: 45%;
   margin-top: 35px;
   padding: 9px;
   outline: none;
@@ -57,5 +57,16 @@ input {
 }
 
 .google-login {
+  margin: 0 auto;
   text-align: center;
+  width: 100%;
+}
+
+.google-button-div {
+  margin: 0 auto;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  text-align: center !important;
+  
 }

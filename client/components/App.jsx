@@ -19,12 +19,14 @@ export class App extends React.Component {
     return (
       <div className='app'>
         <h1>Profile Creator</h1>
-        <Login />
+        <div className='google-button-div'>
+          <Login />
+        </div>
         <div className='form-div'>
-        <Form />
+          <Form />
         </div>
         <div className='preview-div'>
-        <Preview />
+          <Preview />
         </div>
       </div>
     )

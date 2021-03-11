@@ -18,18 +18,18 @@ function Preview(props) {
           <p>{history.details}</p>
         </div>
       })}
-      {props.education.map((education, idx) => {
-        return <div key={idx}>
-          <p>{education.provider}</p>
-          <p>{education.qualification}</p>
-          <p>{education.year}</p>
-        </div>
-      })}
       {props.oldEmploymentHistory.map((history, idx) => {
         return <div key={idx}>
           <p>{history.oldEmployer}</p>
           <p>{history.oldEmploymentDate}</p>
           <p>{history.oldRole}</p>
+        </div>
+      })}
+      {props.education.map((education, idx) => {
+        return <div key={idx}>
+          <p>{education.provider}</p>
+          <p>{education.qualification}</p>
+          <p>{education.year}</p>
         </div>
       })}
     </div>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-//import { fetchFormDetails } from '../actions'
+// import { fetchFormDetails } from '../actions'
 import { postDetailsToDatabase, postOldEmploymentHistoryToDatabase, postEmploymentHistoryToDatabase, postEducationHistoryToDatabase, getDetails } from '../apis/detailsApi'
+
 import BasicDetails from './BasicDetails'
 import EmploymentHistory from './EmploymentHistory'
 import OldEmploymentHistory from './OldEmploymentHistory'
@@ -57,9 +58,9 @@ function Form(props) {
 function mapStateToProps(globalState) {
   return {
     details: globalState.details,
-    education: globalState.education.education,
-    employmentHistory: globalState.employmentHistory.employmentHistory,
-    oldEmploymentHistory: globalState.oldEmploymentHistory.oldEmploymentHistory,
+    education: globalState.education,
+    employmentHistory: globalState.employmentHistory,
+    oldEmploymentHistory: globalState.oldEmploymentHistory
   }
 }
 

@@ -5,7 +5,6 @@ function Preview(props) {
 
   return (
     <div className='preview'>
-      {console.log('rendered')}
       <p>{props.details.name}</p>
       <p>{props.details.phone}</p>
       <p>{props.details.email}</p>

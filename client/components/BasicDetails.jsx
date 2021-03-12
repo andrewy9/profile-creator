@@ -5,14 +5,18 @@ import { fetchFormDetails } from '../actions'
 
 function BasicDetails(props) {
   const [state, setState] = useState({
+    user_id: '',
     name: '',
     phone: '',
     email: '',
     profileIntro: ''
   })
-  
+
+  const globalId = props.user.id
+
   useEffect(()=> {
     dispatchHandler()
+    console.log('dispatch handler')
   })
 
   const dispatchHandler = () => {
@@ -21,10 +25,8 @@ function BasicDetails(props) {
 
   const handleChange = (evt) => {
     const { name, value } = evt.target
-    setState({ ...state, [name]: value })
+    setState({ ...state, user_id: globalId, [name]: value })
   }
-
-
 
   return (
     <div>
@@ -47,4 +49,10 @@ function BasicDetails(props) {
   )
 }
 
-export default connect()(BasicDetails)
+function mapStateToProps (globalState) {
+  return {
+    user: globalState.user
+  }
+}
+
+export default connect(mapStateToProps)(BasicDetails)

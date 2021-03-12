@@ -57,6 +57,7 @@ function Form(props) {
 
 function mapStateToProps(globalState) {
   return {
+    user: globalState.user,
     details: globalState.details,
     education: globalState.education,
     employmentHistory: globalState.employmentHistory,

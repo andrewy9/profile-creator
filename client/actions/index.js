@@ -3,7 +3,7 @@ export const ADD_BASIC_DETAILS = 'ADD_BASIC_DETAILS'
 export const SET_EMPLOYMENT_HISTORY = 'SET_EMPLOYMENT_HISTORY'
 export const SET_OLD_EMPLOYMENT_HISTORY = 'SET_OLD_EMPLOYMENT_HISTORY'
 export const SET_EDUCATION = 'SET_EDUCATION'
-
+export const SET_USER = 'SET_USER'
 
 //BasicDetails
 export function setFormDetails(details) {
@@ -60,5 +60,19 @@ export function setEducation(education) {
 export function fetchEducation(education) {
   return dispatch => {
     dispatch(setEducation(education))
+  }
+}
+
+//User
+export function setUser(user) {
+  return {
+    type: SET_USER,
+    user
+  }
+}
+
+export function fetchUser(user) {
+  return dispatch => {
+    dispatch(setUser(user))
   }
 }

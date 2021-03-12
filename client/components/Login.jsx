@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-
+import {connect} from 'react-redux'
+import {fetchUser} from '../actions'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
-function Login() {
+function Login(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState({
+    id: '',
     name: '',
     email: '',
     image: ''
@@ -12,16 +14,20 @@ function Login() {
 
   const responseGoogle = (response) => {
     const profile = response.getBasicProfile()
+    console.log('response', response)
+    console.log('profile', profile)
 
     setUser({
+      id: profile.getId(),
       name: profile.getName(),
       email: profile.getEmail(),
-      image: profile.getImageUrl()
+      image: profile.getImageUrl(),
     })
   }
 
   const logout = () => {
     setUser({
+      id: '',
       name: '',
       email: '',
       image: ''
@@ -30,6 +36,7 @@ function Login() {
 
   useEffect(() => {
     user.name ? setIsAuthenticated(true) : setIsAuthenticated(false)
+    props.dispatch(fetchUser(user))
   }, [user])
   
   return (
@@ -69,4 +76,6 @@ function AuthenticatedView({user, logout}) {
   )
 }
 
-export default Login
+
+
+export default connect()(Login)

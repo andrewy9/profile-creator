@@ -1,6 +1,10 @@
 import { SET_EDUCATION } from '../actions'
 
-const initialState = []
+const initialState = [{
+  provider: '',
+  qualification: '',
+  year: ''
+}]
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

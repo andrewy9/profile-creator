@@ -1,6 +1,10 @@
 import { SET_OLD_EMPLOYMENT_HISTORY } from '../actions'
 
-const initialState = []
+const initialState = [{
+  oldEmployer: '',
+  oldEmploymentDate: '',
+  oldRole: ''
+}]
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

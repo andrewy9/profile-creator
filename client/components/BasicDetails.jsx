@@ -8,12 +8,13 @@ function BasicDetails(props) {
     name: '',
     phone: '',
     email: '',
-    profileIntro: ''
+    profileIntro: '',
+    employmentHistory: ''
   })
-  
-  useEffect(()=> {
+
+  useEffect(() => {
     dispatchHandler()
-  })
+  }, [state])
 
   const dispatchHandler = () => {
     props.dispatch(fetchFormDetails(state))
@@ -22,6 +23,7 @@ function BasicDetails(props) {
   const handleChange = (evt) => {
     const { name, value } = evt.target
     setState({ ...state, [name]: value })
+    // props.dispatch(fetchFormDetails({ [name]: value }))
   }
 
 

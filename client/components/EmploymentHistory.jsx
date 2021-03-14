@@ -12,7 +12,6 @@ function EmploymentHistory(props) {
     }]
   )
 
-
   useEffect(() => {
     dispatchHandler()
   })

@@ -14,7 +14,7 @@ function BasicDetails(props) {
 
   useEffect(() => {
     dispatchHandler()
-  }, [state])
+  })
 
   const dispatchHandler = () => {
     props.dispatch(fetchFormDetails(state))
@@ -25,8 +25,6 @@ function BasicDetails(props) {
     setState({ ...state, [name]: value })
     // props.dispatch(fetchFormDetails({ [name]: value }))
   }
-
-
 
   return (
     <div>
@@ -49,4 +47,10 @@ function BasicDetails(props) {
   )
 }
 
-export default connect()(BasicDetails)
+function mapStateToProps(globalState) {
+  return {
+    user: globalState.user
+  }
+}
+
+export default connect(mapStateToProps)(BasicDetails)

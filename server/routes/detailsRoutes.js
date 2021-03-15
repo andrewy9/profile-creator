@@ -13,7 +13,7 @@ router.get('/:id', (req, res) => {
     .catch(() => res.sendStatus(500)) //without this, it will cause reject tests to fail!
 })
 
-router.get('/history/:id', (req,res) => {
+router.get('/history/:id', (req, res) => {
   const id = req.params.id
   db.getUserEmploymentHistory(id)
     .then(response => {
@@ -22,7 +22,7 @@ router.get('/history/:id', (req,res) => {
     .catch(() => res.sendStatus(500)) //without this, it will cause reject tests to fail!
 })
 
-router.get('/oldHistory/:id', (req,res) => {
+router.get('/oldHistory/:id', (req, res) => {
   const id = req.params.id
   db.getUserOldEmploymentHistory(id)
     .then(response => {
@@ -31,7 +31,7 @@ router.get('/oldHistory/:id', (req,res) => {
     .catch(() => res.sendStatus(500)) //without this, it will cause reject tests to fail!
 })
 
-router.get('/education/:id', (req,res) => {
+router.get('/education/:id', (req, res) => {
   const id = req.params.id
   db.getUserEducation(id)
     .then(response => {
@@ -40,6 +40,38 @@ router.get('/education/:id', (req,res) => {
     .catch(() => res.sendStatus(500))
 })
 
+router.post('/formData', (req, res) => {
+  console.log('hello, route')
+  const { employmentHistory, user_id } = req.body
+  console.log('array: ', employmentHistory, user_id)
+  const resonseData = new Array;
+
+  employmentHistory.forEach(history => {
+    const { employer, employmentDate, role, details } = history
+    db.saveEmploymentHistory(employer, employmentDate, role, details, user_id)
+      .then(details => {
+        resonseData.push(details)
+        return null
+      })
+      .catch(() => res.sendStatus(500))
+  })
+  res.status(201).json(resonseData) //json(details) is required to make the result readable for jest testing
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// old
 router.post('/', (req, res) => {
   const { name, phone, email, profile_intro } = req.body
   db.saveDetails(name, phone, email, profile_intro)

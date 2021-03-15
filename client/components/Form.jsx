@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 
-import { postDetailsToDatabase, postOldEmploymentHistoryToDatabase, postEmploymentHistoryToDatabase, postEducationHistoryToDatabase, getDetails } from '../apis/detailsApi'
+import { postFormDataToDatabase, getDetails } from '../apis/detailsApi'
 
 import BasicDetails from './BasicDetails'
 import EmploymentHistory from './EmploymentHistory'
@@ -25,7 +25,7 @@ function Form(props) {
     }
 
     console.log(formData)
-    postFormDataToDatabase(formData.employmentHsitory)
+    postFormDataToDatabase(formData)
 
     // if (props.employmentHistory) {
     //   props.employmentHistory.forEach((history) => {
@@ -61,6 +61,7 @@ function Form(props) {
 
 function mapStateToProps(globalState) {
   return {
+    user: globalState.user,
     details: globalState.details,
     education: globalState.education,
     employmentHistory: globalState.employmentHistory,

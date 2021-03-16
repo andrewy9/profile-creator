@@ -1,6 +1,11 @@
-import {SET_USER} from '../actions'
+import { SET_USER } from '../actions'
 
-const initialState = []
+const initialState = {
+  id: 'test',
+  name: '',
+  email: '',
+  image: ''
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

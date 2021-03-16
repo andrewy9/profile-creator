@@ -5,13 +5,13 @@ import { fetchEmploymentHistory } from '../actions'
 function EmploymentHistory(props) {
   const [state, setState] = useState(
     [{
+      user_id: props.user,
       employer: '',
       employmentDate: '',
       role: '',
       details: ''
     }]
   )
-
 
   useEffect(() => {
     dispatchHandler()
@@ -94,6 +94,10 @@ function EmploymentHistory(props) {
     </div>
   )
 
+}
+
+const mapStateToProps = (globalState) => {
+  user.globalState.user
 }
 
 export default connect()(EmploymentHistory)

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-// import { fetchFormDetails } from '../actions'
-import { postDetailsToDatabase, postOldEmploymentHistoryToDatabase, postEmploymentHistoryToDatabase, postEducationHistoryToDatabase, getDetails } from '../apis/detailsApi'
+
+import { postFormDataToDatabase, getDetails } from '../apis/detailsApi'
 
 import BasicDetails from './BasicDetails'
 import EmploymentHistory from './EmploymentHistory'
@@ -13,33 +13,37 @@ function Form(props) {
 
   const handleSubmit = e => {
     e.preventDefault()
-    const details = {
+    const formData = {
+      user_id: props.user.id,
       name: props.details.name,
       phone: props.details.phone,
       email: props.details.email,
-      profile_intro: props.details.profileIntro
+      profile_intro: props.details.profileIntro,
+      employmentHistory: props.employmentHistory,
+      oldEmploymentHistory: props.oldEmploymentHistory,
+      education: props.education
     }
 
-    postDetailsToDatabase(details)
-    //  getDetails()
+    console.log(formData)
+    postFormDataToDatabase(formData)
 
-    if (props.employmentHistory) {
-      props.employmentHistory.forEach((history) => {
-        return postEmploymentHistoryToDatabase(history)
-      })
-    }
+    // if (props.employmentHistory) {
+    //   props.employmentHistory.forEach((history) => {
+    //     return postEmploymentHistoryToDatabase(history)
+    //   })
+    // }
 
-    if (props.oldEmploymentHistory) {
-      props.oldEmploymentHistory.forEach((history) => {
-        return postOldEmploymentHistoryToDatabase(history)
-      })
-    }
+    // if (props.oldEmploymentHistory) {
+    //   props.oldEmploymentHistory.forEach((history) => {
+    //     return postOldEmploymentHistoryToDatabase(history)
+    //   })
+    // }
 
-    if (props.education) {
-      props.education.forEach((ed) => {
-        return postEducationHistoryToDatabase(ed)
-      })
-    }
+    // if (props.education) {
+    //   props.education.forEach((ed) => {
+    //     return postEducationHistoryToDatabase(ed)
+    //   })
+    // }
   }
 
   return (

@@ -40,10 +40,11 @@ router.get('/education/:id', (req, res) => {
     .catch(() => res.sendStatus(500))
 })
 
-router.post('/employment', (req, res) => {
+router.post('/employmentHistory', (req, res) => {
   console.log('req.body: ', req.body)
   const { employmentHistory, user_id } = req.body
   const { employer, employmentDate, role, details } = employmentHistory
+  console.log('employer: ', employer)
 
   db.saveEmploymentHistory(employer, employmentDate, role, details, user_id)
     .then(details => {
@@ -53,7 +54,7 @@ router.post('/employment', (req, res) => {
     .catch(() => res.sendStatus(500))
 })
 
-router.post('/oldEmployment', (req, res) => {
+router.post('/oldEmploymentHistory', (req, res) => {
   console.log('req.body: ', req.body)
   const { oldEmploymentHistory, user_id } = req.body
   const { oldEmployer, oldEmploymentDate, oldRole } = oldEmploymentHistory

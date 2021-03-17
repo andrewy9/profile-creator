@@ -4,33 +4,34 @@ import request from 'superagent'
 const rootUrl = '/api/v1'
 
 export function postFormDataToDatabase(formData) {
-  const { employmentHistory, oldEmploymentHistory, education, user_id } = formData
-  sendEmploymentHistory(employmentHistory, user_id)
-  sendOldEmploymentHistory(oldEmploymentHistory, user_id)
+  const { user_id } = formData
+  for (const [key, value] of Object.entries(formData)) {
+    console.log(value, typeof value)
+    if (key === 'employmentHistory' || key === 'oldEmploymentHistory')
+      sendData(key, value, user_id)
+  }
 }
 
-export function sendEmploymentHistory(employmentHistory, user_id) {
-  employmentHistory.forEach(el => {
-    return request
-      .post(`${rootUrl}/detailsRoutes/employment`)
-      .send({ employmentHistory: el, user_id })
+export function sendData(key, value, user_id) {
+  console.log(value, typeof value)
+
+  return typeof value === 'object' ?
+    value.forEach(el => {
+      return request
+        .post(`${rootUrl}/detailsRoutes/${key}`)
+        .send({ [key]: el, user_id })
+        .then(res => {
+          console.log('api response - ', res)
+          return res.body
+        })
+    })
+    : request
+      .post(`${rootUrl}/detailsRoutes/${key}`)
+      .send({ [key]: value, user_id })
       .then(res => {
         console.log('api response - ', res)
         return res.body
       })
-  })
-}
-
-export function sendOldEmploymentHistory(oldEmploymentHistory, user_id) {
-  oldEmploymentHistory.forEach(el => {
-    return request
-      .post(`${rootUrl}/detailsRoutes/oldEmployment`)
-      .send({ oldEmploymentHistory: el, user_id })
-      .then(res => {
-        console.log('api response - ', res)
-        return res.body
-      })
-  })
 }
 
 // export function postDetailsToDatabase(details) {

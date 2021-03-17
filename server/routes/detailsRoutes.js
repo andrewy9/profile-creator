@@ -40,32 +40,26 @@ router.get('/education/:id', (req, res) => {
     .catch(() => res.sendStatus(500))
 })
 
-router.post('/employment', (req, res) => {
-  console.log('req.body: ', req.body)
+router.post('/employment', async (req, res) => {
   const { employmentHistory, user_id } = req.body
-  const { employer, employmentDate, role, details } = employmentHistory
 
-  db.saveEmploymentHistory(employer, employmentDate, role, details, user_id)
-    .then(details => {
-      res.status(201).json(details) //json(details) is required to make the result readable for jest testing
-      return null
+  try {
+    const arrayOfResponse = []
+    const responseData = employmentHistory.map(async history => {
+      const response = await db.saveEmploymentHistory(history, user_id)
+      return response
     })
-    .catch(() => res.sendStatus(500))
+    for await (let req of responseData) {
+      arrayOfResponse.push(req[0])
+    }
+    res.status(201).json(arrayOfResponse)
+  }
+  catch (error) {
+    res.sendStatus(500)
+    console.log(error)
+  }
+
 })
-
-router.post('/oldEmployment', (req, res) => {
-  console.log('req.body: ', req.body)
-  const { oldEmploymentHistory, user_id } = req.body
-  const { oldEmployer, oldEmploymentDate, oldRole } = oldEmploymentHistory
-
-  db.saveOldEmploymentHistory(oldEmployer, oldEmploymentDate, oldRole, user_id)
-    .then(details => {
-      res.status(201).json(details) //json(details) is required to make the result readable for jest testing
-      return null
-    })
-    .catch(() => res.sendStatus(500))
-})
-
 
 
 

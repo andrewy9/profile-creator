@@ -10,7 +10,7 @@ function getDetails(db = connection) {
   return db('details').select()
 }
 
-function saveEmploymentHistory(employer, employmentDate, role, details, user_id, db = connection) {
+function saveEmploymentHistory({ employer, employmentDate, role, details }, user_id, db = connection) {
   return db('employment_history')
     .insert({ user_id, employer, employmentDate, role, details })
 }

@@ -40,26 +40,31 @@ router.get('/education/:id', (req, res) => {
     .catch(() => res.sendStatus(500))
 })
 
-router.post('/formData', (req, res) => {
-  console.log('hello, route')
+router.post('/employment', (req, res) => {
+  console.log('req.body: ', req.body)
   const { employmentHistory, user_id } = req.body
-  console.log('array: ', employmentHistory, user_id)
-  const resonseData = new Array;
+  const { employer, employmentDate, role, details } = employmentHistory
 
-  employmentHistory.forEach(history => {
-    const { employer, employmentDate, role, details } = history
-    db.saveEmploymentHistory(employer, employmentDate, role, details, user_id)
-      .then(details => {
-        resonseData.push(details)
-        return null
-      })
-      .catch(() => res.sendStatus(500))
-  })
-  res.status(201).json(resonseData) //json(details) is required to make the result readable for jest testing
+  db.saveEmploymentHistory(employer, employmentDate, role, details, user_id)
+    .then(details => {
+      res.status(201).json(details) //json(details) is required to make the result readable for jest testing
+      return null
+    })
+    .catch(() => res.sendStatus(500))
 })
 
+router.post('/oldEmployment', (req, res) => {
+  console.log('req.body: ', req.body)
+  const { oldEmploymentHistory, user_id } = req.body
+  const { oldEmployer, oldEmploymentDate, oldRole } = oldEmploymentHistory
 
-
+  db.saveOldEmploymentHistory(oldEmployer, oldEmploymentDate, oldRole, user_id)
+    .then(details => {
+      res.status(201).json(details) //json(details) is required to make the result readable for jest testing
+      return null
+    })
+    .catch(() => res.sendStatus(500))
+})
 
 
 

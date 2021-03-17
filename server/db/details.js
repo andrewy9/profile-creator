@@ -15,9 +15,9 @@ function saveEmploymentHistory(employer, employmentDate, role, details, user_id,
     .insert({ user_id, employer, employmentDate, role, details })
 }
 
-function saveOldEmploymentHistory(oldEmployer, oldEmploymentDate, oldRole, db = connection) {
+function saveOldEmploymentHistory(oldEmployer, oldEmploymentDate, oldRole, user_id, db = connection) {
   return db('old_employment_history')
-    .insert({ oldEmployer, oldEmploymentDate, oldRole })
+    .insert({ user_id, oldEmployer, oldEmploymentDate, oldRole })
 }
 
 function saveEducationHistory(provider, qualification, year, db = connection) {

@@ -8,7 +8,6 @@ import EmploymentHistory from './EmploymentHistory'
 import OldEmploymentHistory from './OldEmploymentHistory'
 import Education from './Education'
 
-
 function Form(props) {
 
   const handleSubmit = e => {
@@ -24,26 +23,7 @@ function Form(props) {
       education: props.education
     }
 
-    console.log(formData)
     postFormDataToDatabase(formData)
-
-    // if (props.employmentHistory) {
-    //   props.employmentHistory.forEach((history) => {
-    //     return postEmploymentHistoryToDatabase(history)
-    //   })
-    // }
-
-    // if (props.oldEmploymentHistory) {
-    //   props.oldEmploymentHistory.forEach((history) => {
-    //     return postOldEmploymentHistoryToDatabase(history)
-    //   })
-    // }
-
-    // if (props.education) {
-    //   props.education.forEach((ed) => {
-    //     return postEducationHistoryToDatabase(ed)
-    //   })
-    // }
   }
 
   return (

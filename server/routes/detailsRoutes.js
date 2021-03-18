@@ -42,15 +42,14 @@ router.get('/education/:id', (req, res) => {
 
 router.post('/employment', async (req, res) => {
   const { employmentHistory, user_id } = req.body
-
   try {
-    const arrayOfResponse = []
+    const arrayOfResponse = new Array
     const responseData = employmentHistory.map(async history => {
-      const response = await db.saveEmploymentHistory(history, user_id)
-      return response
+      return await db.saveEmploymentHistory(history, user_id)
     })
-    for await (let req of responseData) {
-      arrayOfResponse.push(req[0])
+
+    for await (let element of responseData) {
+      arrayOfResponse.push(element[0])
     }
     res.status(201).json(arrayOfResponse)
   }
@@ -58,56 +57,62 @@ router.post('/employment', async (req, res) => {
     res.sendStatus(500)
     console.log(error)
   }
-
 })
 
+router.post('/oldEmployment', async (req, res) => {
+  const { oldEmploymentHistory, user_id } = req.body
 
-
-
-
-
-
-
-
-
-/// old
-router.post('/', (req, res) => {
-  const { name, phone, email, profile_intro } = req.body
-  db.saveDetails(name, phone, email, profile_intro)
-    .then(details => {
-      res.status(201).json(details) //json(details) is required to make the result readable for jest testing
-      return null
+  try {
+    const arrayOfResponse = new Array
+    const responseData = oldEmploymentHistory.map(async history => {
+      const response = await db.saveOldEmploymentHistory(history, user_id)
+      return response
     })
-    .catch(() => res.sendStatus(500))
+
+    for await (let el of responseData) {
+      arrayOfResponse.push(el[0])
+    }
+    res.status(201).json(arrayOfResponse)
+  }
+  catch (error) {
+    res.sendStatus(500)
+    console.log(error)
+  }
 })
 
-router.post('/history', (req, res) => {
-  const { employer, employmentDate, role, details } = req.body
-  db.saveEmploymentHistory(employer, employmentDate, role, details)
-    .then(history => {
-      res.status(201).json(history)
-      return null
+
+router.post('/education', async (req, res) => {
+  const { education, user_id } = req.body
+
+  try {
+    const arrayOfResponse = new Array;
+    const responseData = education.map(async data => {
+      const response = await db.saveEducationHistory(data, user_id)
+      return response
     })
-    .catch(() => res.sendStatus(500))
+
+    for await (let el of responseData) {
+      arrayOfResponse.push(el[0])
+    }
+    res.status(201).json(arrayOfResponse)
+  }
+  catch (error) {
+    res.sendStatus(500)
+    console.log(error)
+  }
 })
 
-router.post('/oldHistory', (req, res) => {
-  const { oldEmployer, oldEmploymentDate, oldRole } = req.body
-  db.saveOldEmploymentHistory(oldEmployer, oldEmploymentDate, oldRole)
-    .then(oldHistory => {
-      res.status(201).json(oldHistory)
-    })
-    .catch(() => res.sendStatus(500))
+router.post('/', async (req, res) => {
+  try {
+    const { details, user_id } = req.body
+    const response = await db.saveDetails(details, user_id)
+    res.status(201).json(response) //json(details) is required to make the result readable for jest testing
+    return null
+  }
+  catch (error) {
+    res.sendStatus(500)
+    console.log(error)
+  }
 })
-
-router.post('/education', (req, res) => {
-  const { provider, qualification, year } = req.body
-  db.saveEducationHistory(provider, qualification, year)
-    .then(education => {
-      res.status(201).json(education)
-    })
-    .catch(() => res.sendStatus(500))
-})
-
 
 module.exports = router

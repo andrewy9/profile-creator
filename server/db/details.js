@@ -1,28 +1,28 @@
 const connection = require('./connection')
 
 
-function saveDetails(name, phone, email, profile_intro, db = connection) {
+function saveDetails({ name, phone, email, profile_intro }, user_id, db = connection) {
   return db('details')
-    .insert({ name, phone, email, profile_intro })
+    .insert({ user_id, name, phone, email, profile_intro })
 }
 
 function getDetails(db = connection) {
   return db('details').select()
 }
 
-function saveEmploymentHistory(employer, employmentDate, role, details, user_id, db = connection) {
+function saveEmploymentHistory({ employer, employmentDate, role, details }, user_id, db = connection) {
   return db('employment_history')
     .insert({ user_id, employer, employmentDate, role, details })
 }
 
-function saveOldEmploymentHistory(oldEmployer, oldEmploymentDate, oldRole, user_id, db = connection) {
+function saveOldEmploymentHistory({ oldEmployer, oldEmploymentDate, oldRole }, user_id, db = connection) {
   return db('old_employment_history')
     .insert({ user_id, oldEmployer, oldEmploymentDate, oldRole })
 }
 
-function saveEducationHistory(provider, qualification, year, db = connection) {
+function saveEducationHistory({ provider, qualification, year }, user_id, db = connection) {
   return db('education')
-    .insert({ provider, qualification, year })
+    .insert({ user_id, provider, qualification, year })
 }
 
 //------next test starts here

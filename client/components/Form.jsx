@@ -14,10 +14,12 @@ function Form(props) {
     e.preventDefault()
     const formData = {
       user_id: props.user.id,
-      name: props.details.name,
-      phone: props.details.phone,
-      email: props.details.email,
-      profile_intro: props.details.profileIntro,
+      details: {
+        name: props.details.name,
+        phone: props.details.phone,
+        email: props.details.email,
+        profile_intro: props.details.profileIntro,
+      },
       employmentHistory: props.employmentHistory,
       oldEmploymentHistory: props.oldEmploymentHistory,
       education: props.education

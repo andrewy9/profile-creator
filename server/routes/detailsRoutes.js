@@ -40,8 +40,9 @@ router.get('/education/:id', (req, res) => {
     .catch(() => res.sendStatus(500))
 })
 
-router.post('/employment', async (req, res) => {
+router.post('/employmentHistory', async (req, res) => {
   const { employmentHistory, user_id } = req.body
+  console.log(employmentHistory)
   try {
     const arrayOfResponse = new Array
     const responseData = employmentHistory.map(async history => {
@@ -59,7 +60,7 @@ router.post('/employment', async (req, res) => {
   }
 })
 
-router.post('/oldEmployment', async (req, res) => {
+router.post('/oldEmploymentHistory', async (req, res) => {
   const { oldEmploymentHistory, user_id } = req.body
 
   try {
@@ -102,7 +103,8 @@ router.post('/education', async (req, res) => {
   }
 })
 
-router.post('/', async (req, res) => {
+router.post('/details', async (req, res) => {
+  console.log('reqbody:', req.body)
   try {
     const { details, user_id } = req.body
     const response = await db.saveDetails(details, user_id)

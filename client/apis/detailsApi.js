@@ -3,48 +3,23 @@ import request from 'superagent'
 const rootUrl = '/api/v1'
 
 export function postFormDataToDatabase(formData) {
-  const { employmentHistory, oldEmploymentHistory, education, user_id, ...details } = formData
-  sendEmploymentHistory(employmentHistory, user_id)
-  sendOldEmploymentHistory(oldEmploymentHistory, user_id)
-  postEducationHistoryToDatabase(education, user_id)
-  postDetailsToDatabase(details, user_id)
+  const { user_id } = formData
+  for (const [key, value] of Object.entries(formData)) {
+    if (key !== 'user_id')
+      sendData(key, value, user_id)
+  }
 }
 
-export function sendEmploymentHistory(employmentHistory, user_id) {
+export function sendData(key, value, user_id) {
   return request
-    .post(`${rootUrl}/detailsRoutes/employment`)
-    .send({ employmentHistory, user_id })
+    .post(`${rootUrl}/detailsRoutes/${key}`)
+    .send({ [key]: value, user_id })
     .then(res => {
+      console.log('api response - ', res)
       return res.body
     })
 }
 
-export function sendOldEmploymentHistory(oldEmploymentHistory, user_id) {
-  return request
-    .post(`${rootUrl}/detailsRoutes/oldEmployment`)
-    .send({ oldEmploymentHistory, user_id })
-    .then(res => {
-      return res.body
-    })
-}
-
-export function postEducationHistoryToDatabase(education, user_id) {
-  return request
-    .post(`${rootUrl}/detailsRoutes/education`)
-    .send({ education, user_id })
-    .then(res => {
-      return res.body
-    })
-}
-
-export function postDetailsToDatabase(details, user_id) {
-  return request
-    .post(`${rootUrl}/detailsRoutes`)
-    .send({ details, user_id })
-    .then(res => {
-      return res.body
-    })
-}
 
 export function getDetails() {
   return request

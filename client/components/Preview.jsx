@@ -5,6 +5,7 @@ function Preview(props) {
 
   return (
     <div className='preview'>
+   
       <p>{props.details.name}</p>
       <p>{props.details.phone}</p>
       <p>{props.details.email}</p>

@@ -6,6 +6,7 @@ exports.up = function (knex) {
     .references('user.id')
     .index()
     .onDelete("CASCADE")
+    table.string('profile_name')
     table.string('provider')
     table.string('qualification')
     table.string('year')

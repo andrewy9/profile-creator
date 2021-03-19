@@ -4,15 +4,13 @@ const rootUrl = '/api/v1'
 
 export function postFormDataToDatabase(formData) {
   const { profile_name, user_id } = formData
-  console.log(profile_name)
   for (const [key, value] of Object.entries(formData)) {
     if (key !== 'user_id' && key !== 'profile_name')
       sendData(key, value, user_id, profile_name)
   }
 }
 
-export function sendData(key, value, user_id, profile_name) {
-  console.log(key)
+function sendData(key, value, user_id, profile_name) {
   return request
     .post(`${rootUrl}/detailsRoutes/${key}`)
     .send({ [key]: value, user_id, profile_name })
@@ -22,17 +20,30 @@ export function sendData(key, value, user_id, profile_name) {
     })
 }
 
-
 export function getSavedData(user_id, profile_name) {
- const routes = [employment, old, education]
+  const formData = {
+    //   // details: '',
+    //   // profile_intro: '',
+    employmentHistory: [],
+    // oldEmploymentHistory: [],
+    education: []
+  }
 
- routes.forEach(el => {
-   return request
-     .get(`${rootUrl}/detailsRoutes/${el}/${user_id}/${profile_name}`)
-     .then(res => {
-       console.log(res.body)
-       return res.body
-     })
+  const retrievedData = Object.keys(formData).map(key => {
+    return retrieveSavedData(key, formData, user_id, profile_name)
+  })
 
- })
+  return Promise.all(retrievedData).then(res => {
+    console.log('api side: ', res)
+    return res
+  })
+}
+
+function retrieveSavedData(key, formData, user_id, profile_name) {
+  return request
+    .get(`${rootUrl}/detailsRoutes/${key}/${user_id}/${profile_name}`)
+    .then(res => {
+      formData[key] = res.body
+      return formData
+    })
 }

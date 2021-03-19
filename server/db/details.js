@@ -37,27 +37,27 @@ function saveEducationHistory({ provider, qualification, year }, user_id, profil
 function getUserDetails(id, profile_name, db = connection) {
   return db('users')
     .join('details', 'users.id', 'details.user_id')
-    .where({ 'users.id': id , 'details.profile_name': profile_name})
+    .where({ 'users.id': id, 'details.profile_name': profile_name })
     .select('user_id', 'name', 'phone', 'email', 'profile_intro', 'profile_name')
 }
 
 function getUserEmploymentHistory(id, profile_name, db = connection) {
   return db('users')
-    .join('employment_history', 'users.id', 'employment_history.user_id', 'profile_name')
-    .where({ 'users.id': id , 'employment_history.profile_name': profile_name})
+    .join('employment_history', 'users.id', 'employment_history.user_id')
+    .where({ 'users.id': id, 'employment_history.profile_name': profile_name })
     .select('user_id', 'profile_name', 'employer', 'employmentDate', 'role', 'details')
 }
 
 function getUserOldEmploymentHistory(id, profile_name, db = connection) {
   return db('users')
-    .join('old_employment_history', 'users.id', 'old_employment_history.user_id', 'profile_name')
-    .where({ 'users.id': id, 'old_employment_history.profile_name': profile_name})
-    .select('user_id', 'profile_name', 'old_employer', 'old_employment_date', 'old_role')
+    .join('old_employment_history', 'users.id', 'old_employment_history.user_id')
+    .where({ 'users.id': id, 'old_employment_history.profile_name': profile_name })
+    .select('user_id', 'profile_name', 'oldEmployer', 'oldEmploymentDate', 'oldRole')
 }
 
 function getUserEducation(id, profile_name, db = connection) {
   return db('users')
-    .join('education', 'users.id', 'education.user_id', 'profile_name')
+    .join('education', 'users.id', 'education.user_id')
     .where({ 'users.id': id, 'education.profile_name': profile_name })
     .select('user_id', 'profile_name', 'provider', 'qualification', 'year')
 }

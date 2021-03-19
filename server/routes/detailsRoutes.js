@@ -4,7 +4,7 @@ const db = require('../db/details')
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
+router.get('/details', (req, res) => {
   db.loadData()
 })
 
@@ -18,22 +18,23 @@ router.get('/:id/:profile_name', (req, res) => {
     .catch(() => res.sendStatus(500)) //without this, it will cause reject tests to fail!
 })
 
-router.get('/history/:id/:profile_name', (req, res) => {
+router.get('/employmentHistory/:id/:profile_name', (req, res) => {
   const id = req.params.id
   const profile_name = req.params.profile_name
   db.getUserEmploymentHistory(id, profile_name)
     .then(response => {
-      console.log(response)
       res.json(response)
     })
     .catch(() => res.sendStatus(500)) //without this, it will cause reject tests to fail!
 })
 
-router.get('/oldHistory/:id/:profile_name', (req, res) => {
+router.get('/oldEmploymentHistory/:id/:profile_name', (req, res) => {
+  console.log('hit')
   const id = req.params.id
   const profile_name = req.params.profile_name
   db.getUserOldEmploymentHistory(id, profile_name)
     .then(response => {
+      console.log(response)
       res.json(response)
     })
     .catch(() => res.sendStatus(500)) //without this, it will cause reject tests to fail!
@@ -46,7 +47,10 @@ router.get('/education/:id/:profile_name', (req, res) => {
     .then(response => {
       res.json(response)
     })
-    .catch(() => res.sendStatus(500))
+    .catch((error) => {
+      console.log(error)
+      res.sendStatus(500)
+    })
 })
 
 router.post('/employmentHistory', async (req, res) => {

@@ -20,18 +20,17 @@ function FinalView(props) {
     getProfiles(props.user.id)
       .then(profile => {
         console.log('profile data in FinalView:', profile)
-        getSavedData(1, 'profile1')
-          .then(data => {
-            console.log('saved data in FinalView:', data)
-            setState({data, profile})
-          })
-
-        // setState({...state, profile})
+        setState({...state, profile})
       })
-  }, [])
-
-  function selectProfile(e) {
-    e.preventDefault()
+    }, [])
+    
+    function selectProfile(e) {
+      e.preventDefault()
+      getSavedData(props.user.id, e.target.value)
+        .then(data => {
+          console.log('saved data in FinalView:', data)
+          setState({...state, data})
+        })
   }
 
   return (

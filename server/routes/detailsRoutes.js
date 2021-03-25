@@ -9,6 +9,7 @@ router.get('/details/:id/:profile_name', (req, res) => {
   const profile_name = req.params.profile_name
   db.getUserDetails(id, profile_name)
     .then(response => {
+      console.log('get details:', response)
       res.json(response)
     })
     .catch(() => res.sendStatus(500)) //without this, it will cause reject tests to fail!
@@ -19,18 +20,18 @@ router.get('/employmentHistory/:id/:profile_name', (req, res) => {
   const profile_name = req.params.profile_name
   db.getUserEmploymentHistory(id, profile_name)
     .then(response => {
+      console.log('get employment:', response)
       res.json(response)
     })
     .catch(() => res.sendStatus(500)) //without this, it will cause reject tests to fail!
 })
 
 router.get('/oldEmploymentHistory/:id/:profile_name', (req, res) => {
-  console.log('hit')
   const id = req.params.id
   const profile_name = req.params.profile_name
   db.getUserOldEmploymentHistory(id, profile_name)
     .then(response => {
-      console.log(response)
+      console.log('get oldemployment:', response)
       res.json(response)
     })
     .catch(() => res.sendStatus(500)) //without this, it will cause reject tests to fail!
@@ -41,6 +42,7 @@ router.get('/education/:id/:profile_name', (req, res) => {
   const profile_name = req.params.profile_name
   db.getUserEducation(id, profile_name)
     .then(response => {
+      console.log('get education:', response)
       res.json(response)
     })
     .catch((error) => {
@@ -64,7 +66,6 @@ router.get('/education', (req, res) => {
 
 router.post('/employmentHistory', async (req, res) => {
   const { employmentHistory, user_id, profile_name } = req.body
-  console.log(employmentHistory)
   try {
     const arrayOfResponse = new Array
     const responseData = employmentHistory.map(async history => {
@@ -126,7 +127,6 @@ router.post('/education', async (req, res) => {
 })
 
 router.post('/details', async (req, res) => {
-  console.log('reqbody:', req.body)
   try {
     const { details, user_id, profile_name } = req.body
     const response = await db.saveDetails(details, user_id, profile_name)
@@ -137,6 +137,18 @@ router.post('/details', async (req, res) => {
     res.sendStatus(500)
     console.log(error)
   }
+})
+
+router.get('/profiles/:id', (req, res) => {
+  const id = req.params.id
+  db.getProfiles(id)
+    .then(response => {
+      return res.json(response)
+    })
+    .catch((error) => {
+      console.log(error)
+      res.sendStatus(500)
+    })
 })
 
 module.exports = router

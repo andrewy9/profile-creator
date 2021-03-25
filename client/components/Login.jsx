@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
 import { fetchUser } from '../actions'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import Form from './Form'
+import Preview from './Preview'
+import FinalView from './FinalView'
 
 function Login(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -70,6 +73,13 @@ function AuthenticatedView({ user, logout }) {
         buttonText="Logout"
         onLogoutSuccess={logout}
       />
+      <div className='form-div'>
+          <Form />
+        </div>
+        <div className='preview-div'>
+          <Preview />
+          <FinalView />
+        </div>
     </div>
   )
 }

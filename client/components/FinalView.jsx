@@ -1,62 +1,105 @@
 import React, { useEffect, useState } from 'react'
-import { getSavedData, getEducation } from '../apis/detailsApi'
+import { getSavedData, getProfiles } from '../apis/detailsApi'
 import { connect } from 'react-redux'
 
-function FinalView() {
+function FinalView(props) {
   const [state, setState] = useState({
     data: {
-      details: {},
+      details: [],
       employmentHistory: [],
       oldEmploymentHistory: [],
       education: ['original']
-    }
-    // education: []
-  }, console.log('STATE SET'))
-  console.log('state: ', state)
+    },
+    profile: [],
+  })
 
-  //state = {
-  //profile: the one you have selected
-  //}
-  //List of profile_names for your specific id
-
-  //when you click on one of the profile_names, it sets the state to that info
-
-  //function gets the info uses the state to determine which profile is being searched for 
-  // const data = getSavedData(1, 'profile1')
-
+// user id props.user.id
+// profile name
 
   useEffect(() => {
-    console.log('USE EFFECT')
-    getSavedData(1, 'profile1')
-      .then(res => {
-        console.log(res)
-        setState({ data: res })
+    getProfiles(props.user.id)
+      .then(profile => {
+        console.log('profile data in FinalView:', profile)
+        setState({...state, profile})
       })
-  }, [])
+    }, [])
+    
+    function selectProfile(e) {
+      e.preventDefault()
+      getSavedData(props.user.id, e.target.value)
+        .then(data => {
+          console.log('saved data in FinalView:', data)
+          setState({...state, data})
+        })
+  }
 
   return (
-    <div>
-      {console.log('just rendered')}
-      <h1>hello</h1>
-      {/* {console.log('after render', state.data.employmentHistory)}
-      {console.log('after render', state.data.employmentHistory[0])} */}
-      {console.log('after render', state.data.education[0])}
-      {state.data.education.map((el, idx) => {
-        return <p key={idx}>{el.qualification}</p>
+    <>
+    <h1>Select your profile</h1>
+      {state.profile.map((el,idx) => { 
+        return <button key={idx} value={el.profile_name} onClick={selectProfile}>{el.profile_name}</button>
       })}
-      <p>state should be rendered above</p>
-    </div>
+
+      <h2>Details</h2>
+      {state.data.details.map((el, idx) => {
+        return <div key={idx}>
+          <p>{el.name}</p>
+          <p>Ph: {el.phone}</p>
+          <p>Email:{el.email}</p>
+          <div>
+            <h2>Intro</h2>
+            <p>{el.profile_intro}</p>
+          </div>
+        </div>
+      })}
+
+      <h2>Education History</h2>
+      {state.data.education.map((el, idx) => {
+        return <div key={idx}>
+          <div>
+            <h4>Education Provider</h4>
+            <p>{el.provider} - {el.year}</p>
+          </div>
+          <div>
+            <h4>Qualification</h4>
+            <p>{el.qualification}</p>
+          </div>
+        </div>
+      })}
+      <div>
+        <h2>Employment History</h2>
+        {state.data.employmentHistory.map((el, idx) => {
+          return <div key={idx}>
+            <h4>Employer</h4>
+            <p>{el.employer} - {el.oldEmploymentDate}</p>
+            <p>{el.role}</p>
+            <p>{el.details}</p>
+          </div>
+        })}
+
+        {state.data.oldEmploymentHistory.map((el, idx) => {
+          return <div key={idx}>
+            <h4>Previous Employer</h4>
+            <p>{el.oldEmployer} - {el.oldEmploymentDate}</p>
+            <p>{el.oldRole}</p>
+          </div>
+        })}
+        <p>state should be rendered above</p>
+      </div>
+
+    </>
   )
 }
 
 function mapStateToProps(globalState) {
   return {
     user: globalState.user,
-    details: globalState.details,
-    education: globalState.education,
-    employmentHistory: globalState.employmentHistory,
-    oldEmploymentHistory: globalState.oldEmploymentHistory
+    // details: globalState.details,
+    // education: globalState.education,
+    // employmentHistory: globalState.employmentHistory,
+    // oldEmploymentHistory: globalState.oldEmploymentHistory
   }
 }
 
 export default connect(mapStateToProps)(FinalView)
+// export default FinalView

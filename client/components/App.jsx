@@ -23,13 +23,7 @@ export class App extends React.Component {
         <div className='google-button-div'>
           <Login />
         </div>
-        <div className='form-div'>
-          <Form />
-        </div>
-        <div className='preview-div'>
-          <Preview />
-          <FinalView />
-        </div>
+        
       </div>
     )
   }

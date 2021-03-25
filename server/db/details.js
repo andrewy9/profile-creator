@@ -35,13 +35,14 @@ function saveEducationHistory({ provider, qualification, year }, user_id, profil
 //------next test starts here
 //one user can have multiple details for different cvs
 function getUserDetails(id, profile_name, db = connection) {
+  console.log('db', id, profile_name)
   return db('details')
-    .where({ 'users_id': id, 'profile_name': profile_name })
+    .where({ 'user_id': id, 'profile_name': profile_name })
     .select('user_id', 'name', 'phone', 'email', 'profile_intro', 'profile_name')
 }
 
 function getUserEmploymentHistory(id, profile_name, db = connection) {
-  return db('employmnet_history')
+  return db('employment_history')
     .where({ 'user_id': id, 'profile_name': profile_name })
     .select('user_id', 'profile_name', 'employer', 'employmentDate', 'role', 'details')
 }

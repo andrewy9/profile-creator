@@ -12,29 +12,26 @@ function FinalView(props) {
     },
     profile: [],
   })
-console.log(state)
 
 // user id props.user.id
 // profile name
-console.log(props.user.id)
 
   useEffect(() => {
     getProfiles(props.user.id)
       .then(profile => {
-        setState({...state, profile})
+        console.log('profile data in FinalView:', profile)
+        getSavedData(1, 'profile1')
+          .then(data => {
+            console.log('saved data in FinalView:', data)
+            setState({data, profile})
+          })
+
+        // setState({...state, profile})
       })
-    // console.log('USE EFFECT')
   }, [])
 
   function selectProfile(e) {
     e.preventDefault()
-    console.log(props.user.id, e.target.value)
-    console.log('button clicked', e.target.value)
-    getSavedData(props.user.id, e.target.value)
-      .then(res => {
-        console.log(res)
-        setState({...state, data: res})
-      })
   }
 
   return (

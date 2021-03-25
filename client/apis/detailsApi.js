@@ -20,7 +20,6 @@ function sendData(key, value, user_id, profile_name) {
 }
 
 export function getSavedData(user_id, profile_name) {
-  console.log('api arguments:', user_id, profile_name)
   const formData = {
     details: [],
     employmentHistory: [],
@@ -42,8 +41,8 @@ function retrieveSavedData(key, formData, user_id, profile_name) {
   return request
     .get(`${rootUrl}/detailsRoutes/${key}/${user_id}/${profile_name}`)
     .then(res => {
+      console.log( 'api get response:', key, res.body)
       formData[key] = res.body
-      console.log('formData', formData)
       return formData
     })
 }
@@ -52,6 +51,5 @@ export function getProfiles(userId) {
   return request
     .get(`${rootUrl}/detailsRoutes/profiles/${userId}`)
     .then(res => {
-      console.log(res.body)
       return res.body})
 }

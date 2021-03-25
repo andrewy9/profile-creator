@@ -74,6 +74,4 @@ function AuthenticatedView({ user, logout }) {
   )
 }
 
-
-
 export default connect()(Login)

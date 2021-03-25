@@ -4,11 +4,7 @@ const db = require('../db/details')
 
 const router = express.Router()
 
-router.get('/details', (req, res) => {
-  db.loadData()
-})
-
-router.get('/:id/:profile_name', (req, res) => {
+router.get('/details/:id/:profile_name', (req, res) => {
   const id = req.params.id
   const profile_name = req.params.profile_name
   db.getUserDetails(id, profile_name)
@@ -52,6 +48,19 @@ router.get('/education/:id/:profile_name', (req, res) => {
       res.sendStatus(500)
     })
 })
+
+//test route for returning data to the final view
+router.get('/education', (req, res) => {
+  db.getEducation()
+    .then(response => {
+      return res.json(response)
+    })
+    .catch((error) => {
+      console.log(error)
+      res.sendStatus(500)
+    })
+})
+//////////////////////////////////////////////////
 
 router.post('/employmentHistory', async (req, res) => {
   const { employmentHistory, user_id, profile_name } = req.body

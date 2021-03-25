@@ -15,17 +15,15 @@ function sendData(key, value, user_id, profile_name) {
     .post(`${rootUrl}/detailsRoutes/${key}`)
     .send({ [key]: value, user_id, profile_name })
     .then(res => {
-      // console.log('api response - ', res)
       return res.body
     })
 }
 
 export function getSavedData(user_id, profile_name) {
   const formData = {
-    //   // details: '',
-    //   // profile_intro: '',
+    details: {},
     employmentHistory: [],
-    // oldEmploymentHistory: [],
+    oldEmploymentHistory: [],
     education: []
   }
 
@@ -34,8 +32,7 @@ export function getSavedData(user_id, profile_name) {
   })
 
   return Promise.all(retrievedData).then(res => {
-    console.log('api side: ', res)
-    return res
+    return res[0]
   })
 }
 

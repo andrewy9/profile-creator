@@ -62,6 +62,11 @@ function getUserEducation(id, profile_name, db = connection) {
     .select('user_id', 'profile_name', 'provider', 'qualification', 'year')
 }
 
+function getEducation(db = connection) {
+  return db('education')
+    .select()
+}
+
 module.exports = {
   loadData,
   getUserDetails,
@@ -73,4 +78,5 @@ module.exports = {
   saveEmploymentHistory,
   saveOldEmploymentHistory,
   saveEducationHistory,
+  getEducation
 }

@@ -5,10 +5,12 @@ const db = require('../db/details')
 const router = express.Router()
 
 router.get('/details/:id/:profile_name', (req, res) => {
+  console.log('reabody', req.params)
   const id = req.params.id
   const profile_name = req.params.profile_name
   db.getUserDetails(id, profile_name)
     .then(response => {
+      console.log('res', response)
       res.json(response)
     })
     .catch(() => res.sendStatus(500)) //without this, it will cause reject tests to fail!
@@ -137,6 +139,18 @@ router.post('/details', async (req, res) => {
     res.sendStatus(500)
     console.log(error)
   }
+})
+
+router.get('/profiles/:id', (req, res) => {
+  const id = req.params.id
+  db.getProfiles(id)
+    .then(response => {
+      return res.json(response)
+    })
+    .catch((error) => {
+      console.log(error)
+      res.sendStatus(500)
+    })
 })
 
 module.exports = router

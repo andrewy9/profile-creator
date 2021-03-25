@@ -1,7 +1,7 @@
 import { SET_USER } from '../actions'
 
 const initialState = {
-  id: 'test',
+  id: 'before change',
   name: '',
   email: '',
   image: ''

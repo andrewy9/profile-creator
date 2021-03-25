@@ -9,10 +9,15 @@ import OldEmploymentHistory from './OldEmploymentHistory'
 import Education from './Education'
 
 function Form(props) {
+  const [state, setState] = useState({
+    profileName: ''
+  })
 
   const handleSubmit = e => {
     e.preventDefault()
+    //set state = {new profile id, new profile name}
     const formData = {
+      profile_name: state.profileName,
       user_id: props.user.id,
       details: {
         name: props.details.name,
@@ -28,9 +33,16 @@ function Form(props) {
     postFormDataToDatabase(formData)
   }
 
+  const handleChange = e => {
+    const { name, value } = e.target
+    setState({ ...state, [name]: value })
+  }
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        <label>CV Profile Name: </label>
+        <input type='text' name='profileName' value={state.profileName} onChange={handleChange}></input>
         <BasicDetails />
         <EmploymentHistory />
         <OldEmploymentHistory />

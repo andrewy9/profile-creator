@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 
 import Form from './Form'
 import Preview from './Preview'
+import FinalView from './FinalView'
 import Login from './Login'
 
 export class App extends React.Component {
@@ -27,6 +28,7 @@ export class App extends React.Component {
         </div>
         <div className='preview-div'>
           <Preview />
+          <FinalView />
         </div>
       </div>
     )

@@ -38,6 +38,7 @@ button, #submit {
 
 input {
   margin-top: 15px;
+  outline: none;
 }
 
 .preview {

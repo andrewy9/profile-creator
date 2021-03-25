@@ -5,7 +5,6 @@ import { fetchEmploymentHistory } from '../actions'
 function EmploymentHistory(props) {
   const [state, setState] = useState(
     [{
-      user_id: props.user,
       employer: '',
       employmentDate: '',
       role: '',

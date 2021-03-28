@@ -1,37 +1,85 @@
 // feat.캐이트 배이야, 사라 노울즈, 앤드류 양
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
+import { fetchUser } from '../actions'
+import { GoogleLogin} from 'react-google-login';
+import {HashRouter as Router, Route} from 'react-router-dom'
 
-
-import Form from './Form'
-import Preview from './Preview'
 import FinalView from './FinalView'
-import Login from './Login'
+import Home from './Home'
+import Nav from './Nav'
 
-export class App extends React.Component {
-  state = {
-    fruits: []
+function App(props) {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState({
+    id: '',
+    name: '',
+    email: '',
+    image: ''
+  });
+
+  const responseGoogle = (response) => {
+    const profile = response.getBasicProfile()
+
+    setUser({
+      id: profile.getId(),
+      name: profile.getName(),
+      email: profile.getEmail(),
+      image: profile.getImageUrl(),
+    })
   }
 
-  componentDidMount() {
+  const logout = () => {
+    setUser({
+      id: '',
+      name: '',
+      email: '',
+      image: ''
+    })
   }
 
-  render() {
-    return (
-      <div className='app'>
-        <h1>Profile Creator</h1>
-        <div className='google-button-div'>
-          <Login />
+  useEffect(() => {
+    user.name ? setIsAuthenticated(true) : setIsAuthenticated(false)
+    props.dispatch(fetchUser(user))
+  }, [user])
+
+  return (
+    <div className='app'>
+      {isAuthenticated ? <AuthenticatedView logout={logout} user={user} setUser={setUser} /> : <UnAuthenticatedView responseGoogle={responseGoogle} />}
+    </div>
+  )
+
+}
+
+function UnAuthenticatedView({ responseGoogle }) {
+  return (
+    < div className='google-login' >
+      <GoogleLogin
+        clientId='729329557892-e3l8r6ainb4abrevis8c7jhh3acklrf2.apps.googleusercontent.com'
+        buttonText="Login"
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle}
+        isSignedIn={true}
+        cookiePolicy={'single_host_origin'}
+      />
+    </div >
+  )
+}
+
+function AuthenticatedView({ user, logout }) {
+  return (
+    <>
+    <Router>
+        <Nav logout={logout}/>
+        <div className="hero-body">
+          <div className="container">
+          <Route path='/finalView' component={FinalView}/>
+          <Route path='/' exact={true} component={Home}/>
+          </div>          
         </div>
-        
-      </div>
-    )
-  }
+        </Router>
+    </>
+  )
 }
 
-function mapStateToProps(globalState) {
-  return {
-  }
-}
-
-export default connect(mapStateToProps)(App)
+export default connect()(App)

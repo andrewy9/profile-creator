@@ -44,40 +44,46 @@ function Education(props) {
         state.map((el, idx) => {
           return (
             <div key={idx}>
-              <label>Provider:</label>
-              <input
-                type='text'
-                id={idx}
-                className='education'
-                name='provider'
-                value={el.provider}
-                onChange={handleChange}>
-              </input>
-
-              <label>Qualification:</label>
-              <input
-                type='text'
-                id={idx}
-                className='education'
-                name='qualification'
-                value={el.qualification}
-                onChange={handleChange}>
-              </input>
-
-              <label>Year:</label>
-              <input
-                type='text'
-                id={idx}
-                className='education'
-                name='year'
-                value={el.year}
-                onChange={handleChange}>
-              </input>
+              <label className='label'>Provider:</label>
+              <div className="control">
+                <input
+                  type='text'
+                  id={idx}
+                  className='education input is-small'
+                  name='provider'
+                  value={el.provider}
+                  onChange={handleChange}>
+                </input>
+              </div>
+              <label className='label'>Qualification:</label>
+              <div className="control">
+                <input
+                  type='text'
+                  id={idx}
+                  className='education input is-small'
+                  name='qualification'
+                  value={el.qualification}
+                  onChange={handleChange}>
+                </input>
+              </div>
+              <label className='label'>Year:</label>
+              <div className="control">
+                <input
+                  type='text'
+                  id={idx}
+                  className='education input is-small'
+                  name='year'
+                  value={el.year}
+                  onChange={handleChange}>
+                </input>
+              </div>
             </div>
           )
         })
       }
-      <button className='addEducation' type='button' onClick={addMore}>Add More</button>
+      <div className="control">
+        <button className='addEducation button is-small' type='button' onClick={addMore}>Add More</button>
+      </div>
     </div>
   )
 }

@@ -47,41 +47,49 @@ function OldEmploymentHistory(props) {
         state.map((el, idx) => {
           return (
             <div key={idx}>
-              <label>Employer #{idx + 1}:</label>
-              <input
-                type='text'
-                id={idx}
-                className="oldEmploymentHistory"
-                name="oldEmployer"
-                value={el.oldEmployer}
-                onChange={handleChange}>
-              </input>
+              <label className='label'>Employer #{idx + 1}:</label>
+              <div className='control'>
+                <input
+                  type='text'
+                  id={idx}
+                  className="oldEmploymentHistory input is-small"
+                  name="oldEmployer"
+                  value={el.oldEmployer}
+                  onChange={handleChange}>
+                </input>
+              </div>
 
-              <label>Employment Date</label>
-              <input
-                type='text'
-                id={idx}
-                className="oldEmploymentHistory"
-                name="oldEmploymentDate"
-                value={el.oldEmploymentDate}
-                onChange={handleChange}>
-              </input>
+              <label className='label'>Employment Date</label>
+              <div className='control'>
+                <input
+                  type='text'
+                  id={idx}
+                  className="oldEmploymentHistory input is-small"
+                  name="oldEmploymentDate"
+                  value={el.oldEmploymentDate}
+                  onChange={handleChange}>
+                </input>
+              </div>
 
-              <label>Role:</label>
-              <input
-                type='text'
-                id={idx}
-                className="oldEmploymentHistory"
-                name="oldRole"
-                value={el.oldRole}
-                onChange={handleChange}>
-              </input>
+              <label className='label'>Role:</label>
+              <div className='control'>
+                <input
+                  type='text'
+                  id={idx}
+                  className="oldEmploymentHistory input is-small"
+                  name="oldRole"
+                  value={el.oldRole}
+                  onChange={handleChange}>
+                </input>
+              </div>
             </div>
           )
         })
       }
-      <button className='addOldEmploymentHistory' type='button' onClick={addMore}>Add More</button>
-    </div >
+      <div className="control">
+        <button className='addOldEmploymentHistory button is-small' type='button' onClick={addMore}>Add More</button>
+      </div >
+    </div>
   )
 }
 export default connect()(OldEmploymentHistory)

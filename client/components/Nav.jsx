@@ -5,7 +5,8 @@ import {GoogleLogout } from 'react-google-login';
 export default function Nav ({logout}) {
   return (
     <div className="hero-head">
-          <nav className="navbar">
+      <div className='box'>
+          <nav className="navbar has-shadow is-fixed-top">
             <div className="container">
               <div className="navbar-brand">
                 <Link to='/' className="navbar-item">
@@ -29,6 +30,7 @@ export default function Nav ({logout}) {
               </div>
             </div>
           </nav>
+          </div>
         </div>
   )
 }

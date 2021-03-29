@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
 import { fetchUser } from '../actions'
-import { GoogleLogin} from 'react-google-login';
-import {HashRouter as Router, Route} from 'react-router-dom'
+import { GoogleLogin } from 'react-google-login';
+import { HashRouter as Router, Route } from 'react-router-dom'
 
 import FinalView from './FinalView'
 import Home from './Home'
@@ -36,6 +36,7 @@ function App(props) {
       email: '',
       image: ''
     })
+    console.log('logged out')
   }
 
   useEffect(() => {
@@ -53,31 +54,38 @@ function App(props) {
 
 function UnAuthenticatedView({ responseGoogle }) {
   return (
-    < div className='google-login' >
-      <GoogleLogin
-        clientId='729329557892-e3l8r6ainb4abrevis8c7jhh3acklrf2.apps.googleusercontent.com'
-        buttonText="Login"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
-        isSignedIn={true}
-        cookiePolicy={'single_host_origin'}
-      />
-    </div >
+    <Router>
+      < div className='google-login' >
+        <Nav />
+        <div className="hero-body">
+          <div className="container">
+            <GoogleLogin
+              clientId='729329557892-e3l8r6ainb4abrevis8c7jhh3acklrf2.apps.googleusercontent.com'
+              buttonText="Login"
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              isSignedIn={true}
+              cookiePolicy={'single_host_origin'}
+            />
+          </div>
+        </div>
+      </div>
+    </Router >
   )
 }
 
 function AuthenticatedView({ user, logout }) {
   return (
     <>
-    <Router>
-        <Nav logout={logout}/>
+      <Router>
+        <Nav logout={logout} />
         <div className="hero-body">
           <div className="container">
-          <Route path='/finalView' component={FinalView}/>
-          <Route path='/' exact={true} component={Home}/>
-          </div>          
+            <Route path='/finalView' component={FinalView} />
+            <Route path='/' exact={true} component={Home} />
+          </div>
         </div>
-        </Router>
+      </Router>
     </>
   )
 }

@@ -39,17 +39,35 @@ function Form(props) {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>CV Profile Name: </label>
-        <input type='text' name='profileName' value={state.profileName} onChange={handleChange}></input>
-        <BasicDetails />
-        <EmploymentHistory />
-        <OldEmploymentHistory />
-        <Education />
-        <input id='submit' type='submit' value='Submit' />
-      </form>
-    </div>
+    <>
+      <div className="tile is-ancestor">
+        <div className="tile is-parent">
+          <article className="tile is-child box">
+            <div className="field">
+              <form onSubmit={handleSubmit}>
+                <div className="content">
+                  <label className='label'>CV Profile Name: </label>
+                </div>
+                <div className="field-body block">
+                  <div className='field'>
+                    <div className='control'>
+                      <input className='input is-small is-hovered' type='text' name='profileName' value={state.profileName} onChange={handleChange}></input>
+                    </div>
+                  </div>
+                </div>
+                <BasicDetails />
+                <EmploymentHistory />
+                <OldEmploymentHistory />
+                <Education />
+                <div className="control">
+                  <input className='button is-fullwidth is-small' id='submit' type='submit' value='Submit' />
+                </div>
+              </form>
+            </div>
+          </article>
+        </div>
+      </div>
+    </>
   )
 }
 

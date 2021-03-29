@@ -27,21 +27,28 @@ function BasicDetails(props) {
   }
 
   return (
-    <div>
-      <div className='basicDetails' >
+    <div className='content'>
+      <div className='basicDetails'>
         <h3>Basic Details</h3>
-        <label id="Name">Name:</label>
-        <input aria-labelledby="Name" type='text' name="name" id={0} value={state.name} onChange={handleChange}></input>
-        <label>Phone:</label>
-        <input type='text' name="phone" id={1} value={state.phone} onChange={handleChange}></input>
-        <label>Email:</label>
-        <input type='text' name="email" id={2} value={state.email} onChange={handleChange}></input>
+        <label id="Name" className="label">Name:</label>
+        <div className="control is-expanded">
+        <input aria-labelledby="Name" className='input is-small' type='text' name="name" id={0} value={state.name} onChange={handleChange}></input>
+        </div>
+        <label className="label">Phone:</label>
+        <div className="control">
+        <input className='input is-small' type='text' name="phone" id={1} value={state.phone} onChange={handleChange}></input>
+        </div>
+        <label className="label">Email:</label>
+        <div className="control">
+        <input className='input is-small' type='text' name="email" id={2} value={state.email} onChange={handleChange}></input>
+        </div>
       </div >
 
       <div className='profileIntro'>
-        <h3>Profile Intro</h3>
-        <label>Profile Intro:</label>
-        <input type='text' name="profileIntro" value={state.profileIntro} onChange={handleChange}></input>
+        <label className="label">Profile Intro:</label>
+        <div className="control">
+        <textarea className='textarea is-small' type='text' name="profileIntro" value={state.profileIntro} onChange={handleChange}></textarea>
+        </div>
       </div>
     </div>
   )

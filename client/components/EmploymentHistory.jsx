@@ -42,54 +42,64 @@ function EmploymentHistory(props) {
   }
 
   return (
-    <div className='employmentHistory'>
+    <div className='employmentHistory content'>
       <h3>Employment History</h3>
       {state.map((el, idx) => {
         return (
           <div key={idx + 1}>
-            <label>Employer #{idx + 1}</label>
-            <input
-              type='text'
-              id={idx}
-              className="employmentHistory"
-              name='employer'
-              value={el.employer}
-              onChange={handleChange}>
-            </input>
+            <div className="control">
+              <label className='label'>Employer #{idx + 1}</label>
+              <input
+                type='text'
+                id={idx}
+                className="employmentHistory input is-small"
+                name='employer'
+                value={el.employer}
+                onChange={handleChange}>
+              </input>
+            </div>
 
-            <label>Employment Date</label>
-            <input
-              type='text'
-              id={idx}
-              className="employmentHistory"
-              name="employmentDate"
-              value={el.employmentDate}
-              onChange={handleChange}>
-            </input>
+            <label className='label'>Employment Date</label>
+            <div className="control">
+              <input
+                type='text'
+                id={idx}
+                className="employmentHistory input is-small"
+                name="employmentDate"
+                value={el.employmentDate}
+                onChange={handleChange}>
+              </input>
+            </div>
 
-            <label>Role</label>
-            <input
-              type='text'
-              id={idx}
-              className="employmentHistory"
-              name="role"
-              value={el.role}
-              onChange={handleChange}>
-            </input>
+            <label className='label'>Role</label>
+            <div className="control">
+              <input
+                type='text'
+                id={idx}
+                className="employmentHistory input is-small"
+                name="role"
+                value={el.role}
+                onChange={handleChange}>
+              </input>
+            </div>
 
-            <label>Details</label>
-            <input
-              type='text'
-              id={idx}
-              className="employmentHistory"
-              name="details"
-              value={el.details}
-              onChange={handleChange}>
-            </input>
+            <label className='label'>Details</label>
+            <div className="control">
+              <input
+                type='text'
+                id={idx}
+                className="employmentHistory input is-small"
+                name="details"
+                value={el.details}
+                onChange={handleChange}>
+              </input>
+            </div>
           </div>
         )
       })}
-      <button type='button' className='addEmploymentHistory' onClick={addMore}>Add More</button>
+      <div className="control ">
+        <button type='button' className='addEmploymentHistory button is-small is-light button-spacer' onClick={addMore}>Add More</button>
+      </div>
     </div>
   )
 

@@ -38,7 +38,7 @@ function Education(props) {
   }
 
   return (
-    <div className="education">
+    <div className="education content">
       <h3>Education</h3>
       {
         state.map((el, idx) => {
@@ -82,7 +82,7 @@ function Education(props) {
         })
       }
       <div className="control">
-        <button className='addEducation button is-small' type='button' onClick={addMore}>Add More</button>
+        <button className='addEducation button is-small is-light button-spacer' type='button' onClick={addMore}>Add More</button>
       </div>
     </div>
   )

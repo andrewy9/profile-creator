@@ -27,7 +27,7 @@ function BasicDetails(props) {
   }
 
   return (
-    <div>
+    <div className='content'>
       <div className='basicDetails'>
         <h3>Basic Details</h3>
         <label id="Name" className="label">Name:</label>

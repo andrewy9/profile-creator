@@ -18,9 +18,6 @@ export default function Nav ({logout}) {
                   <a className="navbar-item">Documentation</a>
                   <span className="navbar-item">
                     <a className="button is-primary is-inverted">
-                      <span className="icon">
-                        <i className="fab fa-github"></i>
-                      </span>
                       <span>Download</span>
                     </a>
                   </span>

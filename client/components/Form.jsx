@@ -41,22 +41,22 @@ function Form(props) {
   return (
     <div className="field">
       <form onSubmit={handleSubmit}>
-      <div className="">
-        <label className='label'>CV Profile Name: </label>
-      </div>
-      <div className="field-body">
-        <div className='field'>
-        <div className='control'>
-        <input className='input is-small is-hovered' type='text' name='profileName' value={state.profileName} onChange={handleChange}></input>
+        <div className="content">
+          <label className='label'>CV Profile Name: </label>
         </div>
-        </div>
+        <div className="field-body block">
+          <div className='field'>
+            <div className='control'>
+              <input className='input is-small is-hovered' type='text' name='profileName' value={state.profileName} onChange={handleChange}></input>
+            </div>
+          </div>
         </div>
         <BasicDetails />
         <EmploymentHistory />
         <OldEmploymentHistory />
         <Education />
         <div className="control">
-        <input className='button  is-small' id='submit' type='submit' value='Submit' />
+          <input className='button is-fullwidth is-small' id='submit' type='submit' value='Submit' />
         </div>
       </form>
     </div>

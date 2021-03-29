@@ -41,7 +41,7 @@ function OldEmploymentHistory(props) {
 
   return (
 
-    <div className='oldEmploymentHistory'>
+    <div className='oldEmploymentHistory content'>
       <h3>Older Employment History</h3>
       {
         state.map((el, idx) => {
@@ -87,7 +87,7 @@ function OldEmploymentHistory(props) {
         })
       }
       <div className="control">
-        <button className='addOldEmploymentHistory button is-small' type='button' onClick={addMore}>Add More</button>
+        <button className='addOldEmploymentHistory button is-small is-light button-spacer' type='button' onClick={addMore}>Add More</button>
       </div >
     </div>
   )

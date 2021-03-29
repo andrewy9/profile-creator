@@ -5,33 +5,45 @@ function Preview(props) {
 
   return (
     <div className='preview'>
-   
-      <p>{props.details.name}</p>
-      <p>{props.details.phone}</p>
-      <p>{props.details.email}</p>
-      <p>{props.details.profileIntro}</p>
-      {props.employmentHistory.map((history, idx) => {
-        return <div key={idx}>
-          <p>{history.employer}</p>
-          <p>{history.employmentDate}</p>
-          <p>{history.role}</p>
-          <p>{history.details}</p>
+      <div className='block'>
+        <h2 className='title is-4'>{props.details.name}</h2>
+        <p>{props.details.phone}</p>
+        <p>{props.details.email}</p>
+      </div>
+      <div className='block'>
+        {props.details.profileIntro && <h3 className="subtitle is-4">About Me</h3>}
+        <p>{props.details.profileIntro}</p>
+      </div>
+      <div className='block'>
+        {props.employmentHistory[0].employer && <h3 className="subtitle is-4">Employment History</h3>}
+        {props.employmentHistory.map((history, idx) => {
+          return <div key={idx} className='block'>
+            <p><strong>{history.employer}</strong></p>
+            <p>{history.employmentDate}</p>
+            <p>{history.role}</p>
+            <p>{history.details}</p>
+          </div>
+        })}
         </div>
-      })}
-      {props.oldEmploymentHistory.map((history, idx) => {
-        return <div key={idx}>
-          <p>{history.oldEmployer}</p>
-          <p>{history.oldEmploymentDate}</p>
-          <p>{history.oldRole}</p>
-        </div>
-      })}
-      {props.education.map((education, idx) => {
-        return <div key={idx}>
-          <p>{education.provider}</p>
-          <p>{education.qualification}</p>
-          <p>{education.year}</p>
-        </div>
-      })}
+        <div className='block'>
+        {props.oldEmploymentHistory.map((history, idx) => {
+          return <div key={idx} className='block'>
+            <p><strong>{history.oldEmployer}</strong></p>
+            <p>{history.oldEmploymentDate}</p>
+            <p>{history.oldRole}</p>
+          </div>
+        })}
+      </div>
+      <div className='block'>
+        {props.education[0].provider && <h3 className="subtitle is-4">Education</h3>}
+        {props.education.map((education, idx) => {
+          return <div key={idx} className='block'>
+            <p><strong>{education.provider}</strong></p>
+            <p>{education.qualification}</p>
+            <p>{education.year}</p>
+          </div>
+        })}
+      </div>
     </div>
   )
 }

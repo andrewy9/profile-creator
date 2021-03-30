@@ -62,7 +62,8 @@ router.get('/education', (req, res) => {
       res.sendStatus(500)
     })
 })
-//////////////////////////////////////////////////
+
+/////////POST
 
 router.post('/employmentHistory', async (req, res) => {
   const { employmentHistory, user_id, profile_name } = req.body

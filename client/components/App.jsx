@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
 import { fetchUser } from '../actions'
-import { GoogleLogin } from 'react-google-login';
 import { HashRouter as Router, Route } from 'react-router-dom'
 
 import FinalView from './FinalView'
@@ -20,7 +19,6 @@ function App(props) {
 
   const responseGoogle = (response) => {
     const profile = response.getBasicProfile()
-
     setUser({
       id: profile.getId(),
       name: profile.getName(),
@@ -45,28 +43,22 @@ function App(props) {
   }, [user])
 
   return (
-    <div className='app'>
-      {isAuthenticated ? <AuthenticatedView logout={logout} user={user} setUser={setUser} /> : <UnAuthenticatedView responseGoogle={responseGoogle} />}
-    </div>
+    <Router>
+      <div className='app'>
+        <Nav isAuthenticated={isAuthenticated} logout={logout} responseGoogle={responseGoogle} />
+        {isAuthenticated ? <AuthenticatedView /> : <UnAuthenticatedView />}
+      </div>
+    </Router>
   )
-
 }
 
-function UnAuthenticatedView({ responseGoogle }) {
+function UnAuthenticatedView() {
   return (
     <Router>
       < div className='google-login' >
-        <Nav />
         <div className="hero-body">
           <div className="container">
-            <GoogleLogin
-              clientId='729329557892-e3l8r6ainb4abrevis8c7jhh3acklrf2.apps.googleusercontent.com'
-              buttonText="Login"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-              isSignedIn={true}
-              cookiePolicy={'single_host_origin'}
-            />
+            <Route path='/finalView/:profile/:layout' component={FinalView} />
           </div>
         </div>
       </div>
@@ -74,11 +66,10 @@ function UnAuthenticatedView({ responseGoogle }) {
   )
 }
 
-function AuthenticatedView({ user, logout }) {
+function AuthenticatedView() {
   return (
     <>
       <Router>
-        <Nav logout={logout} />
         <div className="hero-body">
           <div className="container">
             <Route path='/finalView' component={FinalView} />

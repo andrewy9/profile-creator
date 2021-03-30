@@ -41,7 +41,7 @@ function retrieveSavedData(key, formData, user_id, profile_name) {
   return request
     .get(`${rootUrl}/detailsRoutes/${key}/${user_id}/${profile_name}`)
     .then(res => {
-      console.log( 'api get response:', key, res.body)
+      console.log('api get response:', key, res.body)
       formData[key] = res.body
       return formData
     })
@@ -51,5 +51,6 @@ export function getProfiles(userId) {
   return request
     .get(`${rootUrl}/detailsRoutes/profiles/${userId}`)
     .then(res => {
-      return res.body})
+      return res.body
+    })
 }

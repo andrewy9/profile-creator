@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getSavedData, getProfiles } from '../apis/apiController'
 import { connect } from 'react-redux'
 
-function FinalView (props) {
+function FinalView(props) {
   const [state, setState] = useState({
     data: {
       details: [],
@@ -13,9 +13,6 @@ function FinalView (props) {
     profile: []
   })
 
-  // user id props.user.id
-  // profile name
-
   useEffect(() => {
     getProfiles(props.user.id)
       .then(profile => {
@@ -24,7 +21,7 @@ function FinalView (props) {
       .catch(err => console.log(err))
   }, [])
 
-  function selectProfile (e) {
+  function selectProfile(e) {
     e.preventDefault()
     getSavedData(props.user.id, e.target.value)
       .then(data => {
@@ -91,7 +88,7 @@ function FinalView (props) {
   )
 }
 
-function mapStateToProps (globalState) {
+function mapStateToProps(globalState) {
   return {
     user: globalState.user
   }

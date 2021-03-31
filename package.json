@@ -32,8 +32,7 @@
   },
   "jest": {
     "setupFiles": [
-      "./client/testing/jsdom.js",
-      "./client/testing/enzyme.js"
+      "./client/testing/jsdom.js"
     ]
   },
   "eslintConfig": {
@@ -63,8 +62,6 @@
     "autoprefixer": "^9.8.6",
     "babel-loader": "^8.2.1",
     "css-loader": "^5.0.1",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.5",
     "eslint": "7.13.0",
     "eslint-config-eda": "0.1.4",
     "jest": "^26.6.3",

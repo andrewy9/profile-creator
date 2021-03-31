@@ -1,6 +1,6 @@
 const express = require('express')
 
-const db = require('../db/dataBaseFunction')
+const db = require('../db/dbFunctions')
 
 const router = express.Router()
 

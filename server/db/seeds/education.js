@@ -4,9 +4,11 @@ exports.seed = function (knex) {
     .then(function () {
       // Inserts seed entries
       return knex('education').insert([
-        { id: 1, userId: 1, profileName: 'profile1', provider: 'provider1', qualification: 'qualification1', year: '2015' },
-        { id: 2, userId: 1, profileName: 'profile1', provider: 'provider2', qualification: 'qualification2', year: '2018' },
-        { id: 3, userId: 2, profileName: 'profile2', provider: 'provider3', qualification: 'qualification3', year: '2021' }
+        { id: 1, userId: 1, profileName: 'Kate Profile 1', provider: 'EDA Kate1', qualification: 'FrontEnd', year: '2020' },
+        { id: 2, userId: 1, profileName: 'Kate Profile 2', provider: 'EDA Kate2', qualification: 'BackEnd', year: '2020' },
+        { id: 3, userId: 2, profileName: 'Sarah Profile 1', provider: 'EDA Sarah1', qualification: 'FrontEnd', year: '2020' },
+        { id: 4, userId: 2, profileName: 'Sarah Profile 2', provider: 'EDA Sarah2', qualification: 'BackEnd', year: '2020' },
+        { id: 5, userId: 3, profileName: 'Andrew Profile 1', provider: 'EDA Andrew1', qualification: 'FullStack', year: '2020' }
       ])
     })
 }

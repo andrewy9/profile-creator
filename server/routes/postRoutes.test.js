@@ -1,85 +1,85 @@
-import request from 'supertest'
-import server from '../server'
+// import request from 'supertest'
+// import server from '../server'
 
-import {
-  saveDetails,
-  saveEducationHistory,
-  saveEmploymentHistory,
-  saveOldEmploymentHistory
-} from '../db/dbFunctions'
+// import {
+//   saveDetails,
+//   saveEducationHistory,
+//   saveEmploymentHistory,
+//   saveOldEmploymentHistory
+// } from '../db/dbFunctions'
 
-jest.mock('../db/dbFunctions', () => ({
-  saveDetails: jest.fn(),
-  saveEducationHistory: jest.fn(),
-  saveEmploymentHistory: jest.fn(),
-  saveOldEmploymentHistory: jest.fn(),
-}))
+// jest.mock('../db/dbFunctions', () => ({
+//   saveDetails: jest.fn(),
+//   saveEducationHistory: jest.fn(),
+//   saveEmploymentHistory: jest.fn(),
+//   saveOldEmploymentHistory: jest.fn(),
+// }))
 
-let promiseRoutes
+// let promiseRoutes
 
-// test POST routes;
+// // test POST routes;
 
-describe('POST api/v1', () => {
-  // the routes/server should return with .json() after the res.status()
-  // e.g .then(details => {res.status(201).json(details)
-  describe('when database post works', () => {
-    const fakeDetails = {
-      name: 'name',
-      phone: '021',
-      email: '@',
-      profileIntro: 'test'
-    }
+// describe('POST api/v1', () => {
+//   // the routes/server should return with .json() after the res.status()
+//   // e.g .then(details => {res.status(201).json(details)
+//   describe('when database post works', () => {
+//     const fakeDetails = {
+//       name: 'name',
+//       phone: '021',
+//       email: '@',
+//       profileIntro: 'test'
+//     }
 
-    beforeAll(() => {
-      saveDetails.mockImplementation(() => Promise.resolve(fakeDetails))
-      promiseRoutes = request(server)
-        .post('/api/v1/post')
-        .send(fakeDetails)
-      return null
-    })
+//     beforeAll(() => {
+//       saveDetails.mockImplementation(() => Promise.resolve(fakeDetails))
+//       promiseRoutes = request(server)
+//         .post('/api/v1/post')
+//         .send(fakeDetails)
+//       return null
+//     })
 
-    test('route gets connected', () => {
-      expect.assertions(1)
-      return promiseRoutes
-        .then((res) => {
-          expect(res.status).toBe(201)
-          return null
-        })
-    })
+//     test('route gets connected', () => {
+//       expect.assertions(1)
+//       return promiseRoutes
+//         .then((res) => {
+//           expect(res.status).toBe(201)
+//           return null
+//         })
+//     })
 
-    test('saveDetails gets called', () => {
-      expect.assertions(1)
-      return promiseRoutes
-        .then((res) => {
-          await expect(saveDetails).toHaveBeenCalled()
-          return null
-        })
-    })
+//     test('saveDetails gets called', () => {
+//       expect.assertions(1)
+//       return promiseRoutes
+//         .then((res) => {
+//           await expect(saveDetails).toHaveBeenCalled()
+//           return null
+//         })
+//     })
 
-    test('posts details to Database', () => {
-      expect.assertions(2)
-      return promiseRoutes
-        .then((res) => {
-          expect(saveDetails.mock.calls[0][0]).toBe('name')
-          expect(saveDetails.mock.calls[0][1]).toBe('021')
-          return null
-        })
-    })
-  })
+//     test('posts details to Database', () => {
+//       expect.assertions(2)
+//       return promiseRoutes
+//         .then((res) => {
+//           expect(saveDetails.mock.calls[0][0]).toBe('name')
+//           expect(saveDetails.mock.calls[0][1]).toBe('021')
+//           return null
+//         })
+//     })
+//   })
 
-  describe('when the database fails', () => {
-    test('returns 500', () => {
-      expect.assertions(1)
-      const err = new Error('error')
-      saveDetails.mockImplementation(() => Promise.reject(err))
-      return request(server).post('/api/v1')
-        .then(res => {
-          expect(res.status).toBe(500)
-          return null
-        })
-    })
-  })
-})
+//   describe('when the database fails', () => {
+//     test('returns 500', () => {
+//       expect.assertions(1)
+//       const err = new Error('error')
+//       saveDetails.mockImplementation(() => Promise.reject(err))
+//       return request(server).post('/api/v1')
+//         .then(res => {
+//           expect(res.status).toBe(500)
+//           return null
+//         })
+//     })
+//   })
+// })
 
 // describe('POST api/v1/history', () => {
 //   describe('when the database history post works', () => {

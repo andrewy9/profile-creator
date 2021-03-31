@@ -21,14 +21,15 @@ describe('GET /api/v1', () => {
   describe('when database call works', () => {
     const fakeData = {
       data: 'data',
-      userId: 1
+      userId: 1,
+      profileName: 'KateProfile1'
     }
 
     beforeAll(() => {
       getUserDetails.mockImplementation(() => Promise.resolve(fakeData))
       // var to hold the request to server, plus post & send
       promiseRoutes = request(server)
-        .get('/api/v1/1/Kate Profile 1')
+        .get('/api/v1/get/details/1/KateProfile1')
       return null
     })
 
@@ -61,7 +62,7 @@ describe('GET /api/v1', () => {
       expect.assertions(1)
       const err = new Error('error')
       getUserDetails.mockImplementation(() => Promise.reject(err))
-      return request(server).get('/api/v1/1')
+      return request(server).get('/api/v1/get/details/1/KateProfile1')
         .then(res => {
           expect(res.status).toBe(500)
           // needs a .catch() in the actual route/server to work
@@ -71,18 +72,19 @@ describe('GET /api/v1', () => {
   })
 })
 
-describe('GET /api/v1/history', () => {
+describe('GET /api/v1/employmentHistory', () => {
   describe('when database call works', () => {
     const fakeData = {
       data: 'data',
-      userId: 1
+      userId: 1,
+      profileName: 'SarahProfile1'
     }
 
     beforeAll(() => {
       getUserEmploymentHistory.mockImplementation(() => Promise.resolve(fakeData))
       // var to hold the request to server, plus post & send
       promiseRoutes = request(server)
-        .get('/api/v1/history/1')
+        .get('/api/v1/get/employmentHistory/2/SarahProfile1')
       return null
     })
 
@@ -115,7 +117,7 @@ describe('GET /api/v1/history', () => {
       expect.assertions(1)
       const err = new Error('error')
       getUserEmploymentHistory.mockImplementation(() => Promise.reject(err))
-      return request(server).get('/api/v1/history/1')
+      return request(server).get('/api/v1/get/details/1/KateProfile1')
         .then(res => {
           expect(res.status).toBe(500)
           // needs a .catch() in the actual route/server to work
@@ -125,18 +127,18 @@ describe('GET /api/v1/history', () => {
   })
 })
 
-describe('GET /api/v1/oldHistory', () => {
+describe('GET /api/v1/oldEmploymentHistory', () => {
   describe('when database call works', () => {
     const fakeData = {
-      oldEmployer: 'old',
-      oldEmploymentDate: 'oldDate',
-      oldRole: 'oldRole'
+      data: 'data',
+      userId: 2,
+      profileName: 'SarahProfile1'
     }
 
     beforeAll(() => {
       getUserOldEmploymentHistory.mockImplementation(() => Promise.resolve(fakeData))
       promiseRoutes = request(server)
-        .get('/api/v1/oldHistory/1')
+        .get('/api/v1/get/oldEmploymentHistory/2/SarahProfile1')
       return null
     })
 
@@ -167,7 +169,7 @@ describe('GET /api/v1/oldHistory', () => {
     test('returns 500', () => {
       const err = new Error('error')
       getUserOldEmploymentHistory.mockImplementation(() => Promise.reject(err))
-      return request(server).get('/api/v1/oldHistory/1')
+      return request(server).get('/api/v1/get/oldEmploymentHistory/2/SarahProfile1')
         .then(response => {
           expect(response.status).toBe(500)
         })
@@ -178,14 +180,14 @@ describe('GET /api/v1/oldHistory', () => {
 describe('GET /api/v1/education', () => {
   describe('when database call works', () => {
     const fakeData = {
-      provider: 'provider',
-      qualification: 'qualification',
-      year: 'year'
+      data: 'data',
+      userId: 1,
+      profileName: 'John Cena'
     }
     beforeAll(() => {
       getUserEducation.mockImplementation(() => Promise.resolve(fakeData))
       promiseRoutes = request(server)
-        .get('/api/v1/education/1')
+        .get(`/api/v1/get/education/1/hello`)
       return null
     })
     test('education route gets connected', () => {
@@ -214,7 +216,7 @@ describe('GET /api/v1/education', () => {
     test('returns 500', () => {
       const err = new Error()
       getUserEducation.mockImplementation(() => Promise.reject(err))
-      return request(server).get('/api/v1/education/1')
+      return request(server).get('/api/v1/get/education/1/KateProfile1')
         .then(res => {
           expect(res.status).toBe(500)
           return null

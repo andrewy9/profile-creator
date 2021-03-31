@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchEducation } from '../actions'
 
-function Education(props) {
+function Education (props) {
   const [state, setState] = useState(
     [{
       provider: '',
@@ -19,15 +19,15 @@ function Education(props) {
     props.dispatch(fetchEducation(state))
   }
 
-  const handleChange = (evt) => {
-    evt.preventDefault()
-    const { name, value, id } = evt.target
+  const handleChange = (e) => {
+    e.preventDefault()
+    const { name, value, id } = e.target
     state[id][name] = value
     setState([...state])
   }
 
-  const addMore = (evt) => {
-    evt.preventDefault()
+  const addMore = (e) => {
+    e.preventDefault()
     setState(
       [...state, {
         provider: '',

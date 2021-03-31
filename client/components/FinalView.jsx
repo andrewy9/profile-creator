@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { getSavedData, getProfiles } from '../apis/detailsApi'
+import { getSavedData, getProfiles } from '../apis/apiController'
 import { connect } from 'react-redux'
 
-function FinalView(props) {
+function FinalView (props) {
   const [state, setState] = useState({
     data: {
       details: [],
@@ -10,34 +10,34 @@ function FinalView(props) {
       oldEmploymentHistory: [],
       education: ['original']
     },
-    profile: [],
+    profile: []
   })
 
-// user id props.user.id
-// profile name
+  // user id props.user.id
+  // profile name
 
   useEffect(() => {
     getProfiles(props.user.id)
       .then(profile => {
-        console.log('profile data in FinalView:', profile)
-        setState({...state, profile})
+        return setState({ ...state, profile })
       })
-    }, [])
-    
-    function selectProfile(e) {
-      e.preventDefault()
-      getSavedData(props.user.id, e.target.value)
-        .then(data => {
-          console.log('saved data in FinalView:', data)
-          setState({...state, data})
-        })
+      .catch(err => console.log(err))
+  }, [])
+
+  function selectProfile (e) {
+    e.preventDefault()
+    getSavedData(props.user.id, e.target.value)
+      .then(data => {
+        return setState({ ...state, data })
+      })
+      .catch(err => console.log(err))
   }
 
   return (
     <>
-    <h1>Select your profile</h1>
-      {state.profile.map((el,idx) => { 
-        return <button key={idx} value={el.profile_name} onClick={selectProfile}>{el.profile_name}</button>
+      <h1>Select your profile</h1>
+      {state.profile.map((el, idx) => {
+        return <button key={idx} value={el.profileName} onClick={selectProfile}>{el.profileName}</button>
       })}
 
       <h2>Details</h2>
@@ -48,7 +48,7 @@ function FinalView(props) {
           <p>Email:{el.email}</p>
           <div>
             <h2>Intro</h2>
-            <p>{el.profile_intro}</p>
+            <p>{el.profileIntro}</p>
           </div>
         </div>
       })}
@@ -91,15 +91,10 @@ function FinalView(props) {
   )
 }
 
-function mapStateToProps(globalState) {
+function mapStateToProps (globalState) {
   return {
-    user: globalState.user,
-    // details: globalState.details,
-    // education: globalState.education,
-    // employmentHistory: globalState.employmentHistory,
-    // oldEmploymentHistory: globalState.oldEmploymentHistory
+    user: globalState.user
   }
 }
 
 export default connect(mapStateToProps)(FinalView)
-// export default FinalView

@@ -30,11 +30,11 @@ describe('<Education />', () => {
       fireEvent.blur(el)
     })
     expect(fakeStore.dispatch).toHaveBeenCalledWith(fakeAction)
-    expect(fetchEducation).toHaveBeenCalledWith({ education: [{ 'provider': 'test', 'qualification': 'test', 'year': 'test' }] })
+    expect(fetchEducation).toHaveBeenCalledWith({ education: [{ provider: 'test', qualification: 'test', year: 'test' }] })
   })
 
   test('clicking add more button adds more input fields', () => {
-    let button = screen.getByRole('button')
+    const button = screen.getByRole('button')
     fireEvent.click(button)
     input = screen.getAllByRole('textbox')
     expect(input).toHaveLength(6)

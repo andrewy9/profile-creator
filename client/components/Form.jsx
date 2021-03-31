@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
-import { postFormDataToDatabase, getDetails } from '../apis/detailsApi'
+import { postFormDataToDatabase } from '../apis/apiController'
 
 import BasicDetails from './BasicDetails'
 import EmploymentHistory from './EmploymentHistory'
 import OldEmploymentHistory from './OldEmploymentHistory'
 import Education from './Education'
 
-function Form(props) {
+function Form (props) {
   const [state, setState] = useState({
     profileName: ''
   })
 
   const handleSubmit = e => {
     e.preventDefault()
-    //set state = {new profile id, new profile name}
     const formData = {
-      profile_name: state.profileName,
-      user_id: props.user.id,
+      profileName: state.profileName,
+      userId: props.user.id,
       details: {
         name: props.details.name,
         phone: props.details.phone,
         email: props.details.email,
-        profile_intro: props.details.profileIntro,
+        profileIntro: props.details.profileIntro
       },
       employmentHistory: props.employmentHistory,
       oldEmploymentHistory: props.oldEmploymentHistory,
@@ -71,7 +70,7 @@ function Form(props) {
   )
 }
 
-function mapStateToProps(globalState) {
+function mapStateToProps (globalState) {
   return {
     user: globalState.user,
     details: globalState.details,

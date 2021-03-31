@@ -5,13 +5,12 @@ import {
   postOldEmploymentHistoryToDatabase,
   postEducationHistoryToDatabase,
   getDetails
-} from './detailsApi'
+} from './apiController'
 
 describe('getDetails', () => {
   const mockDetails = { name: 'hero' }
-
   const scope = nock('http://localhost')
-    .get('/api/v1/detailsRoutes')
+    .get('/api/v1')
     .reply(201, mockDetails)
 
   test('returns details from api', () => {
@@ -32,11 +31,11 @@ describe('postDetailsToDatabse', () => {
     mockName,
     phone: '021',
     email: '@',
-    profile_intro: "hello"
+    profileIntro: 'hello'
   }
 
   const scope = nock('http://localhost')
-    .post('/api/v1/detailsRoutes', mockName)
+    .post('/api/v1', mockName)
     .reply(201, addedDetails)
 
   test('posts details to api', () => {
@@ -58,11 +57,11 @@ describe('postEmploymentHistoryToDatabse', () => {
     mockName,
     phone: '021',
     email: '@',
-    profile_intro: "hello"
+    profileIntro: 'hello'
   }
 
   const scope = nock('http://localhost')
-    .post('/api/v1/detailsRoutes/history', mockName)
+    .post('/api/v1/history', mockName)
     .reply(201, addedDetails)
 
   test('posts employment history to api', () => {
@@ -87,7 +86,7 @@ describe('post old employment history to database', () => {
   }
 
   const scope = nock('http://localhost')
-    .post('/api/v1/detailsRoutes/oldHistory', mockOldEmployer)
+    .post('/api/v1/oldHistory', mockOldEmployer)
     .reply(201, addedHistory)
 
   test('posts old history to database', () => {
@@ -109,7 +108,7 @@ describe('post old employment history to database', () => {
     }
 
     const scope = nock('http://localhost')
-      .post('/api/v1/detailsRoutes/education', mockProvider)
+      .post('/api/v1/education', mockProvider)
       .reply(201, addEducation)
 
     test('post education to api', () => {

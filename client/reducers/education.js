@@ -9,7 +9,7 @@ const initialState = [{
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_EDUCATION:
-      return action.education
+      return action.payload
 
     default:
       return state

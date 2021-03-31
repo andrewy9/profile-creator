@@ -6,12 +6,12 @@ const {
   getDetails,
   saveDetails,
   saveEducationHistory,
-  saveEmploymentHistory, 
-  saveOldEmploymentHistory, 
+  saveEmploymentHistory,
+  saveOldEmploymentHistory,
   getUserDetails,
   getUserOldEmploymentHistory,
   getUserEducation
-} = require('./details')
+} = require('./dataBaseFunction')
 
 beforeAll(() => connection.migrate.latest())
 beforeEach(() => connection.seed.run())
@@ -21,7 +21,7 @@ describe('getDetails', () => {
     expect.assertions(1)
     return getDetails(connection)
       .then(result => {
-        expect(result.length).toEqual(3)
+        expect(result).toHaveLength(3)
         return null
       })
   })
@@ -30,7 +30,7 @@ describe('getDetails', () => {
 describe('saveDetails', () => {
   test('saves the details to database', () => {
     expect.assertions(3)
-    return saveDetails('name', 'phone', 'email', 'profile_intro', connection)
+    return saveDetails('name', 'phone', 'email', 'profileIntro', connection)
       .then((newId) => {
         expect(newId).toEqual([4])
         return connection('details').select()
@@ -61,52 +61,52 @@ describe('saveEmploymentHistory', () => {
 describe('saveOldEmploymentHistory', () => {
   test('save older employment history to database', () => {
     expect.assertions(3)
-      return saveOldEmploymentHistory('oldEmployer', 'oldEmploymentDate', 'oldRole', connection)
-        .then((newId) => {
-          expect(newId).toEqual([4])
-          return connection('old_employment_history').select()
-            .then(result => {
-              expect(result).toHaveLength(4)
-              expect(result[3].oldEmployer).toEqual('oldEmployer')
-            })
-        })
-    })
+    return saveOldEmploymentHistory('oldEmployer', 'oldEmploymentDate', 'oldRole', connection)
+      .then((newId) => {
+        expect(newId).toEqual([4])
+        return connection('old_employment_history').select()
+          .then(result => {
+            expect(result).toHaveLength(4)
+            expect(result[3].oldEmployer).toEqual('oldEmployer')
+          })
+      })
+  })
 })
 
 describe('saveEducationHistory', () => {
   test('save education history to database', () => {
     expect.assertions(3)
-      return saveEducationHistory('provider', 'qualification', 'year', connection)
-        .then((newId) => {
-          expect(newId).toEqual([4])
-          return connection('education').select()
-            .then(result => {
-              expect(result).toHaveLength(4)
-              expect(result[3].provider).toEqual('provider')
-            })
-        })
-    })
+    return saveEducationHistory('provider', 'qualification', 'year', connection)
+      .then((newId) => {
+        expect(newId).toEqual([4])
+        return connection('education').select()
+          .then(result => {
+            expect(result).toHaveLength(4)
+            expect(result[3].provider).toEqual('provider')
+          })
+      })
+  })
 })
 
 describe('getUserDetails', () => {
   test('returns the correct users details', () => {
     expect.assertions(2)
     return getUserDetails(1, connection)
-      .then((userDetails => {
-        expect(userDetails[0].user_id).toBe(1)
+      .then(userDetails => {
+        expect(userDetails[0].userId).toBe(1)
         expect(userDetails).toHaveLength(2)
-      }))
+      })
   })
 })
 
-describe('getUserEmploymentHistory', ()=> {
-  test('returns the correct user employment history', ()=> {
+describe('getUserEmploymentHistory', () => {
+  test('returns the correct user employment history', () => {
     expect.assertions(2)
     return getUserDetails(1, connection)
-      .then((userEmploymentHistory => {
-        expect(userEmploymentHistory[0].user_id).toBe(1)
+      .then(userEmploymentHistory => {
+        expect(userEmploymentHistory[0].userId).toBe(1)
         expect(userEmploymentHistory).toHaveLength(2)
-      }))
+      })
   })
 })
 
@@ -115,7 +115,7 @@ describe('getUserOldEmploymentHistory', () => {
     expect.assertions(2)
     return getUserOldEmploymentHistory(1, connection)
       .then((userOldEmploymentHistory) => {
-        expect(userOldEmploymentHistory[0].user_id).toBe(1)
+        expect(userOldEmploymentHistory[0].userId).toBe(1)
         expect(userOldEmploymentHistory).toHaveLength(2)
       })
   })
@@ -126,7 +126,7 @@ describe('getUserEducation', () => {
     expect.assertions(2)
     return getUserEducation(1, connection)
       .then((userEducation) => {
-        expect(userEducation[0].user_id).toBe(1)
+        expect(userEducation[0].userId).toBe(1)
         expect(userEducation).toHaveLength(2)
       })
   })

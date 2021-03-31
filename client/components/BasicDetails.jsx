@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { fetchFormDetails } from '../actions'
+import { fetchBasicDetails } from '../actions'
 
-
-function BasicDetails(props) {
+function BasicDetails (props) {
   const [state, setState] = useState({
     name: '',
     phone: '',
@@ -17,11 +16,11 @@ function BasicDetails(props) {
   })
 
   const dispatchHandler = () => {
-    props.dispatch(fetchFormDetails(state))
+    props.dispatch(fetchBasicDetails(state))
   }
 
-  const handleChange = (evt) => {
-    const { name, value } = evt.target
+  const handleChange = (e) => {
+    const { name, value } = e.target
     setState({ ...state, [name]: value })
   }
 
@@ -53,7 +52,7 @@ function BasicDetails(props) {
   )
 }
 
-function mapStateToProps(globalState) {
+function mapStateToProps (globalState) {
   return {
     user: globalState.user
   }

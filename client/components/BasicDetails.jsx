@@ -4,7 +4,8 @@ import { fetchBasicDetails } from '../actions'
 
 function BasicDetails (props) {
   const [state, setState] = useState({
-    name: '',
+    firstName: '',
+    lastName:'',
     phone: '',
     email: '',
     profileIntro: '',
@@ -28,10 +29,15 @@ function BasicDetails (props) {
     <div className='content'>
       <div className='basicDetails'>
         <h3>Basic Details</h3>
-        <label id="Name" className="label">Name:</label>
+        <label id="firstName" className="label">First Name:</label>
         <div className="control is-expanded">
-          <input aria-labelledby="Name" className='input is-small' type='text' name="name" id={0} value={state.name} onChange={handleChange}></input>
+          <input aria-labelledby="Name" className='input is-small' type='text' name="firstName" id={0} value={state.firstName} onChange={handleChange}></input>
         </div>
+        <label id="lastName" className="label">Last Name:</label>
+        <div className="control is-expanded">
+          <input aria-labelledby="Name" className='input is-small' type='text' name="lastName" id={0} value={state.lastName} onChange={handleChange}></input>
+        </div>
+
         <label className="label">Phone:</label>
         <div className="control">
           <input className='input is-small' type='text' name="phone" id={1} value={state.phone} onChange={handleChange}></input>

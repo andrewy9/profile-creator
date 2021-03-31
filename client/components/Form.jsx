@@ -19,7 +19,8 @@ function Form (props) {
       profileName: state.profileName,
       userId: props.user.id,
       details: {
-        name: props.details.name,
+        firstName: props.details.firstName,
+        lastName: props.details.lastName,
         phone: props.details.phone,
         email: props.details.email,
         profileIntro: props.details.profileIntro

@@ -6,7 +6,9 @@ function EmploymentHistory (props) {
   const [state, setState] = useState(
     [{
       employer: '',
-      employmentDate: '',
+      // employmentDate,
+      employmentDateStart: '', //New
+      employmentDateEnd: '',  //New
       role: '',
       details: ''
     }]
@@ -33,7 +35,8 @@ function EmploymentHistory (props) {
       ...state,
       {
         employer: '',
-        employmentDate: '',
+        employmentDateStart: '', //New
+        employmentDateEnd: '',  //New
         role: '',
         details: ''
       }
@@ -61,12 +64,23 @@ function EmploymentHistory (props) {
             <label className='label'>Employment Date</label>
             <div className="control">
               <input
-                type='text'
+                type='month'
                 id={idx}
                 className="employmentHistory input is-small"
-                name="employmentDate"
-                value={el.employmentDate}
-                onChange={handleChange}>
+                name="employmentDateStart"
+                value={el.employmentDateStart}
+                onChange={handleChange}
+                min="1940-01">
+              </input>
+              <p> until </p>
+              <input
+                type='month'
+                id={idx}
+                className="employmentHistory input is-small"
+                name="employmentDateEnd"
+                value={el.employmentDateEnd}
+                onChange={handleChange}
+                min="1940-01">
               </input>
             </div>
 

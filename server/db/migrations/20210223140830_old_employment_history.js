@@ -7,7 +7,8 @@ exports.up = function (knex) {
       .onDelete('CASCADE')
     table.string('profileName')
     table.string('oldEmployer')
-    table.string('oldEmploymentDate')
+    table.string('oldEmploymentDateEnd')
+    table.string('oldEmploymentDateStart')
     table.string('oldRole')
   })
 }

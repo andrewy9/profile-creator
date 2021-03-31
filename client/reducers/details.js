@@ -1,7 +1,8 @@
 import { SET_BASIC_DETAILS } from '../actions'
 
 const initialState = [{
-  name: '',
+  firstName: '',
+  lastName:'',
   phone: '',
   email: '',
   profileIntro: '',

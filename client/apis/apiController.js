@@ -5,7 +5,7 @@ const rootUrl = '/api/v1'
 // GET
 export function getProfiles(userId) {
   return request
-    .get(`${rootUrl}/profiles/${userId}`)
+    .get(`${rootUrl}/get/profiles/${userId}`)
     .then(res => {
       return res.body
     })
@@ -30,7 +30,7 @@ export function getSavedData(userId, profileName) {
 
 function retrieveSavedData(key, formData, userId, profileName) {
   return request
-    .get(`${rootUrl}/${key}/${userId}/${profileName}`)
+    .get(`${rootUrl}/get/${key}/${userId}/${profileName}`)
     .then(res => {
       formData[key] = res.body
       return formData
@@ -47,7 +47,7 @@ export function postFormDataToDatabase(formData) {
 
 function sendData(key, value, userId, profileName) {
   return request
-    .post(`${rootUrl}/${key}`)
+    .post(`${rootUrl}/post/${key}`)
     .send({ [key]: value, userId, profileName })
     .then(res => {
       return res.body

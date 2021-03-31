@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { GoogleLogout, GoogleLogin } from 'react-google-login';
+import { GoogleLogout, GoogleLogin } from 'react-google-login'
 import { connect } from 'react-redux'
 
-function Nav({ user, logout, responseGoogle }) {
+function Nav ({ user, logout, responseGoogle }) {
   return (
     <div className="hero-head">
       <div className='box'>
@@ -26,8 +26,8 @@ function Nav({ user, logout, responseGoogle }) {
                 {user.name ? <GoogleLogout
                   clientId="729329557892-e3l8r6ainb4abrevis8c7jhh3acklrf2.apps.googleusercontent.com"
                   buttonText="Logout"
-                  onLogoutSuccess={logout} /> :
-                  <GoogleLogin
+                  onLogoutSuccess={logout} />
+                  : <GoogleLogin
                     clientId='729329557892-e3l8r6ainb4abrevis8c7jhh3acklrf2.apps.googleusercontent.com'
                     buttonText="Login"
                     onSuccess={responseGoogle}

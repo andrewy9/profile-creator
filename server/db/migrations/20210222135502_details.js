@@ -1,19 +1,18 @@
-
-exports.up = function(knex) {
+exports.up = function (knex) {
   return knex.schema.createTable('details', table => {
     table.increments('id')
-    table.integer('user_id')
-    .references('user.id')
-    .index()
-    .onDelete("CASCADE")
-    table.string('profile_name')
+    table.integer('userId')
+      .references('user.id')
+      .index()
+      .onDelete('CASCADE')
+    table.string('profileName')
     table.string('name')
     table.string('phone')
     table.string('email')
-    table.string('profile_intro')
+    table.string('profileIntro')
   })
-};
+}
 
-exports.down = function(knex) {
+exports.down = function (knex) {
   return knex.schema.dropTable('details')
-};
+}

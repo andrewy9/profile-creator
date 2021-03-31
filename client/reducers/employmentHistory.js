@@ -10,7 +10,7 @@ const initialState = [{
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_EMPLOYMENT_HISTORY:
-      return action.employmentHistory
+      return action.payload
 
     default:
       return state

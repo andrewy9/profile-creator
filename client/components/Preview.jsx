@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
-function Preview(props) {
-
+function Preview (props) {
   return (
     <>
       {props.details.name && <div className="tile is-ancestor">
@@ -54,7 +53,7 @@ function Preview(props) {
   )
 }
 
-function mapStateToProps(globalState) {
+function mapStateToProps (globalState) {
   return {
     details: globalState.details,
     education: globalState.education,

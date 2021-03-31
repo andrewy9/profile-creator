@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchOldEmploymentHistory } from '../actions'
 
-function OldEmploymentHistory(props) {
+function OldEmploymentHistory (props) {
   const [state, setState] = useState(
     [{
       oldEmployer: '',
@@ -19,16 +19,16 @@ function OldEmploymentHistory(props) {
     dispatchHandler()
   })
 
-  const handleChange = (evt) => {
-    evt.preventDefault()
-    const { name, value, id, className } = evt.target
+  const handleChange = (e) => {
+    e.preventDefault()
+    const { name, value, id } = e.target
     state[id][name] = value
     setState([...state])
   }
 
-  const addMore = (evt) => {
-    if (evt.key === "Enter") {
-      evt.preventDefault()
+  const addMore = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
     }
     setState(
       [...state, {
@@ -52,7 +52,7 @@ function OldEmploymentHistory(props) {
                 <input
                   type='text'
                   id={idx}
-                  className="oldEmploymentHistory input is-small"
+                  className="input is-small"
                   name="oldEmployer"
                   value={el.oldEmployer}
                   onChange={handleChange}>
@@ -64,7 +64,7 @@ function OldEmploymentHistory(props) {
                 <input
                   type='text'
                   id={idx}
-                  className="oldEmploymentHistory input is-small"
+                  className="input is-small"
                   name="oldEmploymentDate"
                   value={el.oldEmploymentDate}
                   onChange={handleChange}>
@@ -76,7 +76,7 @@ function OldEmploymentHistory(props) {
                 <input
                   type='text'
                   id={idx}
-                  className="oldEmploymentHistory input is-small"
+                  className="input is-small"
                   name="oldRole"
                   value={el.oldRole}
                   onChange={handleChange}>

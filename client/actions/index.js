@@ -1,81 +1,50 @@
-export const SET_FORM_DETAILS = 'SET_FORM_DETAILS'
+export const SET_BASIC_DETAILS = 'SET_BASIC_DETAILS'
 export const SET_EMPLOYMENT_HISTORY = 'SET_EMPLOYMENT_HISTORY'
 export const SET_OLD_EMPLOYMENT_HISTORY = 'SET_OLD_EMPLOYMENT_HISTORY'
 export const SET_EDUCATION = 'SET_EDUCATION'
 export const SET_USER = 'SET_USER'
-export const SET_FORM_DATA = 'SET_FORM_DATA'
 
-
-//BasicDetails
-export function setFormDetails(details) {
+// SetReducer
+export function setReducer (payload, type) {
   return {
-    type: SET_FORM_DETAILS,
-    details
+    type,
+    payload
   }
 }
 
-export function fetchFormDetails(details) {
+// BasicDetails
+export function fetchBasicDetails (details) {
   return dispatch => {
-    dispatch(setFormDetails(details))
+    dispatch(setReducer(details, SET_BASIC_DETAILS))
     return null
   }
 }
 
-//EmploymentHistory
-export function setEmploymentHistory(employmentHistory) {
-  return {
-    type: SET_EMPLOYMENT_HISTORY,
-    employmentHistory
-  }
-}
-
-export function fetchEmploymentHistory(employmentHistory) {
+// EmploymentHistory
+export function fetchEmploymentHistory (employmentHistory) {
   return dispatch => {
-    dispatch(setEmploymentHistory(employmentHistory))
+    dispatch(setReducer(employmentHistory, SET_EMPLOYMENT_HISTORY))
     return null
   }
 }
 
-//OldEmploymentHistory
-export function setOldEmploymentHistory(oldEmploymentHistory) {
-  return {
-    type: SET_OLD_EMPLOYMENT_HISTORY,
-    oldEmploymentHistory
-  }
-}
-
-export function fetchOldEmploymentHistory(oldEmploymentHistory) {
+// OldEmploymentHistory
+export function fetchOldEmploymentHistory (oldEmploymentHistory) {
   return dispatch => {
-    dispatch(setOldEmploymentHistory(oldEmploymentHistory))
+    dispatch(setReducer(oldEmploymentHistory, SET_OLD_EMPLOYMENT_HISTORY))
   }
 }
 
-//Education
-export function setEducation(education) {
-  return {
-    type: SET_EDUCATION,
-    education
-  }
-}
-
-export function fetchEducation(education) {
+// Education
+export function fetchEducation (education) {
   return dispatch => {
-    dispatch(setEducation(education))
+    dispatch(setReducer(education, SET_EDUCATION))
   }
 }
 
-//User
-export function setUser(user) {
-  return {
-    type: SET_USER,
-    user
-  }
-}
-
-export function fetchUser(user) {
+// User
+export function fetchUser (user) {
   return dispatch => {
-    dispatch(setUser(user))
+    dispatch(setReducer(user, SET_USER))
   }
 }
-
-//formData

@@ -1,17 +1,17 @@
-import { SET_FORM_DETAILS } from '../actions'
+import { SET_BASIC_DETAILS } from '../actions'
 
 const initialState = [{
   name: '',
   phone: '',
   email: '',
   profileIntro: '',
-  employmentHistory: '',
+  employmentHistory: ''
 }]
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_FORM_DETAILS:
-      return action.details
+    case SET_BASIC_DETAILS:
+      return action.payload
 
     default:
       return state

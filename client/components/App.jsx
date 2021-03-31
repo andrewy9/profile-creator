@@ -1,5 +1,5 @@
 // feat.캐이트 배이야, 사라 노울즈, 앤드류 양
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { fetchUser } from '../actions'
 import { HashRouter as Router, Route } from 'react-router-dom'
@@ -8,14 +8,14 @@ import FinalView from './FinalView'
 import Home from './Home'
 import Nav from './Nav'
 
-function App(props) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+function App (props) {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState({
     id: '',
     name: '',
     email: '',
     image: ''
-  });
+  })
 
   const responseGoogle = (response) => {
     const profile = response.getBasicProfile()
@@ -23,7 +23,7 @@ function App(props) {
       id: profile.getId(),
       name: profile.getName(),
       email: profile.getEmail(),
-      image: profile.getImageUrl(),
+      image: profile.getImageUrl()
     })
   }
 
@@ -34,7 +34,6 @@ function App(props) {
       email: '',
       image: ''
     })
-    console.log('logged out')
   }
 
   useEffect(() => {
@@ -52,7 +51,7 @@ function App(props) {
   )
 }
 
-function UnAuthenticatedView() {
+function UnAuthenticatedView () {
   return (
     <Router>
       < div className='google-login' >
@@ -66,7 +65,7 @@ function UnAuthenticatedView() {
   )
 }
 
-function AuthenticatedView() {
+function AuthenticatedView () {
   return (
     <>
       <Router>

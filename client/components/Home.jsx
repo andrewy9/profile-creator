@@ -1,9 +1,9 @@
 import React from 'react'
-import {Route} from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Form from './Form'
 import Preview from './Preview'
 
-export default function Home() {
+export default function Home () {
   return (
     <div className='columns'>
       <div className='column is-half'>

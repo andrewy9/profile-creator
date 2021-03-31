@@ -1,12 +1,11 @@
 import {
-  SET_FORM_DETAILS, ADD_BASIC_DETAILS, SET_EMPLOYMENT_HISTORY, SET_OLD_EMPLOYMENT_HISTORY, SET_EDUCATION, 
-  setFormDetails, fetchFormDetails, fetchEducation, setEducation, fetchEmploymentHistory, setEmploymentHistory, fetchOldEmploymentHistory, setOldEmploymentHistory
+  SET_BASIC_DETAILS, SET_EMPLOYMENT_HISTORY, SET_OLD_EMPLOYMENT_HISTORY, SET_EDUCATION,
+  setReducer, fetchBasicDetails, fetchEducation, fetchEmploymentHistory, fetchOldEmploymentHistory
 } from './index'
 
 const fakeDispatch = jest.fn()
 
-
-describe('fetchFormDetails', () => {
+describe('fetchBasicDetails', () => {
   describe('when the action works', () => {
     const fakeDetails = {
       name: 'name',
@@ -15,19 +14,19 @@ describe('fetchFormDetails', () => {
       profileIntro: 'test'
     }
 
-    beforeAll(()=> {
+    beforeAll(() => {
       jest.clearAllMocks()
-      fetchFormDetails(fakeDetails)(fakeDispatch)
+      fetchBasicDetails(fakeDetails)(fakeDispatch)
     })
 
     test('returns correct action', () => {
       const action = setFormDetails(fakeDetails)
-      expect(action.type).toBe(SET_FORM_DETAILS)
+      expect(action.type).toBe(SET_BASIC_DETAILS)
       expect(action.details.name).toBe('name')
     })
-    
-    test('dispatch setFormDetails actions via fetchFormDetails', ()=> {
-      expect(fakeDispatch.mock.calls[0][0].type).toEqual(SET_FORM_DETAILS)
+
+    test('dispatch setFormDetails actions via fetchBasicDetails', () => {
+      expect(fakeDispatch.mock.calls[0][0].type).toEqual(SET_BASIC_DETAILS)
       expect(fakeDispatch.mock.calls[0][0].details).toEqual(fakeDetails)
     })
   })
@@ -53,15 +52,13 @@ describe('fetchEmploymentHistory', () => {
       expect(action.type).toBe(SET_EMPLOYMENT_HISTORY)
       expect(action.employmentHistory.employer).toBe('employer')
     })
-    
+
     test('dispatch setEmploymentHistory actions via fetchEmploymentHistory', () => {
       expect(fakeDispatch.mock.calls[0][0].type).toEqual(SET_EMPLOYMENT_HISTORY)
       expect(fakeDispatch.mock.calls[0][0].employmentHistory).toEqual(fakeHistory)
     })
-
   })
 })
-
 
 describe('fetchOldEmploymentHistory', () => {
   describe('when the action works', () => {
@@ -76,7 +73,7 @@ describe('fetchOldEmploymentHistory', () => {
       jest.clearAllMocks()
       fetchOldEmploymentHistory(fakeHistory)(fakeDispatch)
     })
-    
+
     test('returns the correct action', () => {
       const action = setOldEmploymentHistory(fakeHistory)
       expect(action.type).toBe(SET_OLD_EMPLOYMENT_HISTORY)
@@ -90,29 +87,27 @@ describe('fetchOldEmploymentHistory', () => {
   })
 })
 
-
-describe('fetchEducation', ()=> {
+describe('fetchEducation', () => {
   describe('when action does work', () => {
     const fakeEducation = {
       provider: 'EDA',
       year: '1964'
     }
-    
-    beforeAll(()=> {
+
+    beforeAll(() => {
       jest.clearAllMocks()
       fetchEducation(fakeEducation)(fakeDispatch)
     })
-    
+
     test('returns correction action', () => {
       const action = setEducation(fakeEducation)
       expect(action.education.year).toBe('1964')
       expect(action.type).toBe(SET_EDUCATION)
     })
-  
+
     test('dispatch setEducation actions via fetchEducation', () => {
       expect(fakeDispatch.mock.calls[0][0].type).toEqual(SET_EDUCATION)
       expect(fakeDispatch.mock.calls[0][0].education).toEqual(fakeEducation)
     })
   })
 })
-

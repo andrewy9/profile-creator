@@ -10,7 +10,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
-      return action.user
+      return action.payload
 
     default:
       return state

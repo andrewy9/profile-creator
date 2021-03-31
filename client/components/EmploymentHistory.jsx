@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchEmploymentHistory } from '../actions'
 
-function EmploymentHistory(props) {
+function EmploymentHistory (props) {
   const [state, setState] = useState(
     [{
       employer: '',
@@ -20,16 +20,15 @@ function EmploymentHistory(props) {
     props.dispatch(fetchEmploymentHistory(state))
   }
 
-  const handleChange = (evt) => {
-    evt.preventDefault()
-    const { name, value, id } = evt.target
+  const handleChange = (e) => {
+    e.preventDefault()
+    const { name, value, id } = e.target
     state[id][name] = value
     setState([...state])
   }
 
-  const addMore = (evt) => {
-    console.log('button tested')
-    evt.preventDefault()
+  const addMore = (e) => {
+    e.preventDefault()
     setState([
       ...state,
       {
@@ -102,12 +101,6 @@ function EmploymentHistory(props) {
       </div>
     </div>
   )
-
-}
-
-const mapStateToProps = (globalState) => {
-  user.globalState.user
 }
 
 export default connect()(EmploymentHistory)
-

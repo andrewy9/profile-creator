@@ -30,11 +30,11 @@ describe('<OldEmploymentHistory />', () => {
       fireEvent.blur(el)
     })
     expect(fakeStore.dispatch).toHaveBeenCalledWith(fakeAction)
-    expect(fetchOldEmploymentHistory).toHaveBeenCalledWith({ oldEmploymentHistory: [{ 'oldEmployer': 'test', 'oldEmploymentDate': 'test', 'oldRole': 'test' }] })
+    expect(fetchOldEmploymentHistory).toHaveBeenCalledWith({ oldEmploymentHistory: [{ oldEmployer: 'test', oldEmploymentDate: 'test', oldRole: 'test' }] })
   })
 
   test('clicking add more button adds more input fields', () => {
-    let button = screen.getByRole('button')
+    const button = screen.getByRole('button')
     fireEvent.click(button)
     input = screen.getAllByRole('textbox')
     expect(input).toHaveLength(6)

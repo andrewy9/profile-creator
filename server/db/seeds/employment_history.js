@@ -4,9 +4,11 @@ exports.seed = function (knex) {
     .then(function () {
       // Inserts seed entries
       return knex('employment_history').insert([
-        { id: 1, userId: 1, profileName: 'profile1', employer: 'no one', employmentDate: '19.02.21', role: 'broke female canine', details: 'I take care of the day to day tasks of a broke female canine' },
-        { id: 2, userId: 1, profileName: 'profile1', employer: 'your mum', employmentDate: '18.02.21', role: 'cool mum-person', details: 'I take care of your mum' },
-        { id: 3, userId: 2, profileName: 'profile3', employer: 'dogs', employmentDate: '17.02.21', role: 'dog trainer', details: 'I take care of the dogs' }
+        { id: 1, userId: 1, profileName: 'Kate Profile 1', employer: 'EDA Kate1', employmentDate: '2020', role: 'FullStack Developer1', details: 'Worked very hard,wrote great codes and amazing tests1' },
+        { id: 2, userId: 1, profileName: 'Kate Profile 2', employer: 'EDA Kate2', employmentDate: '2023', role: 'FullStack Developer2', details: 'Worked very hard,wrote great codes and amazing tests2' },
+        { id: 3, userId: 2, profileName: 'Sarah Profile 1', employer: 'EDA Sarah1', employmentDate: '2019', role: 'FrontEnd Developer', details: 'Worked very hard,wrote great codes and amazing tests3' },
+        { id: 4, userId: 2, profileName: 'Sarah Profile 2', employer: 'EDA Sarah2', employmentDate: '2021', role: 'Senior FrontEnd Developer', details: 'Worked very hard,wrote great codes and amazing tests4' },
+        { id: 5, userId: 3, profileName: 'Andrew Profile 1', employer: 'Google', employmentDate: '2022', role: 'Office coffee boy', details: 'Worked very hard,wrote great coffees and amazing teas' }
       ])
     })
 }

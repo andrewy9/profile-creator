@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node server",
     "test": "jest",
-    "test:watch": "jest --noStackTrace --watchAll",
+    "test:watch": "jest --watchAll",
     "dev": "run-p dev:client dev:server",
     "dev:client": "npm run webpack -- --watch",
     "dev:server": "nodemon --watch server server/index.js",
@@ -48,8 +48,7 @@
     "knex": "^0.21.12",
     "pg": "^8.5.1",
     "react-google-login": "^5.2.2",
-    "superagent": "^6.1.0",
-    "tailwind": "^4.0.0"
+    "superagent": "^6.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -81,7 +80,6 @@
     "sqlite3": "^5.0.0",
     "style-loader": "^2.0.0",
     "supertest": "^5.0.0",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.4",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
   }

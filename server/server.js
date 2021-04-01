@@ -9,7 +9,7 @@ const server = express()
 server.use(express.json())
 server.use(express.static(path.join(__dirname, 'public')))
 
-server.use('/api/v1', getRoutes)
-server.use('/api/v1', postRoutes)
+server.use('/api/v1/get', getRoutes)
+server.use('/api/v1/post', postRoutes)
 
 module.exports = server

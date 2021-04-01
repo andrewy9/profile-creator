@@ -2,7 +2,8 @@ import { SET_OLD_EMPLOYMENT_HISTORY } from '../actions'
 
 const initialState = [{
   oldEmployer: '',
-  oldEmploymentDate: '',
+  oldEmploymentDateStart: '',
+  oldEmploymentDateEnd: '',
   oldRole: ''
 }]
 

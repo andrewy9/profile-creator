@@ -16,7 +16,7 @@ function Nav ({ user, logout, responseGoogle }) {
             </div>
             <div id="navbarMenuHeroA" className="navbar-menu">
               <div className="navbar-end">
-                <Link to='/finalView' className="navbar-item is-active">My Profliles</Link>
+                <Link to='/finalView' className="navbar-item is-active">My Profiles</Link>
                 <a className="navbar-item">Documentation</a>
                 <span className="navbar-item">
                   <a className="button is-primary is-inverted">

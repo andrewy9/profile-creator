@@ -14,9 +14,9 @@ router.post('/employmentHistory', async (req, res) => {
     for await (const element of responseData) {
       arrayOfResponse.push(element[0])
     }
-    res.status(201).json(arrayOfResponse)
+    return res.status(201).json(arrayOfResponse)
   } catch (error) {
-    res.sendStatus(500)
+    return res.sendStatus(500)
   }
 })
 

@@ -9,7 +9,6 @@ function Nav({ user, logout, responseGoogle }) {
   const loadProfiles = () => {
     getProfiles(user.id)
       .then(details => {
-        console.log(details)
         setProfiles(details)
       })
   }
@@ -71,7 +70,6 @@ function Nav({ user, logout, responseGoogle }) {
 }
 
 const mapStateToProps = (globalState) => {
-  console.log(globalState.user)
   return {
     user: globalState.user
   }

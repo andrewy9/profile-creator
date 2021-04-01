@@ -4,11 +4,12 @@ import { connect } from 'react-redux'
 import { postFormDataToDatabase } from '../apis/apiController'
 
 import BasicDetails from './BasicDetails'
+import Social from './Social'
 import EmploymentHistory from './EmploymentHistory'
 import OldEmploymentHistory from './OldEmploymentHistory'
 import Education from './Education'
 
-function Form (props) {
+function Form(props) {
   const [state, setState] = useState({
     profileName: ''
   })
@@ -23,6 +24,7 @@ function Form (props) {
         lastName: props.details.lastName,
         phone: props.details.phone,
         email: props.details.email,
+        location: '', //new
         profileIntro: props.details.profileIntro
       },
       employmentHistory: props.employmentHistory,
@@ -56,6 +58,7 @@ function Form (props) {
                   </div>
                 </div>
                 <BasicDetails />
+                <Social />
                 <EmploymentHistory />
                 <OldEmploymentHistory />
                 <Education />
@@ -71,7 +74,7 @@ function Form (props) {
   )
 }
 
-function mapStateToProps (globalState) {
+function mapStateToProps(globalState) {
   return {
     user: globalState.user,
     details: globalState.details,

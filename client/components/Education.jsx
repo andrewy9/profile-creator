@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchEducation } from '../actions'
+import { initialStates } from '../initialStates'
 
-function Education (props) {
+function Education(props) {
   const [state, setState] = useState(
-    [{
-      provider: '',
-      qualification: '',
-      year: ''
-    }]
+    [initialStates.education]
   )
 
   useEffect(() => {
-    dispatchHandler()
+    if (state.length > 0) {
+      return dispatchHandler(state)
+    } return dispatchHandler([initialStates.education])
   })
 
-  const dispatchHandler = () => {
-    props.dispatch(fetchEducation(state))
+  const dispatchHandler = (data) => {
+    props.dispatch(fetchEducation(data))
   }
 
   const handleChange = (e) => {
@@ -29,12 +28,14 @@ function Education (props) {
   const addMore = (e) => {
     e.preventDefault()
     setState(
-      [...state, {
-        provider: '',
-        qualification: '',
-        year: ''
-      }]
+      [...state, initialStates.education]
     )
+  }
+
+  const remove = (idx) => {
+    let removed = [...state]
+    removed.splice(idx, 1);
+    setState(removed)
   }
 
   return (
@@ -77,6 +78,11 @@ function Education (props) {
                   onChange={handleChange}>
                 </input>
               </div>
+
+              <div className="control">
+                <button type='button' className='education button is-small is-light button-spacer' onClick={() => remove(idx)}>Remove</button>
+              </div>
+
             </div>
           )
         })

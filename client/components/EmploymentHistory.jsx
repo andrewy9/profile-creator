@@ -1,25 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchEmploymentHistory } from '../actions'
+import { initialStates } from '../initialStates'
 
-function EmploymentHistory (props) {
+function EmploymentHistory(props) {
   const [state, setState] = useState(
-    [{
-      employer: '',
-      // employmentDate,
-      employmentDateStart: '', //New
-      employmentDateEnd: '',  //New
-      role: '',
-      details: ''
-    }]
+    [initialStates.employmentHistory]
   )
 
   useEffect(() => {
-    dispatchHandler()
+    dispatchHandler(state)
   })
 
-  const dispatchHandler = () => {
-    props.dispatch(fetchEmploymentHistory(state))
+  const dispatchHandler = (data) => {
+    props.dispatch(fetchEmploymentHistory(data))
   }
 
   const handleChange = (e) => {
@@ -31,16 +25,13 @@ function EmploymentHistory (props) {
 
   const addMore = (e) => {
     e.preventDefault()
-    setState([
-      ...state,
-      {
-        employer: '',
-        employmentDateStart: '', //New
-        employmentDateEnd: '',  //New
-        role: '',
-        details: ''
-      }
-    ])
+    setState([...state, initialStates.employmentHistory])
+  }
+
+  const remove = (idx) => {
+    let removed = [...state]
+    removed.splice(idx, 1);
+    setState(removed)
   }
 
   return (
@@ -98,18 +89,25 @@ function EmploymentHistory (props) {
 
             <label className='label'>Details</label>
             <div className="control">
-              <input
+              <textarea
                 type='text'
                 id={idx}
-                className="employmentHistory input is-small"
+                className="employmentHistory textarea is-small"
                 name="details"
                 value={el.details}
                 onChange={handleChange}>
-              </input>
+              </textarea>
             </div>
+
+            {idx > 0 &&
+              <div className="control">
+                <button type='button' className='removeEmploymentHistory button is-small is-light button-spacer' onClick={() => remove(idx)}>Remove</button>
+              </div>}
           </div>
         )
       })}
+
+
       <div className="control ">
         <button type='button' className='addEmploymentHistory button is-small is-light button-spacer' onClick={addMore}>Add More</button>
       </div>

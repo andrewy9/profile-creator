@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchBasicDetails } from '../actions'
+import { initialStates } from '../initialStates';
 
-function BasicDetails (props) {
-  const [state, setState] = useState({
-    firstName: '',
-    lastName:'',
-    phone: '',
-    email: '',
-    profileIntro: '',
-    employmentHistory: ''
-  })
+function BasicDetails(props) {
+  const [state, setState] = useState(initialStates.basicDetails)
 
   useEffect(() => {
     dispatchHandler()
@@ -46,6 +40,10 @@ function BasicDetails (props) {
         <div className="control">
           <input className='input is-small' type='text' name="email" id={2} value={state.email} onChange={handleChange}></input>
         </div>
+        <label className="label">Location:</label>
+        <div className="control">
+          <input className='input is-small' type='text' name="location" id={3} value={state.location} onChange={handleChange}></input>
+        </div>
       </div >
 
       <div className='profileIntro'>
@@ -58,7 +56,7 @@ function BasicDetails (props) {
   )
 }
 
-function mapStateToProps (globalState) {
+function mapStateToProps(globalState) {
   return {
     user: globalState.user
   }

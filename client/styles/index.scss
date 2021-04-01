@@ -25,6 +25,7 @@ $input-border-color: $lighter-black;
 $navbar-box-shadow-size: 0 0.125rem 0.25rem 0;
 $navbar-background-color: $off-white;
 $navbar-box-shadow-color: $lighter-black;
+
 // Import only what you need from Bulma
 @import "../bulma/sass/utilities/_all.sass";
 @import "../bulma/sass/base/_all.sass";

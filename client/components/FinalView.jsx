@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getSavedData, getProfiles } from '../apis/apiController'
+import { getSavedData} from '../apis/apiController'
 import { connect } from 'react-redux'
 
 function FinalView(props) {
@@ -10,33 +10,37 @@ function FinalView(props) {
       oldEmploymentHistory: [],
       education: ['original']
     },
-    profile: []
+    selected: 'details'
   })
 
   useEffect(() => {
-    getProfiles(props.user.id)
-      .then(profile => {
-        return setState({ ...state, profile })
-      })
-      .catch(err => console.log(err))
-  }, [])
-
-  function selectProfile(e) {
-    e.preventDefault()
-    getSavedData(props.user.id, e.target.value)
+    getSavedData(props.user.id, props.match.params.profileName)
       .then(data => {
-        return setState({ ...state, data })
+        return setState({data})
       })
       .catch(err => console.log(err))
-  }
+  }, [props.match.params.profileName])
 
   return (
     <>
-      <h1>Select your profile</h1>
-      {state.profile.map((el, idx) => {
-        return <button key={idx} value={el.profileName} onClick={selectProfile}>{el.profileName}</button>
-      })}
+    <section class="section">
+      <div class="container">
 
+    
+    <div className='columns'>
+    
+    <div className='column'>
+      <h1>Hi, I'm {props.user.name}</h1>
+      <figure className='image is 108x108'>
+      <img className='is-rounded' src={props.user.image}></img>
+      </figure>
+    </div>
+
+    <div className='column'>
+      <button className='colored-cirle' onClick={setState({...state, selected: 'details'})}>
+        About Me
+      </button>
+    <div className='details'>
       <h2>Details</h2>
       {state.data.details.map((el, idx) => {
         return <div key={idx}>
@@ -49,6 +53,7 @@ function FinalView(props) {
           </div>
         </div>
       })}
+      </div>
 
       <h2>Education History</h2>
       {state.data.education.map((el, idx) => {
@@ -81,9 +86,12 @@ function FinalView(props) {
             <p>{el.oldRole}</p>
           </div>
         })}
-        <p>state should be rendered above</p>
+        </div>  
+      </div>
       </div>
 
+      </div>
+    </section>
     </>
   )
 }

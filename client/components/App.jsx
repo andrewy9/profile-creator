@@ -1,8 +1,9 @@
 // feat.캐이트 배이야, 사라 노울즈, 앤드류 양
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { fetchUser } from '../actions'
+import { fetchUser, fetchProfiles } from '../actions'
 import { HashRouter as Router, Route } from 'react-router-dom'
+import {getProfiles} from '../apis/apiController'
 
 import FinalView from './FinalView'
 import Home from './Home'
@@ -16,7 +17,7 @@ function App (props) {
     email: '',
     image: ''
   })
-
+  
   const responseGoogle = (response) => {
     const profile = response.getBasicProfile()
     setUser({
@@ -44,7 +45,7 @@ function App (props) {
   return (
     <Router>
       <div className='app'>
-        <Nav isAuthenticated={isAuthenticated} logout={logout} responseGoogle={responseGoogle} />
+        <Nav isAuthenticated={isAuthenticated} logout={logout} responseGoogle={responseGoogle}/>
         {isAuthenticated ? <AuthenticatedView /> : <UnAuthenticatedView />}
       </div>
     </Router>
@@ -57,7 +58,7 @@ function UnAuthenticatedView () {
       < div className='google-login' >
         <div className="hero-body">
           <div className="container">
-            <Route path='/finalView/:profile/:layout' component={FinalView} />
+            <Route path='/finalView' component={FinalView} />
           </div>
         </div>
       </div>
@@ -65,14 +66,14 @@ function UnAuthenticatedView () {
   )
 }
 
-function AuthenticatedView () {
+function AuthenticatedView (props, {loadProfiles}) {
   return (
     <>
       <Router>
         <div className="hero-body">
           <div className="container">
-            <Route path='/finalView' component={FinalView} />
-            <Route path='/' exact={true} component={Home} />
+            <Route path='/finalView/:profileName' exact={true} component={FinalView} />
+            <Route path='/' exact={true} component={Home}/>
           </div>
         </div>
       </Router>
@@ -80,4 +81,11 @@ function AuthenticatedView () {
   )
 }
 
-export default connect()(App)
+const mapStateToProps = (globalState) => {
+  return {
+    user: globalState.user,
+    details: globalState.details,
+  }
+}
+
+export default connect(mapStateToProps)(App)

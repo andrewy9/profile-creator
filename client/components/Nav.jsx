@@ -1,9 +1,18 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { GoogleLogout, GoogleLogin } from 'react-google-login'
-import { connect } from 'react-redux'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { GoogleLogout, GoogleLogin } from 'react-google-login';
+import { connect } from 'react-redux';
+import { getProfiles } from '../apis/apiController';
 
-function Nav ({ user, logout, responseGoogle }) {
+function Nav({ user, logout, responseGoogle }) {
+  const [profiles, setProfiles] = useState([])
+  const loadProfiles = () => {
+    getProfiles(user.id)
+      .then(details => {
+        setProfiles(details)
+      })
+  }
+
   return (
     <div className="hero-head">
       <div className='box'>
@@ -16,7 +25,23 @@ function Nav ({ user, logout, responseGoogle }) {
             </div>
             <div id="navbarMenuHeroA" className="navbar-menu">
               <div className="navbar-end">
-                <Link to='/finalView' className="navbar-item is-active">My Profiles</Link>
+
+                <div className="navbar-item has-dropdown is-hoverable">
+                  <a className="navbar-link" onMouseEnter={loadProfiles}>
+                    My Profiles
+                  </a>
+                  <div className="navbar-dropdown">
+                    {profiles.map(profile => {
+                      return <div key={profile.id}>
+                    <hr className="navbar-divider"/>
+                    <div className="navbar-item">
+                      <Link to={`/finalView/${profile.profileName}`}>{profile.profileName}</Link>
+                    </div>
+                    </div>
+                    })}
+                  </div>
+                </div>
+                
                 <a className="navbar-item">Documentation</a>
                 <span className="navbar-item">
                   <a className="button is-primary is-inverted">

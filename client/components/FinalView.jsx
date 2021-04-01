@@ -32,11 +32,11 @@ function FinalView(props) {
 
   return (
     <>
-      <h1>Select your profile</h1>
+      {/* <h1>Select your profile</h1>
       {state.profile.map((el, idx) => {
         return <button key={idx} value={el.profileName} onClick={selectProfile}>{el.profileName}</button>
-      })}
-
+      })} */}
+    <div className='details'>
       <h2>Details</h2>
       {state.data.details.map((el, idx) => {
         return <div key={idx}>
@@ -81,7 +81,8 @@ function FinalView(props) {
             <p>{el.oldRole}</p>
           </div>
         })}
-        <p>state should be rendered above</p>
+        {/* <p>state should be rendered above</p> */}
+        </div>  
       </div>
 
     </>

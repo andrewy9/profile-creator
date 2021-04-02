@@ -13,10 +13,12 @@ export function getProfiles(userId) {
 
 export function getSavedData(userId, profileName) {
   const formData = {
-    details: [],
+    profile: [],
+    socials: [],
+    skills: [],
     employmentHistory: [],
     oldEmploymentHistory: [],
-    education: []
+    educations: []
   }
 
   const retrievedData = Object.keys(formData).map(key => {
@@ -24,6 +26,7 @@ export function getSavedData(userId, profileName) {
   })
 
   return Promise.all(retrievedData).then(res => {
+    console.llg(res[0])
     return res[0]
   })
 }

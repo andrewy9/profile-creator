@@ -28,7 +28,7 @@ function saveOldEmploymentHistory({ oldEmployer, oldEmploymentDateStart, oldEmpl
 }
 
 function saveEducationHistory({ provider, qualification, yearStart, yearEnd }, userId, profileName, db = connection) {
-  return db('education')
+  return db('educations')
     .insert({ userId, profileName, provider, qualification, yearStart, yearEnd })
 }
 
@@ -64,7 +64,7 @@ function getUserOldEmploymentHistory(id, profileName, db = connection) {
 }
 
 function getUserEducation(id, profileName, db = connection) {
-  return db('education')
+  return db('educations')
     .where({ userId: id, profileName: profileName })
     .select('userId', 'profileName', 'provider', 'qualification', 'yearStart', 'yearEnd')
 }

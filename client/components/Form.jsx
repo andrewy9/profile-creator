@@ -62,6 +62,8 @@ function mapStateToProps(globalState) {
   return {
     user: globalState.user,
     profile: globalState.profile,
+    socials: globalState.socials,
+    skills: globalState.skills,
     educations: globalState.educations,
     employmentHistory: globalState.employmentHistory,
     oldEmploymentHistory: globalState.oldEmploymentHistory

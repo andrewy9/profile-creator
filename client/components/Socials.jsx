@@ -1,56 +1,39 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { fetchSocial } from '../actions'
-import { initialStates } from '../initialStates'
+import { appendSocial, updateSocial, removeSocial } from '../actions/socials'
 
 function Social(props) {
-  const [state, setState] = useState(
-    [initialStates.social]
-  )
-
-  useEffect(() => {
-    if (state.length > 0) {
-      return dispatchHandler(state)
-    } return dispatchHandler([initialStates.social])
-  })
-
-  const dispatchHandler = (data) => {
-    console.log('test')
-    props.dispatch(fetchSocial(data))
+  const initialState = {
+    network: '',
+    networkAddress: ''
   }
 
   const handleChange = (e) => {
     e.preventDefault()
-    const { name, value, id } = e.target
-    state[id][name] = value
-    setState([...state])
+    props.dispatch(updateSocial(e.target));
   }
 
-  const addMore = (e) => {
+  const addMoreButton = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault()
+      e.preventDefault();
     }
-    setState(
-      [...state, initialStates.social]
-    )
+    props.dispatch(appendSocial({ ...initialState }))
   }
 
-  const remove = (idx) => {
-    let removed = [...state]
-    removed.splice(idx, 1);
-    setState(removed)
+  const removeButton = (id) => {
+    props.dispatch(removeSocial(id));
   }
 
   return (
     <div className='socials content'>
-      {state.length == 0 ?
+      {props.socials.length == 0 ?
         <div className="control">
-          <button className='addSocial button is-small is-light button-spacer' type='button' onClick={addMore}>Add Social</button>
+          <button className='addSocial button is-small is-light button-spacer' type='button' onClick={addMoreButton}>Add Social</button>
         </div >
         : <div>
           <h3>Socials</h3>
           {
-            state.map((social, idx) => {
+            props.socials.map((socials, idx) => {
               return (
                 <div key={idx}>
                   <label className='label'>Network #{idx + 1}:</label>
@@ -59,7 +42,7 @@ function Social(props) {
                       id={idx}
                       className="input is-small"
                       name="network"
-                      value={social.network}
+                      value={socials.network}
                       onChange={handleChange}>
                       <option value="linkedIn">LinkedIn</option>
                       <option value="faceBook">FaceBook</option>
@@ -75,23 +58,31 @@ function Social(props) {
                       id={idx}
                       className="input is-small"
                       name="networkAddress"
-                      value={social.networkAddress}
+                      value={socials.networkAddress}
                       onChange={handleChange}>
                     </input>
                   </div>
                   <div className="control">
-                    <button type='button' className='removeSocial button is-small is-light button-spacer' onClick={() => remove(idx)}>Remove</button>
+                    <button type='button' className='removeSocial button is-small is-light button-spacer' onClick={() => removeButton(idx)}>Remove</button>
                   </div>
                 </div>
-              )
-            })}
+              );
+            })
+          }
         </div>
       }
-      {state.length > 0 &&
+      {props.socials.length > 0 &&
         <div className="control">
-          <button className='addOldEmploymentHistory button is-small is-light button-spacer' type='button' onClick={addMore}>Add More</button>
+          <button className='addSocial button is-small is-light button-spacer' type='button' onClick={addMoreButton}>Add More</button>
         </div >}
     </div >
   )
 }
-export default connect()(Social)
+
+function mapPropsToState(gloablState) {
+  return {
+    socials: gloablState.socials
+  }
+}
+
+export default connect(mapPropsToState)(Social)

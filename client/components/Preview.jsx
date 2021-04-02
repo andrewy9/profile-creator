@@ -4,21 +4,50 @@ import { connect } from 'react-redux'
 function Preview(props) {
   return (
     <>
-      {props.details.firstName && <div>
-        <div className="tile is-ancestor">
+      {props.profile.firstName && <div>
+        <div className="is-ancestor">
           <article className="tile is-child box">
             <div className='block'>
-              <h2 className='title is-4'>{props.details.firstName} {props.details.lastName}</h2>
-              {props.details.phone && <p>Phone: {props.details.phone}</p>}
-              {props.details.email && <p> Email: {props.details.email}</p>}
+              <h2 className='title is-4'>{props.profile.firstName} {props.profile.lastName}</h2>
+              {props.profile.phone && <p>Phone: {props.profile.phone}</p>}
+              {props.profile.email && <p> Email: {props.profile.email}</p>}
+              {props.profile.location && <p> Location: {props.profile.location}</p>}
             </div>
             <div className='block'>
-              {props.details.profileIntro && <h3 className="subtitle is-4">About Me</h3>}
-              <p>{props.details.profileIntro}</p>
+              {props.profile.profileIntro && <h3 className="subtitle is-4">About Me</h3>}
+              <p>{props.profile.profileIntro}</p>
             </div>
+          </article>
 
-            <div className='block'>
-              {props.employmentHistory[0].employer && <div>
+          {props.socials[0] &&
+            <article className="tile is-vertical is-child box">
+              <div className='block'>
+                <h3 className="subtitle is-4">Socials</h3>
+                {props.socials.map((social, idx) => {
+                  return <div key={idx} className='block'>
+                    <p><strong>{social.network}</strong></p>
+                    <p>{social.networkAddress}</p>
+                  </div>
+                })}
+              </div>
+            </article>}
+
+
+          {props.skills[0] &&
+            <article className="tile is-vertical is-child box">
+              <div className='block'>
+                <h3 className="subtitle is-4">Skills</h3>
+                {props.skills.map((skill, idx) => {
+                  return <div key={idx} className='block'>
+                    <p><strong>{skill.skill}</strong></p>
+                  </div>
+                })}
+              </div>
+            </article>}
+
+          {props.employmentHistory[0].employer &&
+            <article className="tile is-vertical is-child box">
+              <div className='block'>
                 <h3 className="subtitle is-4">Employment History</h3>
                 {props.employmentHistory.map((history, idx) => {
                   return <div key={idx} className='block'>
@@ -28,11 +57,12 @@ function Preview(props) {
                     <p>{history.details}</p>
                   </div>
                 })}
-              </div>}
-            </div>
+              </div>
+            </article>}
 
-            <div className='block'>
-              {props.oldEmploymentHistory[0].oldEmployer && <div>
+          {props.oldEmploymentHistory[0] &&
+            <article className="tile is-vertical is-child box">
+              <div className='block'>
                 {props.oldEmploymentHistory.map((history, idx) => {
                   return <div key={idx} className='block'>
                     <p><strong>{history.oldEmployer}</strong></p>
@@ -40,22 +70,24 @@ function Preview(props) {
                     <p>{history.oldRole}</p>
                   </div>
                 })}
-              </div>}
-            </div>
+              </div>
+            </article>}
 
-            <div className='block'>
-              {props.education[0].provider && <div>
+
+          {props.educations[0].provider &&
+            <article className="tile is-vertical is-child box">
+              <div className='block'>
                 <h3 className="subtitle is-4">Education</h3>
-                {props.education.map((education, idx) => {
+                {props.educations.map((educations, idx) => {
                   return <div key={idx} className='block'>
-                    <p><strong>{education.provider}</strong></p>
-                    <p>{education.qualification}</p>
-                    <p>{education.year}</p>
+                    <p><strong>{educations.provider}</strong></p>
+                    <p>{educations.qualification}</p>
+                    <p>{educations.year}</p>
                   </div>
                 })}
-              </div>}
-            </div>
-          </article>
+              </div>
+            </article>}
+
         </div>
       </div>}
     </>
@@ -64,8 +96,10 @@ function Preview(props) {
 
 function mapStateToProps(globalState) {
   return {
-    details: globalState.details,
-    education: globalState.education,
+    profile: globalState.profile,
+    socials: globalState.socials,
+    skills: globalState.skills,
+    educations: globalState.educations,
     employmentHistory: globalState.employmentHistory,
     oldEmploymentHistory: globalState.oldEmploymentHistory
   }

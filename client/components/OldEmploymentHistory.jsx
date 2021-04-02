@@ -1,55 +1,41 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { fetchOldEmploymentHistory } from '../actions'
-import { initialStates } from '../initialStates'
+import { appendOldEmploymentHistory, updateOldEmploymentHistory, removeOldEmploymentHistory } from '../actions/oldEmploymentHistory'
 
 function OldEmploymentHistory(props) {
-  const [state, setState] = useState(
-    [initialStates.oldEmploymentHistory]
-  )
-
-  useEffect(() => {
-    if (state.length > 0) {
-      return dispatchHandler(state)
-    } return dispatchHandler([initialStates.oldEmploymentHistory])
-  })
-
-  const dispatchHandler = (data) => {
-    props.dispatch(fetchOldEmploymentHistory(data))
+  const initialState = {
+    oldEmployer: '',
+    oldEmploymentDateStart: '',
+    oldEmploymentDateEnd: '',
+    oldRole: ''
   }
 
   const handleChange = (e) => {
     e.preventDefault()
-    const { name, value, id } = e.target
-    state[id][name] = value
-    setState([...state])
+    props.dispatch(updateOldEmploymentHistory(e.target))
   }
 
-  const addMore = (e) => {
+  const addMoreButton = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault()
     }
-    setState(
-      [...state, initialStates.oldEmploymentHistory]
-    )
+    props.dispatch(appendOldEmploymentHistory({ ...initialState }))
   }
 
-  const remove = (idx) => {
-    let removed = [...state]
-    removed.splice(idx, 1);
-    setState(removed)
+  const removeButton = (id) => {
+    props.dispatch(removeOldEmploymentHistory(id))
   }
 
   return (
     < div className='oldEmploymentHistory content' >
-      {state.length == 0 ?
+      {props.oldEmploymentHistory.length == 0 ?
         <div className="control">
-          <button className='addSocial button is-small is-light button-spacer' type='button' onClick={addMore}>Add 'other' employments</button>
+          <button className='addSocial button is-small is-light button-spacer' type='button' onClick={addMoreButton}>Add 'other' employments</button>
         </div >
         :
         <div>
           <h3>Older Employment History</h3>
-          {state.map((el, idx) => {
+          {props.oldEmploymentHistory.map((el, idx) => {
             return (
               <div key={idx}>
                 <label className='label'>Employer #{idx + 1}:</label>
@@ -100,18 +86,24 @@ function OldEmploymentHistory(props) {
                 </div>
 
                 <div className="control">
-                  <button type='button' className='removeOldEmploymentHistory button is-small is-light button-spacer' onClick={() => remove(idx)}>Remove</button>
+                  <button type='button' className='removeOldEmploymentHistory button is-small is-light button-spacer' onClick={() => removeButton(idx)}>Remove</button>
                 </div>
               </div>
             )
           })}
         </div>
       }
-      {state.length > 0 &&
+      {props.oldEmploymentHistory.length > 0 &&
         <div className="control">
-          <button className='addOldEmploymentHistory button is-small is-light button-spacer' type='button' onClick={addMore}>Add More</button>
+          <button className='addOldEmploymentHistory button is-small is-light button-spacer' type='button' onClick={addMoreButton}>Add More</button>
         </div >}
     </div >
   )
 }
-export default connect()(OldEmploymentHistory)
+function mapPropsToState(gloablState) {
+  return {
+    oldEmploymentHistory: gloablState.oldEmploymentHistory
+  }
+}
+
+export default connect(mapPropsToState)(OldEmploymentHistory)

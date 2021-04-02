@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 
 import { postFormDataToDatabase } from '../apis/apiController'
 
-import BasicDetails from './BasicDetails'
-import Social from './Social'
+import Profile from './Profile'
+import Socials from './Socials'
+import Skills from './Skills'
 import EmploymentHistory from './EmploymentHistory'
 import OldEmploymentHistory from './OldEmploymentHistory'
-import Education from './Education'
+import Educations from './Educations'
 
 function Form(props) {
   const [state, setState] = useState({
@@ -29,7 +30,7 @@ function Form(props) {
       },
       employmentHistory: props.employmentHistory,
       oldEmploymentHistory: props.oldEmploymentHistory,
-      education: props.education
+      education: props.educations
     }
 
     postFormDataToDatabase(formData)
@@ -57,11 +58,12 @@ function Form(props) {
                     </div>
                   </div>
                 </div>
-                <BasicDetails />
-                <Social />
+                <Profile />
+                <Socials />
+                <Skills />
                 <EmploymentHistory />
                 <OldEmploymentHistory />
-                <Education />
+                <Educations />
                 <div className="control">
                   <input className='button is-fullwidth is-small' id='submit' type='submit' value='Submit' />
                 </div>
@@ -78,7 +80,7 @@ function mapStateToProps(globalState) {
   return {
     user: globalState.user,
     details: globalState.details,
-    education: globalState.education,
+    educations: globalState.educations,
     employmentHistory: globalState.employmentHistory,
     oldEmploymentHistory: globalState.oldEmploymentHistory
   }

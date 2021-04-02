@@ -1,17 +1,15 @@
 exports.up = function (knex) {
-  return knex.schema.createTable('education', table => {
+  return knex.schema.createTable('skills', table => {
     table.increments('id')
     table.integer('userId')
       .references('user.id')
       .index()
       .onDelete('CASCADE')
     table.string('profileName')
-    table.string('provider')
-    table.string('qualification')
-    table.string('year')
+    table.string('skill')
   })
 }
 
 exports.down = function (knex) {
-  return knex.schema.dropTable('education')
+  return knex.schema.dropTable('skills')
 }

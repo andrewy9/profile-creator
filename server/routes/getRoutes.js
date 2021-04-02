@@ -4,14 +4,34 @@ const db = require('../db/dbFunctions')
 
 const router = express.Router()
 
-router.get('/details/:id/:profileName', (req, res) => {
+router.get('/profiles/:id/:profileName', (req, res) => {
   const id = req.params.id
   const profileName = req.params.profileName
-  db.getUserDetails(id, profileName)
+  db.getUserProfile(id, profileName)
     .then(response => {
       return res.json(response)
     })
     .catch(() => res.sendStatus(500)) // without this, it will cause reject tests to fail!
+})
+
+router.get('/socials/:id/:profileName', (req, res) => {
+  const id = req.params.id
+  const profileName = req.params.profileName
+  db.getUserSocials(id, profileName)
+    .then(response => {
+      return res.json(response)
+    })
+    .catch(() => res.sendStatus(500))
+})
+
+router.get('/skills/:id/:profileName', (req, res) => {
+  const id = req.params.id
+  const profileName = req.params.profileName
+  db.getUserSkills(id, profileName)
+    .then(response => {
+      return res.json(response)
+    })
+    .catch(() => res.sendStatus(500))
 })
 
 router.get('/employmentHistory/:id/:profileName', (req, res) => {
@@ -34,7 +54,7 @@ router.get('/oldEmploymentHistory/:id/:profileName', (req, res) => {
     .catch(() => res.sendStatus(500)) // without this, it will cause reject tests to fail!
 })
 
-router.get('/education/:id/:profileName', (req, res) => {
+router.get('/educations/:id/:profileName', (req, res) => {
   const id = req.params.id
   const profileName = req.params.profileName
   db.getUserEducation(id, profileName)

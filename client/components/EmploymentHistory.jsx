@@ -16,6 +16,12 @@ function EmploymentHistory(props) {
     props.dispatch(updateEmploymentHistory(e.target))
   }
 
+  const handleToggle = (e) => {
+    let toggle = false;
+    toggle = !toggle
+    console.log(toggle)
+  }
+
   const addMoreButton = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault()

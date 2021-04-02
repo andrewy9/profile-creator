@@ -10,7 +10,18 @@ function Profile(props) {
 
   return (
     <div className='content'>
-      <div className='basicDetails'>
+      <div className='profile'>
+        <div className="content">
+          <label className='label'>CV Profile Name: </label>
+        </div>
+        <div className="field-body block">
+          <div className='field'>
+            <div className='control'>
+              <input className='input is-small is-hovered' type='text' name='profileName' value={props.profile.profileName} onChange={handleChange}></input>
+            </div>
+          </div>
+        </div>
+
         <h3>Profile Details</h3>
         <label id="firstName" className="label">First Name:</label>
         <div className="control is-expanded">

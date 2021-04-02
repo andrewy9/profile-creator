@@ -11,36 +11,28 @@ import OldEmploymentHistory from './OldEmploymentHistory'
 import Educations from './Educations'
 
 function Form(props) {
-  const [state, setState] = useState({
-    profileName: ''
-  })
-
   const handleSubmit = e => {
     e.preventDefault()
     const formData = {
-      profileName: state.profileName,
+      profileName: props.profile.profileName,
       userId: props.user.id,
       profile: {
         firstName: props.profile.firstName,
         lastName: props.profile.lastName,
         phone: props.profile.phone,
         email: props.profile.email,
-        location: proprs.profile.location,
+        location: props.profile.location,
         profileIntro: props.profile.profileIntro
       },
+      socials: props.socials,
+      skills: props.skills,
       employmentHistory: props.employmentHistory,
       oldEmploymentHistory: props.oldEmploymentHistory,
-      education: props.educations
+      educations: props.educations
     }
 
     postFormDataToDatabase(formData)
   }
-
-  const handleChange = e => {
-    const { name, value } = e.target
-    setState({ ...state, [name]: value })
-  }
-
   return (
     <>
       <div className="tile is-ancestor">
@@ -48,16 +40,6 @@ function Form(props) {
           <article className="tile is-child box">
             <div className="field">
               <form onSubmit={handleSubmit}>
-                <div className="content">
-                  <label className='label'>CV Profile Name: </label>
-                </div>
-                <div className="field-body block">
-                  <div className='field'>
-                    <div className='control'>
-                      <input className='input is-small is-hovered' type='text' name='profileName' value={state.profileName} onChange={handleChange}></input>
-                    </div>
-                  </div>
-                </div>
                 <Profile />
                 <Socials />
                 <Skills />
@@ -79,7 +61,7 @@ function Form(props) {
 function mapStateToProps(globalState) {
   return {
     user: globalState.user,
-    details: globalState.details,
+    profile: globalState.profile,
     educations: globalState.educations,
     employmentHistory: globalState.employmentHistory,
     oldEmploymentHistory: globalState.oldEmploymentHistory

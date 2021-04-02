@@ -5,7 +5,7 @@ import { appendSocial, updateSocial, removeSocial } from '../actions/socials'
 function Social(props) {
   const initialState = {
     network: '',
-    networkAddress: ''
+    link: ''
   }
 
   const handleChange = (e) => {
@@ -44,11 +44,12 @@ function Social(props) {
                       name="network"
                       value={socials.network}
                       onChange={handleChange}>
-                      <option value="linkedIn">LinkedIn</option>
-                      <option value="faceBook">FaceBook</option>
-                      <option value="gitHub">GitHub</option>
-                      <option value="instagram">Instagram</option>
-                      <option value="other">Personal Site</option>
+                      <option value="">Select...</option>
+                      <option value="LinkedIn">LinkedIn</option>
+                      <option value="FaceBook">FaceBook</option>
+                      <option value="GitHub">GitHub</option>
+                      <option value="Instagram">Instagram</option>
+                      <option value="Personal Page">Personal Page</option>
                     </select>
                   </div>
                   <label className='label'>Network Address:</label>
@@ -57,8 +58,8 @@ function Social(props) {
                       type='text'
                       id={idx}
                       className="input is-small"
-                      name="networkAddress"
-                      value={socials.networkAddress}
+                      name="link"
+                      value={socials.link}
                       onChange={handleChange}>
                     </input>
                   </div>

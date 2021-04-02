@@ -1,6 +1,7 @@
 import { SET_PROFILE } from '../actions'
 
 const initialState = {
+  profileName: '',
   firstName: '',
   lastName: '',
   phone: '',

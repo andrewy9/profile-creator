@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 function Preview(props) {
   return (
     <>
-      {props.profile.firstName && <div>
+      {props.profile.profileName && props.profile.firstName && <div>
         <div className="is-ancestor">
           <article className="tile is-child box">
             <div className='block'>
@@ -26,7 +26,7 @@ function Preview(props) {
                 {props.socials.map((social, idx) => {
                   return <div key={idx} className='block'>
                     <p><strong>{social.network}</strong></p>
-                    <p>{social.networkAddress}</p>
+                    <p>{social.link}</p>
                   </div>
                 })}
               </div>

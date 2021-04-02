@@ -20,13 +20,13 @@ function Form(props) {
     const formData = {
       profileName: state.profileName,
       userId: props.user.id,
-      details: {
-        firstName: props.details.firstName,
-        lastName: props.details.lastName,
-        phone: props.details.phone,
-        email: props.details.email,
-        location: '', //new
-        profileIntro: props.details.profileIntro
+      profile: {
+        firstName: props.profile.firstName,
+        lastName: props.profile.lastName,
+        phone: props.profile.phone,
+        email: props.profile.email,
+        location: proprs.profile.location,
+        profileIntro: props.profile.profileIntro
       },
       employmentHistory: props.employmentHistory,
       oldEmploymentHistory: props.oldEmploymentHistory,

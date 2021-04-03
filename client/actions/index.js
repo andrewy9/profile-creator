@@ -1,5 +1,6 @@
 export const SET_PROFILE = 'SET_PROFILE'
 export const SET_USER = 'SET_USER'
+export const ADD_PICTURE = 'ADD_PICTURE'
 
 // SetReducer
 export function setReducer(payload, type) {
@@ -17,6 +18,12 @@ export function updateProfile(profile) {
   }
 }
 
+export function addPicture(picture) {
+  return dispatch => {
+    dispatch(setReducer(picture, ADD_PICTURE))
+    return null
+  }
+}
 
 // User
 export function fetchUser(user) {

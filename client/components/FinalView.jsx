@@ -5,45 +5,44 @@ import { connect } from 'react-redux'
 function FinalView(props) {
   const [state, setState] = useState({
     data: {
-      details: [],
+      profile: [],
       employmentHistory: [],
       oldEmploymentHistory: [],
-      education: ['original']
+      educations: ['original']
     },
     selected: 'details'
   })
 
-  // useEffect(() => {
-  //   getSavedData(props.user.id, props.match.params.profileName)
-  //     .then(data => {
-  //       return setState({ data })
-  //     })
-  //     .catch(err => console.log(err))
-  // }, [])
-  //[props.match.params.profileName]
+  useEffect(() => {
+    getSavedData(props.user.id, props.match.params.profileName)
+      .then(data => {
+        return setState({ data })
+      })
+      .catch(err => console.log(err))
+  }, [props.match.params.profileName])
 
   return (
     <>
-      <section class="section">
-        <div class="container">
+      <section className="section">
+        <div className="container">
 
 
           <div className='columns'>
 
             <div className='column'>
-              <h1>Hi, I'm {props.user.name}</h1>  //PROPS
-      <figure className='image is 108x108'>
+              <h1>Hi, I'm {props.user.name}</h1>
+              <figure className='image is 108x108'>
                 <img className='is-rounded' src={props.user.image}></img>
               </figure>
             </div>
 
             <div className='column'>
-              <button className='colored-cirle' onClick={setState({ ...state, selected: 'details' })}> //STATE
-              About Me
+              <button className='colored-cirle' onClick={() => setState({ ...state, selected: 'details' })}>
+                About Me
       </button>
               <div className='details'>
                 <h2>Details</h2>
-                {state.data.details.map((el, idx) => { //STATE
+                {state.data.profile.map((el, idx) => {
                   return <div key={idx}>
                     <p>{el.name}</p>
                     <p>Ph: {el.phone}</p>
@@ -57,7 +56,7 @@ function FinalView(props) {
               </div>
 
               <h2>Education History</h2>
-              {state.data.education.map((el, idx) => { //STATE
+              {state.data.educations.map((el, idx) => {
                 return <div key={idx}>
                   <div>
                     <h4>Education Provider</h4>
@@ -71,7 +70,7 @@ function FinalView(props) {
               })}
               <div>
                 <h2>Employment History</h2>
-                {state.data.employmentHistory.map((el, idx) => { //STATE
+                {state.data.employmentHistory.map((el, idx) => {
                   return <div key={idx}>
                     <h4>Employer</h4>
                     <p>{el.employer} - {el.oldEmploymentDate}</p>
@@ -80,7 +79,7 @@ function FinalView(props) {
                   </div>
                 })}
 
-                {state.data.oldEmploymentHistory.map((el, idx) => {  //STATE
+                {state.data.oldEmploymentHistory.map((el, idx) => {
                   return <div key={idx}>
                     <h4>Previous Employer</h4>
                     <p>{el.oldEmployer} - {el.oldEmploymentDate}</p>

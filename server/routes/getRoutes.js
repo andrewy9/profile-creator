@@ -4,7 +4,8 @@ const db = require('../db/dbFunctions')
 
 const router = express.Router()
 
-router.get('/profiles/:id/:profileName', (req, res) => {
+//for the final view
+router.get('/profile/:id/:profileName', (req, res) => {
   const id = req.params.id
   const profileName = req.params.profileName
   db.getUserProfile(id, profileName)
@@ -64,6 +65,7 @@ router.get('/educations/:id/:profileName', (req, res) => {
     .catch(() => res.sendStatus(500))
 })
 
+//for the nav bar - get a list of profiles or a user
 router.get('/profiles/:id', (req, res) => {
   const id = req.params.id
   db.getProfiles(id)

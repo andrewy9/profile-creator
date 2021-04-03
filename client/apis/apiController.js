@@ -1,5 +1,6 @@
 import request from 'superagent'
 
+
 const rootUrl = '/api/v1'
 
 // GET
@@ -12,6 +13,7 @@ export function getProfiles(userId) {
 }
 
 export function getSavedData(userId, profileName) {
+  console.log('get saved data hito')
   const formData = {
     profile: [],
     socials: [],
@@ -26,7 +28,7 @@ export function getSavedData(userId, profileName) {
   })
 
   return Promise.all(retrievedData).then(res => {
-    console.llg(res[0])
+    console.log(res[0])
     return res[0]
   })
 }

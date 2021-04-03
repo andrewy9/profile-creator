@@ -11,6 +11,10 @@ import OldEmploymentHistory from './OldEmploymentHistory'
 import Educations from './Educations'
 
 function Form(props) {
+  // const [selectedFile, setSelectedFile] = useState({
+  //   selectedFile: null
+  // })
+
   const handleSubmit = e => {
     e.preventDefault()
     const formData = {
@@ -33,6 +37,16 @@ function Form(props) {
 
     postFormDataToDatabase(formData)
   }
+
+  const fileSelectedHandler = (e) => {
+    console.log(e.target.files[0])
+    setSelectedFile(e.target.files[0])
+  }
+
+  const fileUploadHanlder = () => {
+
+  }
+
   return (
     <>
       <div className="tile is-ancestor">
@@ -48,6 +62,7 @@ function Form(props) {
                 <Educations />
                 <div className="control">
                   <input className='button is-fullwidth is-small' id='submit' type='submit' value='Submit' />
+                  <button onClick={fileUploadHanlder}>Upload</button>
                 </div>
               </form>
             </div>

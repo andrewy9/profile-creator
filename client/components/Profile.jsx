@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { updateProfile } from '../actions'
+import ProfileImage from './ProfileImage'
+
 
 function Profile(props) {
   const handleChange = (e) => {
@@ -31,7 +33,7 @@ function Profile(props) {
         <div className="control is-expanded">
           <input aria-labelledby="Name" className='input is-small' type='text' name="lastName" id={0} value={props.profile.lastName} onChange={handleChange}></input>
         </div>
-
+        <ProfileImage />
         <label className="label">Phone:</label>
         <div className="control">
           <input className='input is-small' type='text' name="phone" id={1} value={props.profile.phone} onChange={handleChange}></input>

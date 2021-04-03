@@ -43,6 +43,7 @@ function getUserSocials(id, profileName, db = connection) {
   return db('socials')
     .where({ userId: id, profileName: profileName })
     .select('userId', 'profileName', 'network', 'link')
+    .catch(console.log)
 }
 
 function getUserSkills(id, profileName, db = connection) {

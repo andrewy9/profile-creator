@@ -1,7 +1,5 @@
 const express = require('express')
-
 const db = require('../db/dbFunctions')
-
 const router = express.Router()
 
 //for the final view

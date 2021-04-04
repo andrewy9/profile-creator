@@ -1,7 +1,5 @@
 const express = require('express')
-
 const db = require('../db/dbFunctions')
-
 const router = express.Router()
 
 router.post('/employmentHistory', async (req, res) => {
@@ -98,10 +96,19 @@ router.post('/profile', async (req, res) => {
     const { profile, userId, profileName } = req.body
     const response = await db.saveProfile(profile, userId, profileName)
     return res.status(201).json(response) // json(details) is required to make the result readable for jest testing
-    return null
   } catch (error) {
     console.log(error)
     return res.sendStatus(500)
+  }
+})
+
+router.post('/profileImage', async (req, res) => {
+  try {
+    const { name, data } = req.files.profileImage;
+    await db.uploadImage(name, data)
+    res.sendStatus(200);
+  } catch (error) {
+    return res.sendStatus(500).json(error)
   }
 })
 

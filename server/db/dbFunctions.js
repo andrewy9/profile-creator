@@ -7,6 +7,11 @@ function saveProfile({ firstName, lastName, phone, email, location, profileIntro
     .insert({ userId, profileName, firstName, lastName, phone, email, location, profileIntro })
 }
 
+function upoadImage({ name, data }) {
+  return db('image')
+    .insert({ name, data })
+}
+
 function saveSocials({ network, link }, userId, profileName, db = connection) {
   return db('socials')
     .insert({ network, link, userId, profileName })
@@ -77,6 +82,7 @@ function getProfiles(id, db = connection) {
 }
 
 module.exports = {
+  upoadImage,
   getUserProfile,
   getUserSocials,
   getUserSkills,

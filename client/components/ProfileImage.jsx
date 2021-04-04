@@ -17,7 +17,7 @@ function ProfileImage(props) {
     <div>
       <label className="label">Upload Your Profile Image:</label>
       <div className="control">
-        <input className='input is-small' type='file' name="phone" id={4} onChange={handleFileUpload}></input>
+        <input className='input is-small' type='file' name="profileImage" id={4} onChange={handleFileUpload}></input>
       </div>
 
       <div className="imgPreview"

@@ -8,7 +8,6 @@ export function getProfiles(userId) {
   return request
     .get(`${rootUrl}/get/profiles/${userId}`)
     .then(res => {
-      console.log
       return res.body
     })
 }
@@ -28,7 +27,7 @@ export function getSavedData(userId, profileName) {
   })
 
   return Promise.all(retrievedData).then(res => {
-    console.log(res[0])
+    return res[0]
   })
 }
 

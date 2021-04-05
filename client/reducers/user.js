@@ -13,8 +13,6 @@ const reducer = (state = initialState, action) => {
     case SET_USER:
       return action.payload
 
-    case FETCH_PROFILE_LIST:
-      return { ...state, profiles: action.payload }
     default:
       return state
   }

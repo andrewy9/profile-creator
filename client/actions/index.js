@@ -1,6 +1,7 @@
 export const SET_PROFILE = 'SET_PROFILE'
 export const SET_USER = 'SET_USER'
 export const ADD_PICTURE = 'ADD_PICTURE'
+export const FETCH_PROFILE_LIST = 'FETCH_PROFILE_LIST'
 
 // SetReducer
 export function setReducer(payload, type) {
@@ -32,3 +33,8 @@ export function fetchUser(user) {
   }
 }
 
+export function fetchProfileList(details) {
+  return dispatch => {
+    dispatch(setReducer(details, FETCH_PROFILE_LIST))
+  }
+}

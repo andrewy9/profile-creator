@@ -7,9 +7,9 @@ function saveProfile({ firstName, lastName, phone, email, location, profileIntro
     .insert({ userId, profileName, firstName, lastName, phone, email, location, profileIntro })
 }
 
-function upoadImage({ name, data }) {
+function uploadImage({ name, data }, db = connection) {
   return db('image')
-    .insert({ name, data })
+    .insert({ name, image: data })
 }
 
 function saveSocials({ network, link }, userId, profileName, db = connection) {
@@ -44,11 +44,16 @@ function getUserProfile(id, profileName, db = connection) {
     .select('userId', 'firstName', 'lastName', 'phone', 'email', 'profileIntro', 'location', 'profileName')
 }
 
+function getImage(id, db = connection) {
+  return db('profileImage')
+    .where({ id: id }).first()
+    .select('image', 'name')
+}
+
 function getUserSocials(id, profileName, db = connection) {
   return db('socials')
     .where({ userId: id, profileName: profileName })
     .select('userId', 'profileName', 'network', 'link')
-    .catch(console.log)
 }
 
 function getUserSkills(id, profileName, db = connection) {
@@ -82,7 +87,8 @@ function getProfiles(id, db = connection) {
 }
 
 module.exports = {
-  upoadImage,
+  uploadImage,
+  getImage,
   getUserProfile,
   getUserSocials,
   getUserSkills,

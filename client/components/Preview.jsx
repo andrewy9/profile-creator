@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import './styles.css'
 
 function Preview(props) {
   return (
@@ -18,6 +19,18 @@ function Preview(props) {
               <p>{props.profile.profileIntro}</p>
             </div>
           </article>
+
+          {props.profileImagePreview &&
+            <article className="tile is-vertical is-child box">
+              <div className='block'>
+                <h3 className="subtitle is-4">Profile Image Preview</h3>
+                <div className='block'>
+                  <div className="imgPreview"
+                    style={{ background: props.profileImagePreview ? `url("${props.profileImagePreview}") no-repeat center/cover` : "#131313" }}>
+                  </div>
+                </div>
+              </div>
+            </article>}
 
           {props.socials[0] &&
             <article className="tile is-vertical is-child box">
@@ -82,7 +95,8 @@ function Preview(props) {
                   return <div key={idx} className='block'>
                     <p><strong>{educations.provider}</strong></p>
                     <p>{educations.qualification}</p>
-                    <p>{educations.year}</p>
+                    <p>{educations.yearStart}</p>
+                    <p>{educations.yearEnd}</p>
                   </div>
                 })}
               </div>
@@ -97,6 +111,7 @@ function Preview(props) {
 function mapStateToProps(globalState) {
   return {
     profile: globalState.profile,
+    profileImagePreview: globalState.profile.profileImage.preview,
     socials: globalState.socials,
     skills: globalState.skills,
     educations: globalState.educations,

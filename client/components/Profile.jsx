@@ -14,24 +14,24 @@ function Profile(props) {
     <div className='content'>
       <div className='profile'>
         <div className="content">
-          <label className='label'>CV Profile Name: </label>
+          <label className='label'>CV Profile Name: <span style={{ color: "red" }}>*</span> </label>
         </div>
         <div className="field-body block">
           <div className='field'>
             <div className='control'>
-              <input className='input is-small is-hovered' type='text' name='profileName' value={props.profile.profileName} onChange={handleChange}></input>
+              <input className='input is-small is-hovered' type='text' name='profileName' value={props.profile.profileName} onChange={handleChange} required></input>
             </div>
           </div>
         </div>
 
         <h3>Profile Details</h3>
-        <label id="firstName" className="label">First Name:</label>
+        <label id="firstName" className="label">First Name: <span style={{ color: "red" }}>*</span></label>
         <div className="control is-expanded">
-          <input aria-labelledby="Name" className='input is-small' type='text' name="firstName" id={0} value={props.profile.firstName} onChange={handleChange}></input>
+          <input aria-labelledby="Name" className='input is-small' type='text' name="firstName" id={0} value={props.profile.firstName} onChange={handleChange} required></input>
         </div>
-        <label id="lastName" className="label">Last Name:</label>
+        <label id="lastName" className="label"> Last Name: <span style={{ color: "red" }}>*</span></label>
         <div className="control is-expanded">
-          <input aria-labelledby="Name" className='input is-small' type='text' name="lastName" id={0} value={props.profile.lastName} onChange={handleChange}></input>
+          <input aria-labelledby="Name" className='input is-small' type='text' name="lastName" id={0} value={props.profile.lastName} onChange={handleChange} required></input>
         </div>
         <ProfileImage />
         <label className="label">Phone:</label>

@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { getSavedData } from '../apis/apiController'
 import { connect } from 'react-redux'
 
+import FinalViewHome from './FinalViewHome'
+import Resume from './Resume'
+import Contact from './Contact'
+
 function FinalView(props) {
   const [state, setState] = useState({
     data: {
@@ -10,89 +14,84 @@ function FinalView(props) {
       oldEmploymentHistory: [],
       educations: ['original']
     },
-    selected: 'details'
+    selected: 'home'
   })
+  console.log(state)
+
 
   useEffect(() => {
     getSavedData(props.user.id, props.match.params.profileName)
-      .then(data => {
-        return setState({ data })
+      .then(userData => {
+        return setState({ ...state, data: userData })
       })
       .catch(err => console.log(err))
   }, [props.match.params.profileName])
 
   return (
-    <>
-      <section className="section">
-        <div className="container">
+    <section className="finalView section">
+      <div className="container">
 
+        {/* nav */}
+        <div className='level'>
+          <h1 className='title has-text-weight-bold'>{props.user.name}</h1>
+          <a onClick={() => setState({ ...state, selected: 'home' })}>Home</a>
+          <a onClick={() => setState({ ...state, selected: 'resume' })}>Resume</a>
+          <a onClick={() => setState({ ...state, selected: 'contact' })}>Contact</a>
+        </div>
 
-          <div className='columns'>
+        {/*body*/}
+        <div className='columns'>
 
-            <div className='column'>
-              <h1>Hi, I'm {props.user.name}</h1>
-              <figure className='image is 108x108'>
-                <img className='is-rounded' src={props.user.image}></img>
-              </figure>
-            </div>
+          {/* left colum */}
+          <div className='column'>
+            <figure className='image is 108x108'>
+              <img className='is-rounded' src={props.user.image}></img>
+            </figure>
+          </div>
 
-            <div className='column'>
-              <button className='colored-cirle' onClick={() => setState({ ...state, selected: 'details' })}>
-                About Me
-      </button>
-              <div className='details'>
-                <h2>Details</h2>
-                {state.data.profile.map((el, idx) => {
-                  return <div key={idx}>
-                    <p>{el.name}</p>
-                    <p>Ph: {el.phone}</p>
-                    <p>Email:{el.email}</p>
-                    <div>
-                      <h2>Intro</h2>
-                      <p>{el.profileIntro}</p>
-                    </div>
-                  </div>
-                })}
-              </div>
-
-              <h2>Education History</h2>
-              {state.data.educations.map((el, idx) => {
-                return <div key={idx}>
-                  <div>
-                    <h4>Education Provider</h4>
-                    <p>{el.provider} - {el.year}</p>
-                  </div>
-                  <div>
-                    <h4>Qualification</h4>
-                    <p>{el.qualification}</p>
-                  </div>
-                </div>
-              })}
-              <div>
-                <h2>Employment History</h2>
-                {state.data.employmentHistory.map((el, idx) => {
-                  return <div key={idx}>
-                    <h4>Employer</h4>
-                    <p>{el.employer} - {el.oldEmploymentDate}</p>
-                    <p>{el.role}</p>
-                    <p>{el.details}</p>
-                  </div>
-                })}
-
-                {state.data.oldEmploymentHistory.map((el, idx) => {
-                  return <div key={idx}>
-                    <h4>Previous Employer</h4>
-                    <p>{el.oldEmployer} - {el.oldEmploymentDate}</p>
-                    <p>{el.oldRole}</p>
-                  </div>
-                })}
-              </div>
-            </div>
+          {/* right column */}
+          <div className='column'>
+            {state.selected == 'home' && <FinalViewHome data={state.data} />}
+            {state.selected == 'resume' && <Resume data={state.data} />}
+            {state.selected == 'contact' && <Contact contact={state.data.profile} />}
           </div>
 
         </div>
-      </section>
-    </>
+
+        {/* footer */}
+        <div className='footer '>
+          {state.data.profile.map((el, idx) => {
+            return <div key={idx} className='level'>
+              <div>
+                <p className='is-size-6'>Phone {" "}</p>
+                <a className='is-size-6' href={`tel:${el.phone}`}>{el.phone}</a>
+              </div>
+
+              <div>
+                <p className='is-size-6'>Email {" "}</p>
+                <a className='is-size-6' href={`mailto:${el.email}`}>{el.email}</a>
+              </div>
+
+              <div>
+                <p className='is-size-6'>Follow Me</p>
+                <span className="icon">
+                  <i className="fab fa-linkedin-in"></i>
+                </span>
+                <span className="icon">
+                  <i className="fab fa-facebook-f"></i>
+                </span>
+                <span className="icon">
+                  <i className="fab fa-twitter"></i>
+                </span>
+                <span className="icon">
+                  <i className="fab fa-instagram"></i>
+                </span>
+              </div>
+            </div>
+          })}
+        </div>
+      </div>
+    </section>
   )
 }
 

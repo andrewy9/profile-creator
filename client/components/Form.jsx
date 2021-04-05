@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
-import { postFormDataToDatabase } from '../apis/apiController'
+import { postFormDataToDatabase, postImage } from '../apis/apiController'
 
 import Profile from './Profile'
 import Socials from './Socials'
@@ -11,9 +11,7 @@ import OldEmploymentHistory from './OldEmploymentHistory'
 import Educations from './Educations'
 
 function Form(props) {
-  // const [selectedFile, setSelectedFile] = useState({
-  //   selectedFile: null
-  // })
+  const [submitSuccess, setSubmitSuccess] = useState()
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -35,16 +33,13 @@ function Form(props) {
       educations: props.educations
     }
 
-    postFormDataToDatabase(formData)
-  }
-
-  const fileSelectedHandler = (e) => {
-    console.log(e.target.files[0])
-    setSelectedFile(e.target.files[0])
-  }
-
-  const fileUploadHanlder = () => {
-
+    if (props.user.profiles.some(profile => profile.profileName === props.profile.profileName)) {
+      return setSubmitSuccess({ success: false })
+    } else {
+      postFormDataToDatabase(formData)
+      props.profileImage && postImage(props.profileImage).then(console.log)
+      setSubmitSuccess({ success: true })
+    }
   }
 
   return (
@@ -62,7 +57,16 @@ function Form(props) {
                 <Educations />
                 <div className="control">
                   <input className='button is-fullwidth is-small' id='submit' type='submit' value='Submit' />
-                  <button onClick={fileUploadHanlder}>Upload</button>
+                  {
+                    submitSuccess
+                      ? [
+                        (submitSuccess.success
+                          ? <div key={0}>yes</div>
+                          : <div key={1}>no</div>
+                        )
+                      ]
+                      : <span></span>
+                  }
                 </div>
               </form>
             </div>
@@ -77,6 +81,7 @@ function mapStateToProps(globalState) {
   return {
     user: globalState.user,
     profile: globalState.profile,
+    profileImage: globalState.profile.profileImage.image,
     socials: globalState.socials,
     skills: globalState.skills,
     educations: globalState.educations,

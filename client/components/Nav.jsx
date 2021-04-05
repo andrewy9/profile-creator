@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom';
 import { GoogleLogout, GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { getProfiles } from '../apis/apiController';
+import { fetchProfileList } from '../actions'
 
-function Nav({ user, logout, responseGoogle }) {
+function Nav({ dispatch, user, logout, responseGoogle }) {
   const [profiles, setProfiles] = useState([])
   const loadProfiles = () => {
     getProfiles(user.id)
       .then(details => {
         setProfiles(details)
+        dispatch(fetchProfileList(details))
       })
   }
 
@@ -33,15 +35,15 @@ function Nav({ user, logout, responseGoogle }) {
                   <div className="navbar-dropdown">
                     {profiles.map(profile => {
                       return <div key={profile.id}>
-                    <hr className="navbar-divider"/>
-                    <div className="navbar-item">
-                      <Link to={`/finalView/${profile.profileName}`}>{profile.profileName}</Link>
-                    </div>
-                    </div>
+                        <hr className="navbar-divider" />
+                        <div className="navbar-item">
+                          <Link to={`/finalView/${profile.profileName}`}>{profile.profileName}</Link>
+                        </div>
+                      </div>
                     })}
                   </div>
                 </div>
-                
+
                 <a className="navbar-item">Documentation</a>
                 <span className="navbar-item">
                   <a className="button is-primary is-inverted">

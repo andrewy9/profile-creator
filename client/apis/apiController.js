@@ -8,12 +8,12 @@ export function getProfiles(userId) {
   return request
     .get(`${rootUrl}/get/profiles/${userId}`)
     .then(res => {
+      console.log
       return res.body
     })
 }
 
 export function getSavedData(userId, profileName) {
-  console.log('get saved data hito')
   const formData = {
     profile: [],
     socials: [],
@@ -29,7 +29,6 @@ export function getSavedData(userId, profileName) {
 
   return Promise.all(retrievedData).then(res => {
     console.log(res[0])
-    return res[0]
   })
 }
 
@@ -42,11 +41,13 @@ function retrieveSavedData(key, formData, userId, profileName) {
     })
 }
 
-// POST
+//POST
 export function postFormDataToDatabase(formData) {
   const { profileName, userId } = formData
   for (const [key, value] of Object.entries(formData)) {
-    if (key !== 'userId' && key !== 'profileName') { sendData(key, value, userId, profileName) }
+    if (key !== 'userId' && key !== 'profileName') {
+      sendData(key, value, userId, profileName)
+    }
   }
 }
 
@@ -57,4 +58,15 @@ function sendData(key, value, userId, profileName) {
     .then(res => {
       return res.body
     })
+    .catch(err => console.log(err))
+}
+
+export function postImage(file) {
+  return request
+    .post(`${rootUrl}/post/upload`)
+    .send(file)
+    .then(res => {
+      return res.body
+    })
+    .catch(e => null)
 }

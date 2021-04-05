@@ -15931,4 +15931,18 @@ body.has-spaced-navbar-fixed-bottom {
   margin-top: 10px;
 }
 
+.finalView {
+  border-style: solid;
+}
+
+#scrolling {
+  height: 25em;
+  overflow: scroll;
+  overflow-y: scroll;
+}
+
+.border {
+  border-top: solid;
+}
+
 /*# sourceMappingURL=styles.css.map*/

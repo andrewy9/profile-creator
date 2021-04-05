@@ -1,28 +1,43 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { postImage } from '../apis/apiController'
 import { addPicture } from '../actions'
 import './styles.css'
 
 function ProfileImage(props) {
+  const supportedTypes = ['image/png', 'image/jpeg', 'image/jpg']
+  const [isSupported, setIsSupported] = useState(true);
+
   const handleFileUpload = (e) => {
+    const imageForm = new FormData();
+    const reader = new FileReader();
     const selectedImg = e.target.files[0]
-    let reader = new FileReader();
-    reader.onloadend = () => {
-      props.dispatch(addPicture({ image: selectedImg, preview: reader.result }))
+
+    if (selectedImg && supportedTypes.includes(selectedImg.type)) {
+      imageForm.append('image', selectedImg);
+      reader.onloadend = () => {
+        props.dispatch(addPicture({ image: imageForm, preview: reader.result }))
+      }
+      setIsSupported(true)
+      return reader.readAsDataURL(selectedImg)
     }
-    reader.readAsDataURL(selectedImg)
+    setIsSupported(false)
+    return console.log("Error, image file type now supported")
   }
+
 
   return (
     <div>
+      {console.log(props.profileImage)}
       <label className="label">Upload Your Profile Image:</label>
       <div className="control">
         <input className='input is-small' type='file' name="profileImage" id={4} onChange={handleFileUpload}></input>
       </div>
 
-      <div className="imgPreview"
-        style={{ background: props.profileImage.preview ? `url("${props.profileImage.preview}") no-repeat center/cover` : "#131313" }}>
-      </div>
+      {isSupported ? null :
+        <div style={{ color: 'red' }}>
+          <p>Please select an image that is supported.</p>
+        </div>}
     </div>
   );
 }

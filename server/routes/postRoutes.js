@@ -91,6 +91,7 @@ router.post('/educations', async (req, res) => {
   }
 })
 
+//for inidividual proflie detail including name, phone number, email etc.
 router.post('/profile', async (req, res) => {
   try {
     const { profile, userId, profileName } = req.body
@@ -102,14 +103,17 @@ router.post('/profile', async (req, res) => {
   }
 })
 
-router.post('/profileImage', async (req, res) => {
+//WIP to upload profile image
+router.post('/upload', async (req, res) => {
   try {
-    const { name, data } = req.files.profileImage;
-    await db.uploadImage(name, data)
-    res.sendStatus(200);
+    const image = req.files.image;
+    const response = await db.uploadImage(image)
+
+    return res.status(201).json(response);
   } catch (error) {
     return res.sendStatus(500).json(error)
   }
 })
+
 
 module.exports = router

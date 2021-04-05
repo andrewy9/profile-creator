@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { fetchUser, fetchProfiles } from '../actions'
 import { HashRouter as Router, Route } from 'react-router-dom'
-import {getProfiles} from '../apis/apiController'
+import { getProfiles } from '../apis/apiController'
 
 import FinalView from './FinalView'
 import Home from './Home'
 import Nav from './Nav'
 
-function App (props) {
+function App(props) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState({
     id: '',
@@ -17,7 +17,7 @@ function App (props) {
     email: '',
     image: ''
   })
-  
+
   const responseGoogle = (response) => {
     const profile = response.getBasicProfile()
     setUser({
@@ -45,20 +45,20 @@ function App (props) {
   return (
     <Router>
       <div className='app'>
-        <Nav isAuthenticated={isAuthenticated} logout={logout} responseGoogle={responseGoogle}/>
+        <Nav isAuthenticated={isAuthenticated} logout={logout} responseGoogle={responseGoogle} />
         {isAuthenticated ? <AuthenticatedView /> : <UnAuthenticatedView />}
       </div>
     </Router>
   )
 }
 
-function UnAuthenticatedView () {
+function UnAuthenticatedView() {
   return (
     <Router>
       < div className='google-login' >
         <div className="hero-body">
           <div className="container">
-            <Route path='/finalView' component={FinalView} />
+            {/* <Route path='/finalView' component={FinalView} /> */}
           </div>
         </div>
       </div>
@@ -66,14 +66,14 @@ function UnAuthenticatedView () {
   )
 }
 
-function AuthenticatedView (props, {loadProfiles}) {
+function AuthenticatedView(props, { loadProfiles }) {
   return (
     <>
       <Router>
         <div className="hero-body">
           <div className="container">
             <Route path='/finalView/:profileName' exact={true} component={FinalView} />
-            <Route path='/' exact={true} component={Home}/>
+            <Route path='/' exact={true} component={Home} />
           </div>
         </div>
       </Router>

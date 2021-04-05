@@ -1,41 +1,45 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
-import { postFormDataToDatabase } from '../apis/apiController'
+import { postFormDataToDatabase, postImage } from '../apis/apiController'
 
-import BasicDetails from './BasicDetails'
+import Profile from './Profile'
+import Socials from './Socials'
+import Skills from './Skills'
 import EmploymentHistory from './EmploymentHistory'
 import OldEmploymentHistory from './OldEmploymentHistory'
-import Education from './Education'
+import Educations from './Educations'
 
-function Form (props) {
-  const [state, setState] = useState({
-    profileName: ''
-  })
+function Form(props) {
+  const [submitSuccess, setSubmitSuccess] = useState()
 
   const handleSubmit = e => {
     e.preventDefault()
     const formData = {
-      profileName: state.profileName,
+      profileName: props.profile.profileName,
       userId: props.user.id,
-      details: {
-        firstName: props.details.firstName,
-        lastName: props.details.lastName,
-        phone: props.details.phone,
-        email: props.details.email,
-        profileIntro: props.details.profileIntro
+      profile: {
+        firstName: props.profile.firstName,
+        lastName: props.profile.lastName,
+        phone: props.profile.phone,
+        email: props.profile.email,
+        location: props.profile.location,
+        profileIntro: props.profile.profileIntro
       },
+      socials: props.socials,
+      skills: props.skills,
       employmentHistory: props.employmentHistory,
       oldEmploymentHistory: props.oldEmploymentHistory,
-      education: props.education
+      educations: props.educations
     }
 
-    postFormDataToDatabase(formData)
-  }
-
-  const handleChange = e => {
-    const { name, value } = e.target
-    setState({ ...state, [name]: value })
+    if (props.user.profiles.some(profile => profile.profileName === props.profile.profileName)) {
+      return setSubmitSuccess({ success: false })
+    } else {
+      postFormDataToDatabase(formData)
+      props.profileImage && postImage(props.profileImage).then(console.log)
+      setSubmitSuccess({ success: true })
+    }
   }
 
   return (
@@ -45,22 +49,24 @@ function Form (props) {
           <article className="tile is-child box">
             <div className="field">
               <form onSubmit={handleSubmit}>
-                <div className="content">
-                  <label className='label'>CV Profile Name: </label>
-                </div>
-                <div className="field-body block">
-                  <div className='field'>
-                    <div className='control'>
-                      <input className='input is-small is-hovered' type='text' name='profileName' value={state.profileName} onChange={handleChange}></input>
-                    </div>
-                  </div>
-                </div>
-                <BasicDetails />
+                <Profile />
+                <Socials />
+                <Skills />
                 <EmploymentHistory />
                 <OldEmploymentHistory />
-                <Education />
+                <Educations />
                 <div className="control">
                   <input className='button is-fullwidth is-small' id='submit' type='submit' value='Submit' />
+                  {
+                    submitSuccess
+                      ? [
+                        (submitSuccess.success
+                          ? <div key={0}>yes</div>
+                          : <div key={1}>no</div>
+                        )
+                      ]
+                      : <span></span>
+                  }
                 </div>
               </form>
             </div>
@@ -71,11 +77,14 @@ function Form (props) {
   )
 }
 
-function mapStateToProps (globalState) {
+function mapStateToProps(globalState) {
   return {
     user: globalState.user,
-    details: globalState.details,
-    education: globalState.education,
+    profile: globalState.profile,
+    profileImage: globalState.profile.profileImage.image,
+    socials: globalState.socials,
+    skills: globalState.skills,
+    educations: globalState.educations,
     employmentHistory: globalState.employmentHistory,
     oldEmploymentHistory: globalState.oldEmploymentHistory
   }

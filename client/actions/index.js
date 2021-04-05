@@ -1,11 +1,10 @@
-export const SET_BASIC_DETAILS = 'SET_BASIC_DETAILS'
-export const SET_EMPLOYMENT_HISTORY = 'SET_EMPLOYMENT_HISTORY'
-export const SET_OLD_EMPLOYMENT_HISTORY = 'SET_OLD_EMPLOYMENT_HISTORY'
-export const SET_EDUCATION = 'SET_EDUCATION'
+export const SET_PROFILE = 'SET_PROFILE'
 export const SET_USER = 'SET_USER'
+export const ADD_PICTURE = 'ADD_PICTURE'
+export const FETCH_PROFILE_LIST = 'FETCH_PROFILE_LIST'
 
 // SetReducer
-export function setReducer (payload, type) {
+export function setReducer(payload, type) {
   return {
     type,
     payload
@@ -13,38 +12,29 @@ export function setReducer (payload, type) {
 }
 
 // BasicDetails
-export function fetchBasicDetails (details) {
+export function updateProfile(profile) {
   return dispatch => {
-    dispatch(setReducer(details, SET_BASIC_DETAILS))
+    dispatch(setReducer(profile, SET_PROFILE))
     return null
   }
 }
 
-// EmploymentHistory
-export function fetchEmploymentHistory (employmentHistory) {
+export function addPicture(picture) {
   return dispatch => {
-    dispatch(setReducer(employmentHistory, SET_EMPLOYMENT_HISTORY))
+    dispatch(setReducer(picture, ADD_PICTURE))
     return null
-  }
-}
-
-// OldEmploymentHistory
-export function fetchOldEmploymentHistory (oldEmploymentHistory) {
-  return dispatch => {
-    dispatch(setReducer(oldEmploymentHistory, SET_OLD_EMPLOYMENT_HISTORY))
-  }
-}
-
-// Education
-export function fetchEducation (education) {
-  return dispatch => {
-    dispatch(setReducer(education, SET_EDUCATION))
   }
 }
 
 // User
-export function fetchUser (user) {
+export function fetchUser(user) {
   return dispatch => {
     dispatch(setReducer(user, SET_USER))
+  }
+}
+
+export function fetchProfileList(details) {
+  return dispatch => {
+    dispatch(setReducer(details, FETCH_PROFILE_LIST))
   }
 }

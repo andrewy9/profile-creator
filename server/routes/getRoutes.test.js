@@ -1,14 +1,14 @@
 import request from 'supertest'
 import server from '../server'
 import {
-  getUserDetails,
+  getUserProfile,
   getUserEmploymentHistory,
   getUserOldEmploymentHistory,
   getUserEducation,
 } from '../db/dbFunctions'
 
 jest.mock('../db/dbFunctions', () => ({
-  getUserDetails: jest.fn(),
+  getUserProfile: jest.fn(),
   getUserEmploymentHistory: jest.fn(),
   getUserOldEmploymentHistory: jest.fn(),
   getUserEducation: jest.fn()
@@ -26,14 +26,14 @@ describe('GET /api/v1', () => {
     }
 
     beforeAll(() => {
-      getUserDetails.mockImplementation(() => Promise.resolve(fakeData))
+      getUserProfile.mockImplementation(() => Promise.resolve(fakeData))
       // var to hold the request to server, plus post & send
       promiseRoutes = request(server)
         .get('/api/v1/get/details/1/KateProfile1')
       return null
     })
 
-    test('getUserDetails route gets connected', () => {
+    test('getUserProfile route gets connected', () => {
       expect.assertions(1)
       return promiseRoutes.then(res => {
         expect(res.status).toBe(200)
@@ -41,10 +41,10 @@ describe('GET /api/v1', () => {
       })
     })
 
-    test('calls getUserDetails', () => {
+    test('calls getUserProfile', () => {
       expect.assertions(1)
       return promiseRoutes.then(() => {
-        expect(getUserDetails).toHaveBeenCalled()
+        expect(getUserProfile).toHaveBeenCalled()
         return null
       })
     })
@@ -61,7 +61,7 @@ describe('GET /api/v1', () => {
     test('returns 500', () => {
       expect.assertions(1)
       const err = new Error('error')
-      getUserDetails.mockImplementation(() => Promise.reject(err))
+      getUserProfile.mockImplementation(() => Promise.reject(err))
       return request(server).get('/api/v1/get/details/1/KateProfile1')
         .then(res => {
           expect(res.status).toBe(500)

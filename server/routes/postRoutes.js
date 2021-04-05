@@ -1,7 +1,5 @@
 const express = require('express')
-
 const db = require('../db/dbFunctions')
-
 const router = express.Router()
 
 router.post('/employmentHistory', async (req, res) => {
@@ -16,6 +14,7 @@ router.post('/employmentHistory', async (req, res) => {
     }
     return res.status(201).json(arrayOfResponse)
   } catch (error) {
+    console.log(error)
     return res.sendStatus(500)
   }
 })
@@ -31,47 +30,90 @@ router.post('/oldEmploymentHistory', async (req, res) => {
     for await (const el of responseData) {
       arrayOfResponse.push(el[0])
     }
-    res.status(201).json(arrayOfResponse)
+    return res.status(201).json(arrayOfResponse)
   } catch (error) {
-    res.sendStatus(500)
+    console.log(error)
+    return res.sendStatus(500)
   }
 })
 
-router.post('/education', async (req, res) => {
-  const { education, userId, profileName } = req.body
+router.post('/socials', async (req, res) => {
+  const { socials, userId, profileName } = req.body
   try {
     const arrayOfResponse = []
-    const responseData = education.map(async data => {
+    const responseData = socials.map(async social => {
+      const response = await db.saveSocials(social, userId, profileName)
+      return response
+    })
+    for await (const el of responseData) {
+      arrayOfResponse.push(el[0])
+    }
+    return res.status(201).json(arrayOfResponse)
+  } catch (error) {
+    console.log(error)
+    return res.sendStatus(500)
+  }
+})
+
+router.post('/skills', async (req, res) => {
+  const { skills, userId, profileName } = req.body
+  try {
+    const arrayOfResponse = []
+    const responseData = skills.map(async skill => {
+      const response = await db.saveSkills(skill, userId, profileName)
+      return response
+    })
+    for await (const el of responseData) {
+      arrayOfResponse.push(el[0])
+    }
+    return res.status(201).json(arrayOfResponse)
+  } catch (error) {
+    console.log(error)
+    return res.sendStatus(500)
+  }
+})
+
+router.post('/educations', async (req, res) => {
+  const { educations, userId, profileName } = req.body
+  try {
+    const arrayOfResponse = []
+    const responseData = educations.map(async data => {
       const response = await db.saveEducationHistory(data, userId, profileName)
       return response
     })
     for await (const el of responseData) {
       arrayOfResponse.push(el[0])
     }
-    res.status(201).json(arrayOfResponse)
+    return res.status(201).json(arrayOfResponse)
   } catch (error) {
-    res.sendStatus(500)
+    console.log(error)
+    return res.sendStatus(500)
   }
 })
 
-router.post('/details', async (req, res) => {
+//for inidividual proflie detail including name, phone number, email etc.
+router.post('/profile', async (req, res) => {
   try {
-    const { details, userId, profileName } = req.body
-    const response = await db.saveDetails(details, userId, profileName)
-    res.status(201).json(response) // json(details) is required to make the result readable for jest testing
-    return null
+    const { profile, userId, profileName } = req.body
+    const response = await db.saveProfile(profile, userId, profileName)
+    return res.status(201).json(response) // json(details) is required to make the result readable for jest testing
   } catch (error) {
-    res.sendStatus(500)
+    console.log(error)
+    return res.sendStatus(500)
   }
 })
 
-router.get('/profiles/:id', (req, res) => {
-  const id = req.params.id
-  db.getProfiles(id)
-    .then(response => {
-      return res.json(response)
-    })
-    .catch(() => res.sendStatus(500))
+//WIP to upload profile image
+router.post('/upload', async (req, res) => {
+  try {
+    const image = req.files.image;
+    const response = await db.uploadImage(image)
+
+    return res.status(201).json(response);
+  } catch (error) {
+    return res.sendStatus(500).json(error)
+  }
 })
+
 
 module.exports = router

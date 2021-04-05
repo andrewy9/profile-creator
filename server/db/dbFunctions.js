@@ -2,14 +2,29 @@ const connection = require('./connection')
 
 //POST
 
-function saveDetails({ firstName, lastName, phone, email, profileIntro }, userId, profileName, db = connection) {
-  return db('details')
-    .insert({ userId, profileName, firstName, lastName, phone, email, profileIntro })
+function saveProfile({ firstName, lastName, phone, email, location, profileIntro }, userId, profileName, db = connection) {
+  return db('profile')
+    .insert({ userId, profileName, firstName, lastName, phone, email, location, profileIntro })
+}
+
+function uploadImage({ name, data }, db = connection) {
+  return db('image')
+    .insert({ name, image: data })
+}
+
+function saveSocials({ network, link }, userId, profileName, db = connection) {
+  return db('socials')
+    .insert({ network, link, userId, profileName })
+}
+
+function saveSkills({ skill }, userId, profileName, db = connection) {
+  return db('skills')
+    .insert({ skill, userId, profileName })
 }
 
 function saveEmploymentHistory({ employer, employmentDateStart, employmentDateEnd, role, details }, userId, profileName, db = connection) {
   return db('employment_history')
-    .insert({ userId, profileName, employer,employmentDateStart, employmentDateEnd, role, details })
+    .insert({ userId, profileName, employer, employmentDateStart, employmentDateEnd, role, details })
 }
 
 function saveOldEmploymentHistory({ oldEmployer, oldEmploymentDateStart, oldEmploymentDateEnd, oldRole }, userId, profileName, db = connection) {
@@ -17,16 +32,34 @@ function saveOldEmploymentHistory({ oldEmployer, oldEmploymentDateStart, oldEmpl
     .insert({ userId, profileName, oldEmployer, oldEmploymentDateStart, oldEmploymentDateEnd, oldRole })
 }
 
-function saveEducationHistory({ provider, qualification, year }, userId, profileName, db = connection) {
-  return db('education')
-    .insert({ userId, profileName, provider, qualification, year })
+function saveEducationHistory({ provider, qualification, yearStart, yearEnd }, userId, profileName, db = connection) {
+  return db('educations')
+    .insert({ userId, profileName, provider, qualification, yearStart, yearEnd })
 }
 
 //GET
-function getUserDetails(id, profileName, db = connection) {
-  return db('details')
+function getUserProfile(id, profileName, db = connection) {
+  return db('profile')
     .where({ userId: id, profileName: profileName })
-    .select('userId', 'firstName', 'lastName', 'phone', 'email', 'profileIntro', 'profileName')
+    .select('userId', 'firstName', 'lastName', 'phone', 'email', 'profileIntro', 'location', 'profileName')
+}
+
+function getImage(id, db = connection) {
+  return db('profileImage')
+    .where({ id: id }).first()
+    .select('image', 'name')
+}
+
+function getUserSocials(id, profileName, db = connection) {
+  return db('socials')
+    .where({ userId: id, profileName: profileName })
+    .select('userId', 'profileName', 'network', 'link')
+}
+
+function getUserSkills(id, profileName, db = connection) {
+  return db('skills')
+    .where({ userId: id, profileName: profileName })
+    .select('userId', 'profileName', 'skill')
 }
 
 function getUserEmploymentHistory(id, profileName, db = connection) {
@@ -42,25 +75,31 @@ function getUserOldEmploymentHistory(id, profileName, db = connection) {
 }
 
 function getUserEducation(id, profileName, db = connection) {
-  return db('education')
+  return db('educations')
     .where({ userId: id, profileName: profileName })
-    .select('userId', 'profileName', 'provider', 'qualification', 'year')
+    .select('userId', 'profileName', 'provider', 'qualification', 'yearStart', 'yearEnd')
 }
 
 function getProfiles(id, db = connection) {
-  return db('details')
+  return db('profile')
     .where({ userId: id })
     .select()
 }
 
 module.exports = {
-  getUserDetails,
+  uploadImage,
+  getImage,
+  getUserProfile,
+  getUserSocials,
+  getUserSkills,
   getUserEmploymentHistory,
   getUserOldEmploymentHistory,
   getUserEducation,
-  saveDetails,
+  getProfiles,
+  saveProfile,
+  saveSocials,
+  saveSkills,
   saveEmploymentHistory,
   saveOldEmploymentHistory,
   saveEducationHistory,
-  getProfiles
 }

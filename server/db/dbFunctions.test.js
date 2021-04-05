@@ -3,11 +3,11 @@ const config = require('./knexfile').test
 const db = knex(config)
 
 const {
-  getUserDetails,
+  getUserProfile,
   getUserEmploymentHistory,
   getUserOldEmploymentHistory,
   getUserEducation,
-  saveDetails,
+  saveProfile,
   saveEmploymentHistory,
   saveOldEmploymentHistory,
   saveEducationHistory,
@@ -17,7 +17,7 @@ const {
 beforeAll(() => db.migrate.latest())
 beforeEach(() => db.seed.run())
 
-describe('saveDetails', () => {
+describe('saveProfile', () => {
   test('saves the details to database', () => {
     const mock = {
       name: 'Harry Potter',
@@ -27,7 +27,7 @@ describe('saveDetails', () => {
     }
 
     expect.assertions(4)
-    return saveDetails(mock, '1', 'Harry', db)
+    return saveProfile(mock, '1', 'Harry', db)
       .then((newId) => {
         expect(newId).toEqual([6])
         return db('details').select()
@@ -103,11 +103,11 @@ describe('saveEducationHistory', () => {
   })
 })
 
-describe('getUserDetails', () => {
+describe('getUserProfile', () => {
 
   test('returns the correct users details', () => {
     expect.assertions(2)
-    return getUserDetails(1, 'Kate Profile 1', db)
+    return getUserProfile(1, 'Kate Profile 1', db)
       .then(userDetails => {
         expect(userDetails[0].userId).toBe(1)
         expect(userDetails).toHaveLength(1)
@@ -118,7 +118,7 @@ describe('getUserDetails', () => {
 describe('getUserEmploymentHistory', () => {
   test('returns the correct user employment history', () => {
     expect.assertions(2)
-    return getUserDetails(1, 'Kate Profile 1', db)
+    return getUserProfile(1, 'Kate Profile 1', db)
       .then(userEmploymentHistory => {
         expect(userEmploymentHistory[0].userId).toBe(1)
         expect(userEmploymentHistory).toHaveLength(1)

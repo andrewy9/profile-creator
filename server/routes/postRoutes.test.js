@@ -2,14 +2,14 @@ import request from 'supertest'
 import server from '../server'
 
 import {
-  saveDetails,
+  saveProfile,
   saveEducationHistory,
   saveEmploymentHistory,
   saveOldEmploymentHistory
 } from '../db/dbFunctions'
 
 jest.mock('../db/dbFunctions', () => ({
-  saveDetails: jest.fn(),
+  saveProfile: jest.fn(),
   saveEducationHistory: jest.fn(),
   saveEmploymentHistory: jest.fn(),
   saveOldEmploymentHistory: jest.fn(),
@@ -31,7 +31,7 @@ describe('POST api/v1', () => {
     }
 
     beforeAll(() => {
-      saveDetails.mockImplementation(() => Promise.resolve(fakeDetails))
+      saveProfile.mockImplementation(() => Promise.resolve(fakeDetails))
       promiseRoutes = request(server)
         .post('/api/v1/post')
         .send(fakeDetails)
@@ -47,11 +47,11 @@ describe('POST api/v1', () => {
         })
     })
 
-    test('saveDetails gets called', () => {
+    test('saveProfile gets called', () => {
       expect.assertions(1)
       return promiseRoutes
         .then((res) => {
-          await expect(saveDetails).toHaveBeenCalled()
+          await expect(saveProfile).toHaveBeenCalled()
           return null
         })
     })
@@ -60,8 +60,8 @@ describe('POST api/v1', () => {
       expect.assertions(2)
       return promiseRoutes
         .then((res) => {
-          expect(saveDetails.mock.calls[0][0]).toBe('name')
-          expect(saveDetails.mock.calls[0][1]).toBe('021')
+          expect(saveProfile.mock.calls[0][0]).toBe('name')
+          expect(saveProfile.mock.calls[0][1]).toBe('021')
           return null
         })
     })
@@ -71,7 +71,7 @@ describe('POST api/v1', () => {
     test('returns 500', () => {
       expect.assertions(1)
       const err = new Error('error')
-      saveDetails.mockImplementation(() => Promise.reject(err))
+      saveProfile.mockImplementation(() => Promise.reject(err))
       return request(server).post('/api/v1')
         .then(res => {
           expect(res.status).toBe(500)

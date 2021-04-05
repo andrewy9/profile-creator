@@ -1,5 +1,6 @@
 import request from 'superagent'
 
+
 const rootUrl = '/api/v1'
 
 // GET
@@ -7,16 +8,19 @@ export function getProfiles(userId) {
   return request
     .get(`${rootUrl}/get/profiles/${userId}`)
     .then(res => {
+      console.log
       return res.body
     })
 }
 
 export function getSavedData(userId, profileName) {
   const formData = {
-    details: [],
+    profile: [],
+    socials: [],
+    skills: [],
     employmentHistory: [],
     oldEmploymentHistory: [],
-    education: []
+    educations: []
   }
 
   const retrievedData = Object.keys(formData).map(key => {
@@ -24,7 +28,7 @@ export function getSavedData(userId, profileName) {
   })
 
   return Promise.all(retrievedData).then(res => {
-    return res[0]
+    console.log(res[0])
   })
 }
 
@@ -37,11 +41,13 @@ function retrieveSavedData(key, formData, userId, profileName) {
     })
 }
 
-// POST
+//POST
 export function postFormDataToDatabase(formData) {
   const { profileName, userId } = formData
   for (const [key, value] of Object.entries(formData)) {
-    if (key !== 'userId' && key !== 'profileName') { sendData(key, value, userId, profileName) }
+    if (key !== 'userId' && key !== 'profileName') {
+      sendData(key, value, userId, profileName)
+    }
   }
 }
 
@@ -52,4 +58,15 @@ function sendData(key, value, userId, profileName) {
     .then(res => {
       return res.body
     })
+    .catch(err => console.log(err))
+}
+
+export function postImage(file) {
+  return request
+    .post(`${rootUrl}/post/upload`)
+    .send(file)
+    .then(res => {
+      return res.body
+    })
+    .catch(e => null)
 }

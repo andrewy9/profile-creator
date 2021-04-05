@@ -1,20 +1,20 @@
-import { APPEND_OLD_EMPLOYMENT_HISTORY, UPDATE_OLD_EMPLOYMENT_HISTORY, REMOVE_OLD_EMPLOYMENT_HISTORY } from '../actions/oldEmploymentHistory'
+import { APPEND_SKILL, UPDATE_SKILL, REMOVE_SKILL } from '../actions/skills'
 
 const initialState = []
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case APPEND_OLD_EMPLOYMENT_HISTORY:
+    case APPEND_SKILL:
       return [...state, action.payload]
 
-    case UPDATE_OLD_EMPLOYMENT_HISTORY:
+    case UPDATE_SKILL:
       let { id, name, value } = action.payload
       const newState = [...state]
       newState[id][name] = value
       return newState
 
-    case REMOVE_OLD_EMPLOYMENT_HISTORY:
-      return state.filter((oldEmployment, idx) => idx !== action.payload)
+    case REMOVE_SKILL:
+      return state.filter((skills, idx) => idx !== action.payload)
 
     default:
       return state

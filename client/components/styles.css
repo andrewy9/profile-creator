@@ -1,0 +1,11 @@
+.imgPreview {
+  width: 100%;
+  border-color: black;
+  height: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: cneter;
+  text-align: center;
+  color: #fff;
+}

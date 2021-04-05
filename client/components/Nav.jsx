@@ -3,15 +3,13 @@ import { Link } from 'react-router-dom';
 import { GoogleLogout, GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { getProfiles } from '../apis/apiController';
-import { fetchProfileList } from '../actions'
 
-function Nav({ dispatch, user, logout, responseGoogle }) {
+function Nav({ user, logout, responseGoogle }) {
   const [profiles, setProfiles] = useState([])
   const loadProfiles = () => {
     getProfiles(user.id)
       .then(details => {
         setProfiles(details)
-        dispatch(fetchProfileList(details))
       })
   }
 

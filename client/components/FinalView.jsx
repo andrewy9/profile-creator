@@ -16,8 +16,6 @@ function FinalView(props) {
     },
     selected: 'home'
   })
-  console.log(state)
-
 
   useEffect(() => {
     getSavedData(props.user.id, props.match.params.profileName)

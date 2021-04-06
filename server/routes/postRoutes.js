@@ -5,7 +5,7 @@ const router = express.Router()
 router.post('/employmentHistory', async (req, res) => {
   const { employmentHistory, userId, profileName } = req.body
   try {
-    const arrayOfResponse = []
+    const arrayOfReponse = []
     const responseData = employmentHistory.map(async history => {
       return await db.saveEmploymentHistory(history, userId, profileName)
     })

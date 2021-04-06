@@ -5,7 +5,7 @@ import { addPicture } from '../actions'
 import './styles.css'
 
 function ProfileImage(props) {
-  const supportedTypes = ['image/png', 'image/jpeg', 'image/jpg']
+  const supportedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif']
   const [isSupported, setIsSupported] = useState(true);
 
   const handleFileUpload = (e) => {
@@ -28,7 +28,6 @@ function ProfileImage(props) {
 
   return (
     <div>
-      {console.log(props.profileImage)}
       <label className="label">Upload Your Profile Image:</label>
       <div className="control">
         <input className='input is-small' type='file' name="profileImage" id={4} onChange={handleFileUpload}></input>

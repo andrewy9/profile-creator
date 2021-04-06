@@ -49,6 +49,7 @@ function Social(props) {
                       <option value="FaceBook">FaceBook</option>
                       <option value="GitHub">GitHub</option>
                       <option value="Instagram">Instagram</option>
+                      <option value="Instagram">Twitter</option>
                       <option value="Personal Page">Personal Page</option>
                     </select>
                   </div>

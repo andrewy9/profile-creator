@@ -36,7 +36,6 @@ function FinalView(props) {
       .then(data => {
         let base64Flag = 'data:image/jpeg;base64,';
         let imageString = arrayBufferToBase64(data.image.data);
-
         setProfileImage({ image: base64Flag + imageString })
       })
       .catch(err => console.log(err))
@@ -68,7 +67,8 @@ function FinalView(props) {
           {/* left colum */}
           <div className='column'>
             <figure className='image is 108x108'>
-              <img className='is-rounded' src={profileImage.image}></img>
+              {profileImage.image ? <img className='is-rounded' src={profileImage.image}></img>
+                : <img className='is-rounded' src={"/images/default_avatar.jpg"}></img>}
             </figure>
           </div>
 
@@ -97,8 +97,61 @@ function FinalView(props) {
 
               <div>
                 <p className='is-size-6'>Follow Me</p>
+                {state.data.socials.map((social, idx) => {
+                  switch (social.network) {
+                    case "LinkedIn":
+                      return <span key={idx} className="icon">
+                        <a href={social.link} target='_blank'>
+                          <i className="fab fa-linkedin-in"></i>
+                        </a>
+                      </span>
+                      break;
+                    case "GitHub":
+                      return <span key={idx} className="icon">
+                        <a href={social.link} target='_blank'>
+                          <i className="fab fa-github"></i>
+                        </a>
+                      </span>
+                      break;
+                    case "FaceBook":
+                      return <span key={idx} className="icon">
+                        <a href={social.link} target='_blank'>
+                          <i className="fab fa-facebook"></i>
+                        </a>
+                      </span>
+                      break;
+                    case "Twitter":
+                      return <span key={idx} className="icon">
+                        <a href={social.link} target='_blank'>
+                          <i className="fab fa-twitter"></i>
+                        </a>
+                      </span>
+                      break;
+                    case "Instagram":
+                      return <span key={idx} className="icon">
+                        <a href={social.link} target='_blank'>
+                          <i className="fab fa-instagram"></i>
+                        </a>
+                      </span>
+                      break;
+                    case "Personal Page":
+                      return <span key={idx} className="icon">
+                        <a href={social.link} target='_blank'>
+                          <i className="fas fa-globe"></i>
+                        </a>
+                      </span>
+                      break;
+                    default:
+                      return null
+                  }
+                })}
+
+
+                {/* <p className='is-size-6'>Follow Me</p>
                 <span className="icon">
-                  <i className="fab fa-linkedin-in"></i>
+                  <a href={}>
+                    <i className="fab fa-linkedin-in"></i>
+                  </a>
                 </span>
                 <span className="icon">
                   <i className="fab fa-facebook-f"></i>
@@ -108,7 +161,7 @@ function FinalView(props) {
                 </span>
                 <span className="icon">
                   <i className="fab fa-instagram"></i>
-                </span>
+                </span> */}
               </div>
             </div>
           })}

@@ -16,7 +16,6 @@ export function getImage(userId, profileName) {
   return request
     .get(`${rootUrl}/get/profileImage/${userId}/${profileName}`)
     .then(res => {
-      console.log(res.body)
       return res.body
     })
 }

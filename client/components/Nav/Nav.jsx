@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { GoogleLogout, GoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
-import { getProfiles } from '../apis/apiController';
+import { updateProfileList } from '../../actions'
+import { getProfiles } from '../../apis/apiController';
+import LogIn from './LogIn'
 
-function Nav({ user, logout, responseGoogle }) {
-  const [profiles, setProfiles] = useState([])
-  const loadProfiles = () => {
+function Nav({ dispatch, user, profile }) {
+  useEffect(() => {
+    user.name ?
+      loadProfileList()
+      : null
+  }, [user.name, profile.profileName])
+
+  const loadProfileList = () => {
     getProfiles(user.id)
       .then(details => {
-        setProfiles(details)
+        dispatch(updateProfileList(details))
       })
   }
 
@@ -27,11 +33,11 @@ function Nav({ user, logout, responseGoogle }) {
               <div className="navbar-end">
 
                 <div className="navbar-item has-dropdown is-hoverable">
-                  <a className="navbar-link" onMouseEnter={loadProfiles}>
+                  <a className="navbar-link" onMouseOver={loadProfileList}>
                     My Profiles
                   </a>
                   <div className="navbar-dropdown">
-                    {profiles.map(profile => {
+                    {user.profileList.map(profile => {
                       return <div key={profile.id}>
                         <hr className="navbar-divider" />
                         <div className="navbar-item">
@@ -41,25 +47,15 @@ function Nav({ user, logout, responseGoogle }) {
                     })}
                   </div>
                 </div>
-
                 <a className="navbar-item">Documentation</a>
                 <span className="navbar-item">
                   <a className="button is-primary is-inverted">
                     <span>Download</span>
                   </a>
                 </span>
-                {user.name ? <GoogleLogout
-                  clientId="729329557892-e3l8r6ainb4abrevis8c7jhh3acklrf2.apps.googleusercontent.com"
-                  buttonText="Logout"
-                  onLogoutSuccess={logout} />
-                  : <GoogleLogin
-                    clientId='729329557892-e3l8r6ainb4abrevis8c7jhh3acklrf2.apps.googleusercontent.com'
-                    buttonText="Login"
-                    onSuccess={responseGoogle}
-                    onFailure={responseGoogle}
-                    isSignedIn={true}
-                    cookiePolicy={'single_host_origin'}
-                  />}
+                <span className="navbar-item">
+                  <LogIn />
+                </span>
               </div>
             </div>
           </div>
@@ -71,7 +67,8 @@ function Nav({ user, logout, responseGoogle }) {
 
 const mapStateToProps = (globalState) => {
   return {
-    user: globalState.user
+    user: globalState.user,
+    profile: globalState.profile
   }
 }
 

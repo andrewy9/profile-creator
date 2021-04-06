@@ -32,13 +32,19 @@ function Form(props) {
       oldEmploymentHistory: props.oldEmploymentHistory,
       educations: props.educations
     }
-    postFormDataToDatabase(formData)
-    if (props.profileImage) {
-      props.profileImage.append('userId', props.user.id)
-      props.profileImage.append('profileName', props.profile.profileName)
-      postImage(props.profileImage)
+
+    if (props.user.profileList.some(profile => profile.profileName.trim() === props.profile.profileName.trim())) {
+      console.log('error, duplicate profilename submission attempted')
+      setSubmitSuccess({ success: false })
+    } else {
+      postFormDataToDatabase(formData)
+      if (props.profileImage) {
+        props.profileImage.append('userId', props.user.id)
+        props.profileImage.append('profileName', props.profile.profileName)
+        postImage(props.profileImage)
+      }
+      setSubmitSuccess({ success: true })
     }
-    setSubmitSuccess({ success: true })
   }
 
   return (
@@ -60,8 +66,8 @@ function Form(props) {
                     submitSuccess
                       ? [
                         (submitSuccess.success
-                          ? <div key={0}>yes</div>
-                          : <div key={1}>no</div>
+                          ? <div key={0}>Success!!</div>
+                          : <div key={1}>Something went wrong...</div>
                         )
                       ]
                       : <span></span>

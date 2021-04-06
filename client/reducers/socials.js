@@ -1,3 +1,4 @@
+import { LOG_OUT } from '../actions'
 import { APPEND_SOCIAL, UPDATE_SOCIAL, REMOVE_SOCIAL } from '../actions/socials'
 
 const initialState = []
@@ -15,6 +16,9 @@ const reducer = (state = initialState, action) => {
 
     case REMOVE_SOCIAL:
       return state.filter((social, idx) => idx !== action.payload)
+
+    case LOG_OUT:
+      return initialState
 
     default:
       return state

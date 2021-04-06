@@ -104,10 +104,14 @@ router.post('/profile', async (req, res) => {
 })
 
 //WIP to upload profile image
-router.post('/upload', async (req, res) => {
+router.post('/profileImage', async (req, res) => {
+  console.log('hit')
   try {
+    console.log(req.body)
     const image = req.files.image;
-    const response = await db.uploadImage(image)
+    const userId = req.body.userId;
+    const profileName = req.body.profileName;
+    const response = await db.uploadImage(image, userId, profileName)
 
     return res.status(201).json(response);
   } catch (error) {

@@ -73,11 +73,12 @@ router.get('/profiles/:id', (req, res) => {
     .catch(() => res.sendStatus(500))
 })
 
-router.get('/profileImage/:id', (req, res) => {
-  const id = req.params.id
-  db.getImage(id)
-    .then(res => {
-      return res.end(resp.img)
+router.get('/profileImage/:id/:profileName', (req, res) => {
+  const userId = req.params.id
+  const profileName = req.params.profileName
+  db.getImage(userId, profileName)
+    .then(response => {
+      return res.send(response)
     })
     .catch(() => res.sendStatus(500))
 })

@@ -7,9 +7,10 @@ function saveProfile({ firstName, lastName, phone, email, location, profileIntro
     .insert({ userId, profileName, firstName, lastName, phone, email, location, profileIntro })
 }
 
-function uploadImage({ name, data }, db = connection) {
-  return db('image')
-    .insert({ name, image: data })
+function uploadImage({ name, data }, userId, profileName, db = connection) {
+
+  return db('profileImage')
+    .insert({ name, image: data, userId, profileName })
 }
 
 function saveSocials({ network, link }, userId, profileName, db = connection) {
@@ -38,16 +39,16 @@ function saveEducationHistory({ provider, qualification, yearStart, yearEnd }, u
 }
 
 //GET
-function getUserProfile(id, profileName, db = connection) {
+function getUserProfile(userId, profileName, db = connection) {
   return db('profile')
-    .where({ userId: id, profileName: profileName })
+    .where({ userId: userId, profileName: profileName })
     .select('userId', 'firstName', 'lastName', 'phone', 'email', 'profileIntro', 'location', 'profileName')
 }
 
-function getImage(id, db = connection) {
+function getImage(userId, profileName, db = connection) {
   return db('profileImage')
-    .where({ id: id }).first()
-    .select('image', 'name')
+    .where({ userId: userId, profileName: profileName }).first()
+    .select('image', 'name', 'userId', 'profileName')
 }
 
 function getUserSocials(id, profileName, db = connection) {

@@ -32,14 +32,13 @@ function Form(props) {
       oldEmploymentHistory: props.oldEmploymentHistory,
       educations: props.educations
     }
-
-    if (props.user.profiles.some(profile => profile.profileName === props.profile.profileName)) {
-      return setSubmitSuccess({ success: false })
-    } else {
-      postFormDataToDatabase(formData)
-      props.profileImage && postImage(props.profileImage).then(console.log)
-      setSubmitSuccess({ success: true })
+    postFormDataToDatabase(formData)
+    if (props.profileImage) {
+      props.profileImage.append('userId', props.user.id)
+      props.profileImage.append('profileName', props.profile.profileName)
+      postImage(props.profileImage)
     }
+    setSubmitSuccess({ success: true })
   }
 
   return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getSavedData } from '../apis/apiController'
+import { getSavedData, getImage } from '../apis/apiController'
 import { connect } from 'react-redux'
 
 import FinalViewHome from './FinalViewHome'
@@ -7,15 +7,40 @@ import Resume from './Resume'
 import Contact from './Contact'
 
 function FinalView(props) {
+  const [profileImage, setProfileImage] = useState({
+    image: ''
+  })
   const [state, setState] = useState({
     data: {
       profile: [],
+      socials: [],
+      skills: [],
       employmentHistory: [],
       oldEmploymentHistory: [],
-      educations: ['original']
+      educations: ['original'],
     },
     selected: 'home'
   })
+
+  //Converts bufferArray of the image to base64 string format
+  const arrayBufferToBase64 = (buffer) => {
+    let binary = '';
+    let bytes = [].slice.call(new Uint8Array(buffer));
+    bytes.forEach((el) => binary += String.fromCharCode(el));
+    return window.btoa(binary);
+  }
+
+  //Retreives the profileImage data and stores it in the profileImage state
+  useEffect(() => {
+    getImage(props.user.id, props.match.params.profileName)
+      .then(data => {
+        let base64Flag = 'data:image/jpeg;base64,';
+        let imageString = arrayBufferToBase64(data.image.data);
+
+        setProfileImage({ image: base64Flag + imageString })
+      })
+      .catch(err => console.log(err))
+  }, [props.match.params.profileName])
 
   useEffect(() => {
     getSavedData(props.user.id, props.match.params.profileName)
@@ -43,7 +68,7 @@ function FinalView(props) {
           {/* left colum */}
           <div className='column'>
             <figure className='image is 108x108'>
-              <img className='is-rounded' src={props.user.image}></img>
+              <img className='is-rounded' src={profileImage.image}></img>
             </figure>
           </div>
 

@@ -33,11 +33,16 @@ function Form(props) {
       educations: props.educations
     }
 
-    if (props.user.profiles.some(profile => profile.profileName === props.profile.profileName)) {
-      return setSubmitSuccess({ success: false })
+    if (props.user.profileList.some(profile => profile.profileName.trim() === props.profile.profileName.trim())) {
+      console.log('error, duplicate profilename submission attempted')
+      setSubmitSuccess({ success: false })
     } else {
       postFormDataToDatabase(formData)
-      props.profileImage && postImage(props.profileImage).then(console.log)
+      if (props.profileImage) {
+        props.profileImage.append('userId', props.user.id)
+        props.profileImage.append('profileName', props.profile.profileName)
+        postImage(props.profileImage)
+      }
       setSubmitSuccess({ success: true })
     }
   }
@@ -61,8 +66,8 @@ function Form(props) {
                     submitSuccess
                       ? [
                         (submitSuccess.success
-                          ? <div key={0}>yes</div>
-                          : <div key={1}>no</div>
+                          ? <div key={0}>Success!!</div>
+                          : <div key={1}>Something went wrong...</div>
                         )
                       ]
                       : <span></span>

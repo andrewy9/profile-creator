@@ -12,6 +12,14 @@ export function getProfiles(userId) {
     })
 }
 
+export function getImage(userId, profileName) {
+  return request
+    .get(`${rootUrl}/get/profileImage/${userId}/${profileName}`)
+    .then(res => {
+      return res.body
+    })
+}
+
 export function getSavedData(userId, profileName) {
   const formData = {
     profile: [],
@@ -19,7 +27,7 @@ export function getSavedData(userId, profileName) {
     skills: [],
     employmentHistory: [],
     oldEmploymentHistory: [],
-    educations: []
+    educations: [],
   }
 
   const retrievedData = Object.keys(formData).map(key => {
@@ -62,10 +70,12 @@ function sendData(key, value, userId, profileName) {
 
 export function postImage(file) {
   return request
-    .post(`${rootUrl}/post/upload`)
+    .post(`${rootUrl}/post/profileImage`)
     .send(file)
     .then(res => {
       return res.body
     })
     .catch(e => null)
 }
+
+// export function getImage(userId, profileName)

@@ -1,5 +1,5 @@
 exports.up = function (knex) {
-  return knex.schema.createTable('image', table => {
+  return knex.schema.createTable('profileImage', table => {
     table.increments('id')
     table.integer('userId')
       .references('user.id')
@@ -12,5 +12,5 @@ exports.up = function (knex) {
 }
 
 exports.down = function (knex) {
-  return knex.schema.dropTable('image')
+  return knex.schema.dropTable('profileImage')
 }

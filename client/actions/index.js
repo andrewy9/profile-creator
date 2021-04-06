@@ -1,5 +1,7 @@
 export const SET_PROFILE = 'SET_PROFILE'
-export const SET_USER = 'SET_USER'
+export const LOG_IN = 'LOG_IN'
+export const LOG_OUT = 'LOG_OUT'
+export const UPDATE_PROFILE_LIST = 'ADD_PROFILE_LIST'
 export const ADD_PICTURE = 'ADD_PICTURE'
 
 // SetReducer
@@ -10,7 +12,6 @@ export function setReducer(payload, type) {
   }
 }
 
-// BasicDetails
 export function updateProfile(profile) {
   return dispatch => {
     dispatch(setReducer(profile, SET_PROFILE))
@@ -26,8 +27,20 @@ export function addPicture(picture) {
 }
 
 // User
-export function fetchUser(user) {
+export function logIn(user) {
   return dispatch => {
-    dispatch(setReducer(user, SET_USER))
+    dispatch(setReducer(user, LOG_IN))
+  }
+}
+
+export function logOut(user) {
+  return dispatch => {
+    dispatch(setReducer(user, LOG_OUT))
+  }
+}
+
+export function updateProfileList(userProfiles) {
+  return dispatch => {
+    dispatch(setReducer(userProfiles, UPDATE_PROFILE_LIST))
   }
 }

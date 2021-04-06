@@ -1,3 +1,4 @@
+import { LOG_OUT } from '../actions'
 import { APPEND_SKILL, UPDATE_SKILL, REMOVE_SKILL } from '../actions/skills'
 
 const initialState = []
@@ -15,6 +16,9 @@ const reducer = (state = initialState, action) => {
 
     case REMOVE_SKILL:
       return state.filter((skills, idx) => idx !== action.payload)
+
+    case LOG_OUT:
+      return initialState
 
     default:
       return state

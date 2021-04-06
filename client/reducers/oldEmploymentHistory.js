@@ -1,3 +1,4 @@
+import { LOG_OUT } from '../actions'
 import { APPEND_OLD_EMPLOYMENT_HISTORY, UPDATE_OLD_EMPLOYMENT_HISTORY, REMOVE_OLD_EMPLOYMENT_HISTORY } from '../actions/oldEmploymentHistory'
 
 const initialState = []
@@ -15,6 +16,9 @@ const reducer = (state = initialState, action) => {
 
     case REMOVE_OLD_EMPLOYMENT_HISTORY:
       return state.filter((oldEmployment, idx) => idx !== action.payload)
+
+    case LOG_OUT:
+      return initialState
 
     default:
       return state

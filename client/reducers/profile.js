@@ -1,4 +1,4 @@
-import { SET_PROFILE, ADD_PICTURE } from '../actions'
+import { SET_PROFILE, ADD_PICTURE, LOG_OUT } from '../actions'
 
 const initialState = {
   profileName: '',
@@ -20,10 +20,14 @@ const reducer = (state = initialState, action) => {
       let { name, value } = action.payload
       const newState = { ...state }
       newState[name] = value
+      console.log(initialState)
       return newState
 
     case ADD_PICTURE:
       return { ...state, profileImage: action.payload }
+
+    case LOG_OUT:
+      return { ...initialState }
 
     default:
       return state

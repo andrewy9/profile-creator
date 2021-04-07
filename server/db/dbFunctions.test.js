@@ -2,6 +2,7 @@ const knex = require('knex')
 const config = require('./knexfile').test
 const db = knex(config)
 
+
 const {
   uploadImage, //need to learn to test for image
   getImage, //need to learn to test for image

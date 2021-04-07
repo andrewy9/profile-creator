@@ -1,113 +1,142 @@
 import {
-  SET_BASIC_DETAILS, SET_EMPLOYMENT_HISTORY, SET_OLD_EMPLOYMENT_HISTORY, SET_EDUCATION,
-  setReducer, fetchBasicDetails, fetchEducation, fetchEmploymentHistory, fetchOldEmploymentHistory
-} from './index'
+  SET_PROFILE, LOG_IN, LOG_OUT, UPDATE_PROFILE_LIST, ADD_PICTURE,
+  setReducer, updateProfile, addPicture, logIn, logOut, updateProfileList
+} from './index' //types
 
-const fakeDispatch = jest.fn()
+const mockDispatch = jest.fn()
 
-describe('fetchBasicDetails', () => {
+describe('updateProfile', () => {
   describe('when the action works', () => {
-    const fakeDetails = {
-      name: 'name',
-      phone: '021',
-      email: '@',
-      profileIntro: 'test'
+    const mockDetails = {
+      profileName: 'The Chose One',
+      firstName: 'Harry',
+      lastName: 'Potter',
+      profileImage: {
+        image: null,
+        preview: null
+      },
+      phone: 'Hedwig',
+      email: 'voldemort4lyf@owlmail.com',
+      location: 'London',
+      profileIntro: 'I am not a four eye.',
     }
-
     beforeAll(() => {
       jest.clearAllMocks()
-      fetchBasicDetails(fakeDetails)(fakeDispatch)
+      updateProfile(mockDetails)(mockDispatch)
     })
 
     test('returns correct action', () => {
-      const action = setFormDetails(fakeDetails)
-      expect(action.type).toBe(SET_BASIC_DETAILS)
-      expect(action.details.name).toBe('name')
+      const action = setReducer(mockDetails, SET_PROFILE)
+      expect(action.type).toBe(SET_PROFILE)
     })
 
-    test('dispatch setFormDetails actions via fetchBasicDetails', () => {
-      expect(fakeDispatch.mock.calls[0][0].type).toEqual(SET_BASIC_DETAILS)
-      expect(fakeDispatch.mock.calls[0][0].details).toEqual(fakeDetails)
+    test('dispatch setReducer actions via updateProfile', () => {
+      expect(mockDispatch.mock.calls[0][0].type).toEqual(SET_PROFILE)
+      expect(mockDispatch.mock.calls[0][0].payload).toEqual(mockDetails)
+      expect(mockDispatch.mock.calls[0][0].payload.network).toEqual(mockDetails.network)
+      expect(mockDispatch.mock.calls[0][0].payload.profileImage.image).toBe(null)
     })
   })
 })
 
-describe('fetchEmploymentHistory', () => {
+describe('addPicture', () => {
   describe('when the action works', () => {
-    const fakeHistory = {
-      id: 1,
-      employer: 'employer',
-      employmentDate: 'date',
-      role: 'old role',
-      details: 'details'
+    const mockDetails = {
+      image: 'testImage',
+      preview: 'testImage preview'
     }
 
     beforeAll(() => {
       jest.clearAllMocks()
-      fetchEmploymentHistory(fakeHistory)(fakeDispatch)
+      addPicture(mockDetails)(mockDispatch)
     })
 
     test('returns correct action', () => {
-      const action = setEmploymentHistory(fakeHistory)
-      expect(action.type).toBe(SET_EMPLOYMENT_HISTORY)
-      expect(action.employmentHistory.employer).toBe('employer')
+      const action = setReducer(mockDetails, ADD_PICTURE)
+      expect(action.type).toBe(ADD_PICTURE)
     })
 
-    test('dispatch setEmploymentHistory actions via fetchEmploymentHistory', () => {
-      expect(fakeDispatch.mock.calls[0][0].type).toEqual(SET_EMPLOYMENT_HISTORY)
-      expect(fakeDispatch.mock.calls[0][0].employmentHistory).toEqual(fakeHistory)
+    test('dispatch setReducer actions via addPicture', () => {
+      expect(mockDispatch.mock.calls[0][0].type).toEqual(ADD_PICTURE)
+      expect(mockDispatch.mock.calls[0][0].payload).toEqual(mockDetails)
+      expect(mockDispatch.mock.calls[0][0].payload.image).toEqual(mockDetails.image)
     })
   })
 })
-
-describe('fetchOldEmploymentHistory', () => {
+describe('logIn', () => {
   describe('when the action works', () => {
-    const fakeHistory = {
-      id: 1,
-      mockOldEmployer: 'employer',
-      oldEmploymentDate: 'date',
-      oldRole: 'old role'
-    }
+    const mockDetails = undefined
 
     beforeAll(() => {
       jest.clearAllMocks()
-      fetchOldEmploymentHistory(fakeHistory)(fakeDispatch)
+      logIn(mockDetails)(mockDispatch)
     })
 
-    test('returns the correct action', () => {
-      const action = setOldEmploymentHistory(fakeHistory)
-      expect(action.type).toBe(SET_OLD_EMPLOYMENT_HISTORY)
-      expect(action.oldEmploymentHistory.mockOldEmployer).toBe('employer')
+    test('returns correct action', () => {
+      const action = setReducer(mockDetails, LOG_IN)
+      expect(action.type).toBe(LOG_IN)
     })
 
-    test('dispatch setOldEmploymentHistory actions via fetchOldEmploymentHistory', () => {
-      expect(fakeDispatch.mock.calls[0][0].type).toEqual(SET_OLD_EMPLOYMENT_HISTORY)
-      expect(fakeDispatch.mock.calls[0][0].oldEmploymentHistory).toEqual(fakeHistory)
+    test('dispatch setReducer actions via logIn', () => {
+      expect(mockDispatch.mock.calls[0][0].type).toEqual(LOG_IN)
+      expect(mockDispatch.mock.calls[0][0].payload).toEqual(undefined)
     })
   })
 })
 
-describe('fetchEducation', () => {
-  describe('when action does work', () => {
-    const fakeEducation = {
-      provider: 'EDA',
-      year: '1964'
-    }
+describe('logOut', () => {
+  describe('when the action works', () => {
+    const mockDetails = undefined
 
     beforeAll(() => {
       jest.clearAllMocks()
-      fetchEducation(fakeEducation)(fakeDispatch)
+      logOut(mockDetails)(mockDispatch)
     })
 
-    test('returns correction action', () => {
-      const action = setEducation(fakeEducation)
-      expect(action.education.year).toBe('1964')
-      expect(action.type).toBe(SET_EDUCATION)
+    test('returns correct action', () => {
+      const action = setReducer(mockDetails, LOG_OUT)
+      expect(action.type).toBe(LOG_OUT)
     })
 
-    test('dispatch setEducation actions via fetchEducation', () => {
-      expect(fakeDispatch.mock.calls[0][0].type).toEqual(SET_EDUCATION)
-      expect(fakeDispatch.mock.calls[0][0].education).toEqual(fakeEducation)
+    test('dispatch setReducer actions via logOut', () => {
+      expect(mockDispatch.mock.calls[0][0].type).toEqual(LOG_OUT)
+      expect(mockDispatch.mock.calls[0][0].payload).toEqual(undefined)
     })
   })
 })
+
+describe('updateProfileList', () => {
+  describe('when the action works', () => {
+    const mockDetails = {
+      profileName: 'The REAL Chose One',
+      firstName: 'Hermione',
+      lastName: 'Granger',
+      profileImage: {
+        image: null,
+        preview: null
+      },
+      phone: 'Crookshanks',
+      email: 'wingardiumLeviosa@owlmail.com',
+      location: 'London',
+      profileIntro: 'It\'s Levi-ohhh-s not Leviosaaa!',
+    }
+
+
+    beforeAll(() => {
+      jest.clearAllMocks()
+      updateProfileList(mockDetails)(mockDispatch)
+    })
+
+    test('returns correct action', () => {
+      const action = setReducer(mockDetails, UPDATE_PROFILE_LIST)
+      expect(action.type).toBe(UPDATE_PROFILE_LIST)
+    })
+
+    test('dispatch setReducer actions via updateProfileList', () => {
+      expect(mockDispatch.mock.calls[0][0].type).toEqual(UPDATE_PROFILE_LIST)
+      expect(mockDispatch.mock.calls[0][0].payload.profileIntro).toEqual(mockDetails.profileIntro)
+    })
+  })
+})
+
+

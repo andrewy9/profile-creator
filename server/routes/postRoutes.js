@@ -96,8 +96,13 @@ router.post('/publicUrl', async (req, res) => {
   const urlParams = `publicView/${userId}/${profileName}`
   //check if it exist first
   try {
-    const response = await db.savePublicUrl(urlParams, userId, profileName)
-    return response
+    const search = await db.getPublicUrls()
+    if (!search.some(el => el.urlParams === urlParams)) {
+      const response = await db.savePublicUrl(urlParams, userId, profileName)
+      return response
+    } else {
+      return res.sendStatus(500)
+    }
   } catch (error) {
     console.log(error)
     return res.sendStatus(500)

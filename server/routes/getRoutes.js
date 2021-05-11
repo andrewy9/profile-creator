@@ -73,6 +73,10 @@ router.get('/profiles/:id', (req, res) => {
     .catch(() => res.sendStatus(500))
 })
 
+router.get('/publicUrl', (req, res) => {
+  db.getPublicUrls()
+})
+
 router.get('/profileImage/:id/:profileName', (req, res) => {
   const userId = req.params.id
   const profileName = req.params.profileName
@@ -82,5 +86,6 @@ router.get('/profileImage/:id/:profileName', (req, res) => {
     })
     .catch(() => res.sendStatus(500))
 })
+
 
 module.exports = router

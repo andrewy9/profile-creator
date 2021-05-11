@@ -1,24 +1,25 @@
 import { LOG_OUT } from '../actions'
 import { APPEND_SKILL, UPDATE_SKILL, REMOVE_SKILL } from '../actions/skills'
 
-const initialState = []
+const initialState = { skill: [] }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case APPEND_SKILL:
-      return [...state, action.payload]
+      return { ...state, skill: [...state.skill, action.payload] }
 
     case UPDATE_SKILL:
       let { id, name, value } = action.payload
-      const newState = [...state]
+      const newState = [...state.skill]
       newState[id][name] = value
-      return newState
+      return { ...state, skill: newState }
 
     case REMOVE_SKILL:
-      return state.filter((skills, idx) => idx !== action.payload)
+      const filteredSkills = state.skill.filter((skills, idx) => idx !== action.payload)
+      return { ...state, skill: filteredSkills }
 
     case LOG_OUT:
-      return initialState
+      return { skill: [] }
 
     default:
       return state

@@ -1,31 +1,41 @@
 import { LOG_OUT } from '../actions'
 import { APPEND_EMPLOYMENT_HISTORY, REMOVE_EMPLOYMENT_HISTORY, UPDATE_EMPLOYMENT_HISTORY } from '../actions/employmentHistory'
 
-const initialState = [{
-  employer: '',
-  employmentDateStart: '',
-  employmentDateEnd: '',
-  role: '',
-  details: ''
-}]
+const initialState = {
+  employment: [{
+    employer: '',
+    employmentDateStart: '',
+    employmentDateEnd: '',
+    role: '',
+    details: ''
+  }]
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case APPEND_EMPLOYMENT_HISTORY:
-      return [...state, action.payload]
+      return { ...state, employment: [...state.employment, action.payload] }
 
     case UPDATE_EMPLOYMENT_HISTORY:
       let { id, name, value } = action.payload
-      const newState = [{ ...state[0] }]
+      const newState = [...state.employment]
       newState[id][name] = value
-      console.log(initialState)
-      return newState
+      return { ...state, employment: newState }
 
     case REMOVE_EMPLOYMENT_HISTORY:
-      return state.filter((employment, idx) => idx !== action.payload)
+      const filteredEmployment = state.employment.filter((employment, idx) => idx !== action.payload)
+      return { ...state, employment: filteredEmployment }
 
     case LOG_OUT:
-      return initialState
+      return {
+        employment: [{
+          employer: '',
+          employmentDateStart: '',
+          employmentDateEnd: '',
+          role: '',
+          details: ''
+        }]
+      }
 
     default:
       return state

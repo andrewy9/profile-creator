@@ -3,12 +3,14 @@ import { connect } from 'react-redux'
 import { appendEducation, updateEducation, removeEducation } from '../actions/educations'
 
 function Educations(props) {
-  const initialState = {
+  const initialState = [{
     provider: '',
     qualification: '',
     yearStart: '',
     yearEnd: ''
-  }
+  }]
+
+  console.log(props)
 
   const handleChange = (e) => {
     e.preventDefault()
@@ -19,7 +21,7 @@ function Educations(props) {
     if (e.key === 'Enter') {
       e.preventDefault()
     }
-    props.dispatch(appendEducation({ ...initialState }))
+    props.dispatch(appendEducation(...initialState))
   }
 
   const removeButton = (id) => {
@@ -94,9 +96,10 @@ function Educations(props) {
   )
 }
 
-function mapPropsToState(gloablState) {
+function mapStateToProps(globalState) {
+  console.log('globalState rendered', globalState.educations.education)
   return {
-    educations: gloablState.educations
+    educations: globalState.educations.education
   }
 }
-export default connect(mapPropsToState)(Educations)
+export default connect(mapStateToProps)(Educations)

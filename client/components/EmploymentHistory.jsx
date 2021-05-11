@@ -116,7 +116,7 @@ function EmploymentHistory(props) {
 
 function mapPropsToState(gloablState) {
   return {
-    employmentHistory: gloablState.employmentHistory
+    employmentHistory: gloablState.employmentHistory.employment
   }
 }
 

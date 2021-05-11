@@ -66,7 +66,7 @@ function Skills(props) {
 
 function mapPropsToState(gloablState) {
   return {
-    skills: gloablState.skills
+    skills: gloablState.skills.skill
   }
 }
 

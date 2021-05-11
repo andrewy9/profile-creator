@@ -83,7 +83,7 @@ function Social(props) {
 
 function mapPropsToState(gloablState) {
   return {
-    socials: gloablState.socials
+    socials: gloablState.socials.social
   }
 }
 

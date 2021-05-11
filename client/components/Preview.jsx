@@ -112,11 +112,11 @@ function mapStateToProps(globalState) {
   return {
     profile: globalState.profile,
     profileImagePreview: globalState.profile.profileImage.preview,
-    socials: globalState.socials,
-    skills: globalState.skills,
-    educations: globalState.educations,
-    employmentHistory: globalState.employmentHistory,
-    oldEmploymentHistory: globalState.oldEmploymentHistory
+    socials: globalState.socials.social,
+    skills: globalState.skills.skill,
+    educations: globalState.educations.education,
+    employmentHistory: globalState.employmentHistory.employment,
+    oldEmploymentHistory: globalState.oldEmploymentHistory.oldEmployment
   }
 }
 

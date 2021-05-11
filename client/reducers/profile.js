@@ -20,7 +20,6 @@ const reducer = (state = initialState, action) => {
       let { name, value } = action.payload
       const newState = { ...state }
       newState[name] = value
-      console.log(initialState)
       return newState
 
     case ADD_PICTURE:

@@ -38,6 +38,11 @@ function saveEducationHistory({ provider, qualification, yearStart, yearEnd }, u
     .insert({ userId, profileName, provider, qualification, yearStart, yearEnd })
 }
 
+function savePublicUrl(urlParams, userId, profileName, db = connection) {
+  return db('publicUrlParams')
+    .insert({ userId, profileName, urlParams })
+}
+
 //GET
 function getUserProfile(userId, profileName, db = connection) {
   return db('profile')
@@ -103,4 +108,5 @@ module.exports = {
   saveEmploymentHistory,
   saveOldEmploymentHistory,
   saveEducationHistory,
+  savePublicUrl
 }

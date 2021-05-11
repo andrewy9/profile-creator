@@ -91,6 +91,20 @@ router.post('/educations', async (req, res) => {
   }
 })
 
+router.post('/publicUrl', async (req, res) => {
+  const { userId, profileName } = req.body
+  const urlParams = `publicView/${userId}/${profileName}`
+  //check if it exist first
+  try {
+    const response = await db.savePublicUrl(urlParams, userId, profileName)
+    return response
+  } catch (error) {
+    console.log(error)
+    return res.sendStatus(500)
+  }
+})
+
+
 //for inidividual proflie detail including name, phone number, email etc.
 router.post('/profile', async (req, res) => {
   try {

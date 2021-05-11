@@ -78,4 +78,13 @@ export function postImage(file) {
     .catch(e => null)
 }
 
-// export function getImage(userId, profileName)
+export function savePublicUrl(userId, profileName) {
+  console.log(userId, profileName)
+  return request
+    .post(`${rootUrl}/post/publicUrl`)
+    .send({ userId, profileName })
+    .then(res => {
+      return res.body
+    })
+    .catch(e => null)
+}

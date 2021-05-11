@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getSavedData, getImage } from '../apis/apiController'
+import { getSavedData, getImage, savePublicUrl } from '../apis/apiController'
 import { connect } from 'react-redux'
 
 import FinalViewHome from './FinalViewHome'
@@ -48,6 +48,10 @@ function FinalView(props) {
       })
       .catch(err => console.log(err))
   }, [props.match.params.profileName])
+
+  const generateUrl = (userId, profileName) => {
+    savePublicUrl(userId, profileName)
+  }
 
   return (
     <section className="finalView section">
@@ -146,22 +150,9 @@ function FinalView(props) {
                   }
                 })}
 
-
-                {/* <p className='is-size-6'>Follow Me</p>
-                <span className="icon">
-                  <a href={}>
-                    <i className="fab fa-linkedin-in"></i>
-                  </a>
-                </span>
-                <span className="icon">
-                  <i className="fab fa-facebook-f"></i>
-                </span>
-                <span className="icon">
-                  <i className="fab fa-twitter"></i>
-                </span>
-                <span className="icon">
-                  <i className="fab fa-instagram"></i>
-                </span> */}
+                <button onClick={() => generateUrl(props.user.id, props.match.params.profileName)}>
+                  Generate URL
+              </button>
               </div>
             </div>
           })}

@@ -10,8 +10,6 @@ function Educations(props) {
     yearEnd: ''
   }]
 
-  console.log(props)
-
   const handleChange = (e) => {
     e.preventDefault()
     props.dispatch(updateEducation(e.target))
@@ -97,7 +95,6 @@ function Educations(props) {
 }
 
 function mapStateToProps(globalState) {
-  console.log('globalState rendered', globalState.educations.education)
   return {
     educations: globalState.educations.education
   }

@@ -28,7 +28,6 @@ function OldEmploymentHistory(props) {
 
   return (
     < div className='oldEmploymentHistory content' >
-      {console.log(props)}
       {props.oldEmploymentHistory.length == 0 ?
         <div className="control">
           <button className='addSocial button is-small is-light button-spacer' type='button' onClick={addMoreButton}>Add 'other' employment</button>

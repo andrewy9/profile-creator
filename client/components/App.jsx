@@ -5,6 +5,7 @@ import { HashRouter as Router, Route } from 'react-router-dom'
 
 import FinalView from './FinalView'
 import Home from './Home'
+import UnauthenticatedHome from './UnauthenticatedHome'
 import Nav from './Nav/Nav'
 
 function App(props) {
@@ -24,6 +25,7 @@ function UnAuthenticatedView() {
       < div className='google-login' >
         <div className="hero-body">
           <div className="container">
+            <Route path='/' exact={true} component={UnauthenticatedHome} />
             {/* <Route path='/finalView' component={FinalView} /> */}
           </div>
         </div>

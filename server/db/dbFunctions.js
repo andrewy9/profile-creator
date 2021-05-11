@@ -44,6 +44,11 @@ function savePublicUrl(urlParams, userId, profileName, db = connection) {
 }
 
 //GET
+function getPublicUrls(db = connection) {
+  return db('publicUrlParams')
+    .select()
+}
+
 function getUserProfile(userId, profileName, db = connection) {
   return db('profile')
     .where({ userId: userId, profileName: profileName })
@@ -92,6 +97,8 @@ function getProfiles(id, db = connection) {
     .select()
 }
 
+
+
 module.exports = {
   uploadImage,
   getImage,
@@ -108,5 +115,6 @@ module.exports = {
   saveEmploymentHistory,
   saveOldEmploymentHistory,
   saveEducationHistory,
-  savePublicUrl
+  savePublicUrl,
+  getPublicUrls
 }

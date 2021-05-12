@@ -98,10 +98,10 @@ function getAllPublicUrls(db = connection) {
     .select()
 }
 
-function getPublicUrlParams(urlParams, db = connection) {
+function getPublicUrlParams(userId, profileName, db = connection) {
   return db('publicUrlParams')
-    .where({ urlParams })
-    .select()
+    .where({ userId, profileName })
+    .select('urlParams', 'userId')
 }
 
 module.exports = {

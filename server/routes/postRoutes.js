@@ -92,7 +92,7 @@ router.post('/educations', async (req, res) => {
   }
 })
 
-router.post('/publicUrl', async (req, res) => {
+router.post('/publicUrlParams', async (req, res) => {
   const { userId, profileName } = req.body
   const urlParams = `publicView/${userId}/${profileName}`
   //check if it exist first

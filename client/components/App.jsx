@@ -27,7 +27,7 @@ function UnAuthenticatedView() {
         <div className="hero-body">
           <div className="container">
             <Route path='/' exact={true} component={UnauthenticatedHome} />
-            <Route path='/publicView/' component={PublicView} />
+            <Route path='/publicView' component={PublicView} />
           </div>
         </div>
       </div>

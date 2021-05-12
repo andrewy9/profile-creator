@@ -48,9 +48,9 @@ function retrieveSavedData(key, formData, userId, profileName) {
     })
 }
 
-export function getPublicUrlParam(urlParams) {
+export function getPublicUrlParam(userId, profileName) {
   return request
-    .get(`${rootUrl}/get${urlParams}`)
+    .get(`${rootUrl}/get/publicUrlParams/${userId}/${profileName}`)
     .then(res => res.body)
     .catch(error => console.log(error))
 }
@@ -88,7 +88,7 @@ export function postImage(file) {
 export function postPublicUrlParams(userId, profileName) {
   console.log(userId, profileName)
   return request
-    .post(`${rootUrl}/post/publicUrl`)
+    .post(`${rootUrl}/post/publicUrlParams`)
     .send({ userId, profileName })
     .then(res => {
       return res.body

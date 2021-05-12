@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { HashRouter as Router, Route } from 'react-router-dom'
 
 import FinalView from './FinalView'
+import PublicView from './PublicView'
 import Home from './Home'
 import UnauthenticatedHome from './UnauthenticatedHome'
 import Nav from './Nav/Nav'
@@ -26,7 +27,7 @@ function UnAuthenticatedView() {
         <div className="hero-body">
           <div className="container">
             <Route path='/' exact={true} component={UnauthenticatedHome} />
-            {/* <Route path='/finalView' component={FinalView} /> */}
+            <Route path='/publicView/' component={PublicView} />
           </div>
         </div>
       </div>

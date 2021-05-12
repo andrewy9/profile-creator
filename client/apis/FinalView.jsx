@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getSavedData, getImage, postPublicUrlParams, getPublicUrlParam } from '../apis/apiController'
+import { getSavedData, getImage, postPublicUrlParams } from '../apis/apiController'
 import { connect } from 'react-redux'
 
 import FinalViewHome from './FinalViewHome'
@@ -21,52 +21,6 @@ function FinalView(props) {
     },
     selected: 'home'
   })
-  const [showUrl, setShowUrl] = useState({
-    display: false
-  })
-  console.log(props)
-
-  useEffect(() => {
-    props.match.path === "/publicView/:userId/:profileName" ?
-      retrieveImage(props.match.params.userId, props.match.params.profileName)
-      : retrieveImage(props.user.id, props.match.params.profileName)
-  }, [props.match.params.profileName])
-
-  useEffect(() => {
-    props.match.path === "/publicView/:userId/:profileName" ?
-      retrieveSavedData(props.match.params.userId, props.match.params.profileName)
-      : retrieveSavedData(props.user.id, props.match.params.profileName)
-  }, [props.match.params.profileName])
-
-  //Retreives the profileImage data and stores it in the profileImage state
-  const retrieveImage = (id, profileName) => {
-    getImage(id, profileName)
-      .then(data => {
-        let base64Flag = 'data:image/jpeg;base64,';
-        let imageString = arrayBufferToBase64(data.image.data);
-        setProfileImage({ image: base64Flag + imageString })
-      })
-      .catch(err => console.log(err))
-  }
-
-  //Retreives the Profile Data from the server
-  const retrieveSavedData = (id, profileName) => {
-    getSavedData(id, profileName)
-      .then(userData => {
-        return setState({ ...state, data: userData })
-      })
-      .catch(err => console.log(err))
-  }
-
-  //button
-  const generateUrl = (userId, profileName) => {
-    postPublicUrlParams(userId, profileName)
-    setShowUrl({ display: true })
-  }
-
-  const retrievePublicUrlParam = (param = `/publicView/${props.match.params.userId}/${props.match.params.profileName}`) => {
-    getPublicUrlParam(param)
-  }
 
   //Converts bufferArray of the image to base64 string format
   const arrayBufferToBase64 = (buffer) => {
@@ -74,6 +28,29 @@ function FinalView(props) {
     let bytes = [].slice.call(new Uint8Array(buffer));
     bytes.forEach((el) => binary += String.fromCharCode(el));
     return window.btoa(binary);
+  }
+
+  //Retreives the profileImage data and stores it in the profileImage state
+  useEffect(() => {
+    getImage(props.user.id, props.match.params.profileName)
+      .then(data => {
+        let base64Flag = 'data:image/jpeg;base64,';
+        let imageString = arrayBufferToBase64(data.image.data);
+        setProfileImage({ image: base64Flag + imageString })
+      })
+      .catch(err => console.log(err))
+  }, [props.match.params.profileName])
+
+  useEffect(() => {
+    getSavedData(props.user.id, props.match.params.profileName)
+      .then(userData => {
+        return setState({ ...state, data: userData })
+      })
+      .catch(err => console.log(err))
+  }, [props.match.params.profileName])
+
+  const generateUrl = (userId, profileName) => {
+    postPublicUrlParams(userId, profileName)
   }
 
   return (
@@ -172,17 +149,13 @@ function FinalView(props) {
                       return null
                   }
                 })}
+
+                <button onClick={() => generateUrl(props.user.id, props.match.params.profileName)}>
+                  Generate URL
+              </button>
               </div>
             </div>
           })}
-          <button onClick={() => generateUrl(props.user.id, props.match.params.profileName)}>
-            Generate URL
-              </button>
-          {showUrl.display && <div>
-            <p>
-              heroku.app/publicView/{props.user.id}/{props.match.params.profileName}
-            </p>
-          </div>}
         </div>
       </div>
     </section>

@@ -38,16 +38,12 @@ function saveEducationHistory({ provider, qualification, yearStart, yearEnd }, u
     .insert({ userId, profileName, provider, qualification, yearStart, yearEnd })
 }
 
-function savePublicUrl(urlParams, userId, profileName, db = connection) {
+function savePublicUrlParams(urlParams, userId, profileName, db = connection) {
   return db('publicUrlParams')
     .insert({ userId, profileName, urlParams })
 }
 
 //GET
-function getPublicUrls(db = connection) {
-  return db('publicUrlParams')
-    .select()
-}
 
 function getUserProfile(userId, profileName, db = connection) {
   return db('profile')
@@ -97,7 +93,16 @@ function getProfiles(id, db = connection) {
     .select()
 }
 
+function getAllPublicUrls(db = connection) {
+  return db('publicUrlParams')
+    .select()
+}
 
+function getPublicUrlParams(urlParams, db = connection) {
+  return db('publicUrlParams')
+    .where({ urlParams })
+    .select()
+}
 
 module.exports = {
   uploadImage,
@@ -115,6 +120,7 @@ module.exports = {
   saveEmploymentHistory,
   saveOldEmploymentHistory,
   saveEducationHistory,
-  savePublicUrl,
-  getPublicUrls
+  savePublicUrlParams,
+  getAllPublicUrls,
+  getPublicUrlParams
 }

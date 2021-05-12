@@ -74,7 +74,8 @@ router.get('/profiles/:id', (req, res) => {
 })
 
 router.get('/publicUrl', (req, res) => {
-  db.getPublicUrls()
+  const { urlParams } = req.body
+  db.getPublicUrlParams()
 })
 
 router.get('/profileImage/:id/:profileName', (req, res) => {

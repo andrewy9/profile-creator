@@ -25,17 +25,13 @@ function PublicView(props) {
 
   return (
     <div>
-      {
-        publicView.public ? (
-          <Router>
-            <Route path='/publicView/:userId/:profileName' exact={true} render={props =>
-              (<FinalView {...props} publicView={publicView} />)
-            } />
-            {/* Re-use FinalView with different path*/}
-          </Router>
-        )
-          : <h1>Does not exist</h1>
-      }
+      {publicView.public ?
+        <Router>
+          <Route path='/publicView/:userId/:profileName' render={props =>
+            (<FinalView {...props} publicView={publicView} />)
+          } />
+        </Router>
+        : <h1>Does not exist</h1>}
     </div>
   )
 }

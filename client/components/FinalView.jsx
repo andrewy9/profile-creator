@@ -26,20 +26,21 @@ function FinalView(props) {
   })
 
   useEffect(() => {
+    const { userId, profileName } = props.match.params
     if (props.match.path === '/publicView/:userId/:profileName') {
-      const { userId, profileName } = props.publicView
       if (props.publicView.public) {
         retrieveImage(userId, profileName)
         retrieveSavedData(userId, profileName)
       }
     } else {
-      retrieveImage(props.user.id, props.match.params.profileName)
-      retrieveSavedData(props.user.id, props.match.params.profileName)
+      retrieveImage(props.user.id, profileName)
+      retrieveSavedData(props.user.id, profileName)
     }
-  }, [props.match.params.profileName])
+  }, [props.match.params])
 
   //Retreives the profileImage data and stores it in the profileImage state
   const retrieveImage = (id, profileName) => {
+    console.log(id, profileName)
     getImage(id, profileName)
       .then(data => {
         let base64Flag = 'data:image/jpeg;base64,';
@@ -172,7 +173,7 @@ function FinalView(props) {
               </div>
             </div>
           })}
-          {props.match.path === "/finalView/:profileName" ??
+          {props.match.path === "/finalView/:profileName" &&
             <button onClick={() => generateUrl(props.user.id, props.match.params.profileName)}>
               Generate URL
               </button>

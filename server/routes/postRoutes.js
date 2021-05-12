@@ -5,12 +5,12 @@ const router = express.Router()
 router.post('/employmentHistory', async (req, res) => {
   const { employmentHistory, userId, profileName } = req.body
   try {
-    const arrayOfReponse = []
+    const arrayOfResponse = []
     const responseData = employmentHistory.map(async history => {
       return await db.saveEmploymentHistory(history, userId, profileName)
     })
-    for await (const element of responseData) {
-      arrayOfResponse.push(element[0])
+    for await (const el of responseData) {
+      arrayOfResponse.push(el[0])
     }
     return res.status(201).json(arrayOfResponse)
   } catch (error) {
@@ -38,6 +38,7 @@ router.post('/oldEmploymentHistory', async (req, res) => {
 })
 
 router.post('/socials', async (req, res) => {
+  console.log(req.body)
   const { socials, userId, profileName } = req.body
   try {
     const arrayOfResponse = []
@@ -96,9 +97,9 @@ router.post('/publicUrl', async (req, res) => {
   const urlParams = `publicView/${userId}/${profileName}`
   //check if it exist first
   try {
-    const search = await db.getPublicUrls()
+    const search = await db.getAllPublicUrls()
     if (!search.some(el => el.urlParams === urlParams)) {
-      const response = await db.savePublicUrl(urlParams, userId, profileName)
+      const response = await db.savePublicUrlParams(urlParams, userId, profileName)
       return response
     } else {
       return res.sendStatus(500)

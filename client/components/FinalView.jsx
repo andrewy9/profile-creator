@@ -24,24 +24,19 @@ function FinalView(props) {
   const [showUrl, setShowUrl] = useState({
     display: false
   })
-  console.log(props)
 
   useEffect(() => {
     const { userId, profileName } = props.match.params
-    if (props.match.path === "/publicView/:userId/:profileName") {
-      getPublicUrlParam(userId, profileName)
-        .then(response => {
-          if (response[0].userId) {
-            retrieveImage(userId, profileName)
-            retrieveSavedData(userId, profileName)
-          }
-        })
-        .catch(error => console.log(error, 'this profile is not listed for public view'))
+    if (props.match.path === '/publicView/:userId/:profileName') {
+      if (props.publicView.public) {
+        retrieveImage(userId, profileName)
+        retrieveSavedData(userId, profileName)
+      }
     } else {
       retrieveImage(props.user.id, profileName)
       retrieveSavedData(props.user.id, profileName)
     }
-  }, [props.match.params.profileName])
+  }, [props.match.params])
 
   //Retreives the profileImage data and stores it in the profileImage state
   const retrieveImage = (id, profileName) => {
@@ -69,10 +64,6 @@ function FinalView(props) {
   const generateUrl = (userId, profileName) => {
     postPublicUrlParams(userId, profileName)
     setShowUrl({ display: true })
-  }
-
-  const retrievePublicUrlParam = (param = `/publicView/${props.match.params.userId}/${props.match.params.profileName}`) => {
-    getPublicUrlParam(param)
   }
 
   //Converts bufferArray of the image to base64 string format
@@ -182,7 +173,7 @@ function FinalView(props) {
               </div>
             </div>
           })}
-          {props.match.path === "/finalView/:profileName" ??
+          {props.match.path === "/finalView/:profileName" &&
             <button onClick={() => generateUrl(props.user.id, props.match.params.profileName)}>
               Generate URL
               </button>

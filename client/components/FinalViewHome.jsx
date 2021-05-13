@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
 function FinalViewHome(props) {
-  console.log(props)
   return (
     <>
       <div className='block'>

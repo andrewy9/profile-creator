@@ -12,7 +12,17 @@ function FinalView(props) {
   })
   const [state, setState] = useState({
     data: {
-      profile: [],
+      profile: [{
+        email: null,
+        firstName: null,
+        lastName: null,
+        location: null,
+        phone: null,
+        profileIntro: null,
+        profileName: null,
+        title: null,
+        userId: null,
+      }],
       socials: [],
       skills: [],
       employmentHistory: [],
@@ -27,6 +37,7 @@ function FinalView(props) {
 
   useEffect(() => {
     const { userId, profileName } = props.match.params
+    setShowUrl({ display: false })
     if (props.match.path === '/publicView/:userId/:profileName') {
       if (props.publicView.public) {
         retrieveImage(userId, profileName)
@@ -40,7 +51,6 @@ function FinalView(props) {
 
   //Retreives the profileImage data and stores it in the profileImage state
   const retrieveImage = (id, profileName) => {
-    console.log(id, profileName)
     getImage(id, profileName)
       .then(data => {
         let base64Flag = 'data:image/jpeg;base64,';
@@ -52,9 +62,9 @@ function FinalView(props) {
 
   //Retreives the Profile Data from the server
   const retrieveSavedData = (id, profileName) => {
-    console.log(id, profileName)
     getSavedData(id, profileName)
       .then(userData => {
+        console.log(userData)
         return setState({ ...state, data: userData })
       })
       .catch(err => console.log(err))
@@ -178,10 +188,17 @@ function FinalView(props) {
               Generate URL
               </button>
           }
-          {showUrl.display && <div>
-            <p>
-              http://localhost:3000/#/publicView/{props.user.id}/{props.match.params.profileName}
-            </p>
+          {showUrl.display && <div className='field'>
+            <form>
+              <div className="field-body block">
+                <div className='field'>
+                  <div className='control'>
+                    <input type='text' className='input' value={`http://localhost:3000/#/publicView/${props.user.id}/${props.match.params.profileName}`}>
+                    </input>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>}
         </div>
       </div>

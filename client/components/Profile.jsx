@@ -33,6 +33,10 @@ function Profile(props) {
         <div className="control is-expanded">
           <input aria-labelledby="Name" className='input is-small' type='text' name="lastName" id={0} value={props.profile.lastName} onChange={handleChange} required></input>
         </div>
+        <label id="title" className="label"> Title: <span style={{ color: "red" }}>*</span></label>
+        <div className="control is-expanded">
+          <input aria-labelledby="Name" className='input is-small' type='text' name="title" id={0} value={props.profile.title} onChange={handleChange} required></input>
+        </div>
         <ProfileImage />
         <label className="label">Phone:</label>
         <div className="control">

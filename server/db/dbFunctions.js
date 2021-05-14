@@ -2,9 +2,9 @@ const connection = require('./connection')
 
 //POST
 
-function saveProfile({ firstName, lastName, phone, email, location, profileIntro }, userId, profileName, db = connection) {
+function saveProfile({ firstName, lastName, title, phone, email, location, profileIntro }, userId, profileName, db = connection) {
   return db('profile')
-    .insert({ userId, profileName, firstName, lastName, phone, email, location, profileIntro })
+    .insert({ userId, profileName, firstName, lastName, title, phone, email, location, profileIntro })
 }
 
 function uploadImage({ name, data }, userId, profileName, db = connection) {
@@ -48,7 +48,7 @@ function savePublicUrlParams(urlParams, userId, profileName, db = connection) {
 function getUserProfile(userId, profileName, db = connection) {
   return db('profile')
     .where({ userId: userId, profileName: profileName })
-    .select('userId', 'firstName', 'lastName', 'phone', 'email', 'profileIntro', 'location', 'profileName')
+    .select('userId', 'firstName', 'lastName', 'title', 'phone', 'email', 'profileIntro', 'location', 'profileName')
 }
 
 function getImage(userId, profileName, db = connection) {

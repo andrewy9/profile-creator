@@ -10,8 +10,8 @@ function FinalViewHome(props) {
       <div className='columns'>
         <div className='column border'>
           <p className='subtitle'>A bit about me:</p>
-          <p>My name is {props.user.name}</p>
-          <p>I am a //insert your qualification// </p>
+          <p>My name is {props.user.name}.</p>
+          <p>I am a {props.data.profile[0].title}.</p>
           <p>Please check out my resume to learn more about me!</p>
           <p>Socals:</p>
         </div>
@@ -22,7 +22,7 @@ function FinalViewHome(props) {
 
 function mapStateToProps(globalState) {
   return {
-    user: globalState.user
+    user: globalState.user,
   }
 }
 

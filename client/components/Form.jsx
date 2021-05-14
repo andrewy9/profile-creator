@@ -21,6 +21,7 @@ function Form(props) {
       profile: {
         firstName: props.profile.firstName,
         lastName: props.profile.lastName,
+        title: props.profile.title,
         phone: props.profile.phone,
         email: props.profile.email,
         location: props.profile.location,

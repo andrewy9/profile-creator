@@ -47,12 +47,12 @@ function Nav({ dispatch, user, profile }) {
                     })}
                   </div>
                 </div>
-                <a className="navbar-item">Documentation</a>
+                {/* <a className="navbar-item">Documentation</a>
                 <span className="navbar-item">
                   <a className="button is-primary is-inverted">
                     <span>Download</span>
                   </a>
-                </span>
+                </span> */}
                 <span className="navbar-item">
                   <LogIn />
                 </span>

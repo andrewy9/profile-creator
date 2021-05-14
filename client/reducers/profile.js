@@ -4,6 +4,7 @@ const initialState = {
   profileName: '',
   firstName: '',
   lastName: '',
+  title: '',
   profileImage: {
     image: null,
     preview: null

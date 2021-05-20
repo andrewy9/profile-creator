@@ -18,7 +18,8 @@
     "build:server": "npm run knex -- migrate:latest",
     "lint": "eslint --ext .js,.jsx .",
     "webpack": "webpack --config ./client/webpack.config.js",
-    "knex": "knex --knexfile ./server/db/knexfile.js"
+    "knex": "knex --knexfile ./server/db/knexfile.js",
+    "postinstall": "webpack && knex migrate:latest"
   },
   "babel": {
     "presets": [
@@ -53,7 +54,7 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
     "knex": "^0.21.12",
-    "pg": "^8.5.1",
+    "pg": "^8.6.0",
     "react-google-login": "^5.2.2",
     "superagent": "^6.1.0"
   },
